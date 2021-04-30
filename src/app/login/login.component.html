@@ -1,0 +1,112 @@
+﻿<div class="page login-page" style="background-size: cover;
+background-position: center;
+background-repeat: no-repeat;background-image: linear-gradient(to right top, #524f4f, #555252, #595454, #5c5757, #605a5a);">
+  <div class="container d-flex align-items-center">
+    <div class="form-holder">
+      <div class="row" style="justify-content: center;">
+        <!-- Form Panel    -->
+        <div class="col-lg-5">
+          <div class="form d-flex align-items-center">
+            <div class="content login">
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="content">
+                  <div class="logo">
+                    <h1 class="login-heading pb-4">Resourcer Login</h1>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 14px;
+                  font-weight: 400;
+                  font-style: normal;
+                  color: white;">USER ID</label>
+                  <input
+                    type="email"
+                    formControlName="username"
+                    placeholder=""
+                    class="input-material-login"
+                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+                  />
+
+                  <div
+                    *ngIf="submitted && f.username.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.username.errors.required">
+                      User ID is required
+                    </div>
+                    <div *ngIf="f.username.errors.pattern">
+                      Please enter valid email
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 14px;
+                  font-weight: 400;
+                  font-style: normal;
+                  color: white;">PASSWORD</label>
+                  <input
+                    type="password"
+                    formControlName="password"
+                    placeholder=""
+                    class="input-material-login"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                  />
+
+                  <div
+                    *ngIf="submitted && f.password.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.password.errors.required">
+                      Password is required
+                    </div>
+                  </div>
+                </div>
+                <input
+                  type="submit"
+                  [disabled]="loading"
+                  class="btn btn-login btn-fluid"
+                  value="Log in"
+                />
+                <span
+                  *ngIf="loading"
+                  class="spinner-border spinner-border-sm mr-1"
+                ></span>
+                <p class="small py-1 text-white">
+                  <a
+                    routerLink="/forget-password"
+                    class="forgot-pass text-center"
+                    >Forgot Password?</a
+                  >
+                </p>
+                <div *ngIf="error" style="color: #d60000;
+                background-color: #ffffff;
+                border-color: #ffeeba;
+            " class="alert alert-warning mt-3 mb-0">
+                  {{ error }}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Logo & Information Panel-->
+        <!-- <div class="col-lg-6">
+          <div class="info d-flex align-items-center">
+           
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="copyrights">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p class="small">
+          CopyRights - <a href="#" class="external">Digits AS</a>, Norway <br />
+          Org. number 925 386 022
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
