@@ -1,0 +1,308 @@
+    1  cd /var/www/html
+    2  composer install
+    3  yum update 
+    4  cd ~
+    5  yum update 
+    6  yum remove php*
+    7  sudo yum update
+    8  sudo amazon-linux-extras install -y php7.2
+    9  sudo systemctl start httpd
+   10  sudo yum install -y httpd24
+   11  sudo yum install -y httpd
+   12  sudo systemctl start httpd
+   13  sudo chkconfig httpd on
+   14  sudo systemctl enable httpd
+   15  sudo systemctl is-enabled httpd
+   16  yum update
+   17  sudo yum update
+   18  sudo yum remove php*
+   19  sudo amazon-linux-extras install epel
+   20  sudo rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+   21  sudo rpm --import http://rpms.famillecollet.com/RPM-GPG-KEY-remi
+   22  sudo yum install ncurses-compat-libs
+   23  sudo yum install httpd
+   24  yum install php --enablerepo=remi-php74 --disablerepo=amzn2-core
+   25  sudo yum install php --enablerepo=remi-php74 --disablerepo=amzn2-core
+   26  php -v
+   27  sudo php -v
+   28  sudo service httpd start
+   29  sudo php -v
+   30  sudo yum install php --enablerepo=remi-php74 --disablerepo=amzn2-core
+   31  cd /var/www/html
+   32  composer install
+   33  yum remove php*
+   34  sudo yum remove php*
+   35  cd ~
+   36  sudo yum remove php*
+   37  php -v
+   38  sudo epel repo
+   39  sudo amazon-linux-extras install epel
+   40  rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+   41  sudo rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+   42  sudo yum install php74
+   43  php -v
+   44  sudo php -v
+   45  php 
+   46  sudo yum remove php*
+   47  sudo amazon-linux-extras install -y php7.4
+   48  sudo amazon-linux-extras install -y php7.3
+   49  php -v
+   50  sudo amazon-linux-extras disable php7.2
+   51  sudo amazon-linux-extras enable php7.4
+   52  yum clean metadata
+   53  sudo yum install php7.4
+   54  php -v
+   55  sudo yum install php-cli php-pdo php-fpm php-json php-mysqlnd
+   56  php -v
+   57  sudo systemctl start httpd
+   58  sudo systemctl enable httpd
+   59  sudo systemctl is-enabled httpd
+   60  cd /var/www/html
+   61  composer install
+   62  php --ini
+   63  composer install
+   64   laravel/framework v7.30.0 requires ext-mbstring * -> it is missing from your system. Install or enable PHP's mbstring extension.
+   65  sudo apt-get install php-mbstring 
+   66  yum install php-mbstring
+   67  sudo yum install php-mbstring
+   68  composer install
+   69  yum install  php-xml
+   70  sudo install php-xml
+   71  sudo systemctl restart php-fpm
+   72  composer install
+   73  sudo yum install php5-dom
+   74  yum php --ini
+   75  sudo php --ini
+   76  composer install
+   77  yum install gd gd-devel php-gd
+   78  sudo yum install gd gd-devel php-gd
+   79  sudo systemctl restart
+   80  sudo systemctl start httpd
+   81  composer install
+   82   sudo yum  install php-xml
+   83  composer install
+   84  php artisan generate:key
+   85  php artisan key:generate
+   86  sudo usermod -a -G apache ec2-user
+   87  exit
+   88  groups
+   89  sudo chown -R ec2-user:apache /var/www
+   90  sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
+   91  find /var/www -type f -exec sudo chmod 0664 {} \;
+   92  echo "<?php phpinfo(); ?>" > /var/www/html/phpinfo.php
+   93  sudo usermod -a -G apache ec2-user
+   94  sudo chown -R ec2-user:apache /var/www
+   95  sudo curl -sS https://getcomposer.org/installer | sudo php
+   96  sudo mv composer.phar /usr/local/bin/composer
+   97  sudo ln -s /usr/local/bin/composer /usr/bin/composer
+   98  sudo composer install
+   99  cd  ..
+  100  cd ec2-user
+  101  sudo composer install
+  102  cd ~
+  103  sudo composer install
+  104  php composer.phar
+  105  cd ~ && sudo curl -sS https://getcomposer.org/installer | sudo php && sudo mv composer.phar /usr/local/bin/composer && sudo ln -s /usr/local/bin/composer /usr/bin/composer
+  106  cd ..
+  107  cd ~
+  108  cd var/www/html
+  109  ls
+  110  ls -la
+  111  cd ..
+  112  cd..
+  113  cd ~
+  114  cd /etc/httpd/conf.d/
+  115  ls -la
+  116  sudo vim welcome.conf 
+  117  sudo systemctl start httpd
+  118  sudo systemctl restart httpd
+  119  cd ~
+  120  cd /var/www/html
+  121  php artisan cache:clear
+  122  sudo chgrp -R www-data storage bootstrap/cache
+  123  sudo chmod -R ug+rwx storage bootstrap/cache
+  124  sudo chmod -R 777  storage bootstrap/cache
+  125  sudo php artisan route:clear
+  126  sudo php artisan cache:clear
+  127  sudo php artisan config:cache 
+  128  sudo php artisan cache:clear
+  129  sudo php artisan config:clear
+  130  sudo php artisan view:clear
+  131  cd /var/www/html
+  132  composer dump-autoload
+  133  php artisan config:cache
+  134  cd /var/www/html
+  135  php artisan config:cache
+  136   cd /var/www/html
+  137  composer install
+  138  composer dump-autoload
+  139  composer update
+  140  sudo a2enmod rewrite
+  141  vim /etc/httpd
+  142  vim /etc/httpd/conf/httpd.conf
+  143  cd /var/www/html
+  144  php artisan config:clear
+  145  php artisan route:clear
+  146  php artisan cache:clear
+  147  php artisan config:cache
+  148  sudo vim /etc/httpd/conf/httpd.conf
+  149  sudo service httpd restart
+  150  sudo apt update
+  151  sudo yum  update
+  152  sudo yum  install mysql-server
+  153  php -v
+  154  sudo yum install mysql57-server
+  155  sudo yum install mysql-server
+  156  sudo yum install mariadb-server mariadb
+  157  sudo systemctl start httpd
+  158  sudo systemctl restart httpd
+  159  sudo systemctl start mariadb
+  160  sudo yum install php-mbstring -y
+  161  sudo systemctl restart httpd
+  162  sudo systemctl restart php-fpm
+  163  sudo mysql_secure_installation
+  164  cd /var/www/html
+  165  wget https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
+  166  mkdir phpMyAdmin && tar -xvzf phpMyAdmin-latest-all-languages.tar.gz -C phpMyAdmin --strip-components 1
+  167  rm phpMyAdmin-latest-all-languages.tar.gz
+  168  sudo systemctl start mariadb
+  169  vim /etc/php.ini
+  170  sudo vim /etc/php.ini
+  171  sudo systemctl restart httpd
+  172  set global sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+  173  cd /var/www/html
+  174  php artisan cache:clear
+  175  sudo php artisan cache:clear
+  176  sudo php artisan config:clear
+  177  sudo php artisan view:clear
+  178  composer dump autoload
+  179  composer dump-autoload
+  180  cd /var/www/html
+  181  composer install league/flysystem-aws-s3-v3 ~1.0
+  182  composer require  league/flysystem-aws-s3-v3 ~1.0
+  183  php artisan config:clear
+  184  php artisan cache:clear
+  185  sudo php artisan cache:clear
+  186  cd ..
+  187  cd /var/www/html
+  188  ls
+  189  composer require yajra/laravel-datatables:^1.5
+  190  php artisan vendor:publish --tag=datatables
+  191  ls -rlt 
+  192  pwd
+  193  exit
+  194  ssh -i "resources.pem" ec2-user@ec2-3-14-25-189.us-east-2.compute.amazonaws.com
+  195  ssh
+  196  ls -lrt
+  197  pwd
+  198  cd ..
+  199  ll
+  200  cd ec2-user/
+  201  chmod 400 Newkey.pem
+  202  ssh -i "Newkey.pem" ec2-user@ip-172-31-26-98
+  203  cd list
+  204  list
+  205  ls
+  206  ls -d
+  207  ls -lrt
+  208  pwd
+  209  cd /var/
+  210  ll
+  211  cd www
+  212  ls -l
+  213  cd html
+  214  ls -l
+  215  sudo apt install zip unzip 
+  216  zip 
+  217  sudo zip -r code.zip *
+  218  ls -lrt code.zip
+  219  exit
+  220  cd /var/www/html
+  221  ll
+  222  pwd
+  223  cd ../..
+  224  grep -Rli env
+  225  grep -Rli '.env'
+  226  grep -Rli 'environment.env'
+  227  pwd
+  228  cd -
+  229  pwd
+  230  ll
+  231  grep -Rli '.env'
+  232  ls -lrt 
+  233  cd config
+  234  ll
+  235  more database.php
+  236   ll
+  237  more datatables.php
+  238  ls -lrt
+  239  cd ..
+  240  ll
+  241  grep -Ri 'environment.env'
+  242  cd config
+  243  ll
+  244  more database.php
+  245  cd ..
+  246  ll
+  247  cd phpMyAdmin
+  248  ll
+  249  cd ..
+  250  ll
+  251  more phpinfo.php
+  252  cd config
+  253  ll
+  254  cd ..
+  255  ll
+  256  cd ..
+  257  ll
+  258  cd ..
+  259  ll
+  260  cd lo
+  261  cd log
+  262  ll
+  263  cd ..
+  264  ll
+  265  cd ..
+  266  pwd
+  267  cd var/www/html
+  268  ll
+  269  cd phpMyAdmin
+  270  ll
+  271  cd tmo
+  272  cd tmp
+  273  ll
+  274  cd twig
+  275  ll
+  276  cd ..
+  277  ll
+  278  cd vendor
+  279  ll
+  280  cd phpmyadmin
+  281  ll
+  282  cd sql-parser/
+  283  ll
+  284  cd src
+  285  ll
+  286  cd Tools
+  287  ll
+  288  pwd
+  289  history
+  290  cd /etc/httpd/conf/httpd.conf
+  291  cd /etc/httpd/conf
+  292  ll
+  293  more httpd.conf 
+  294  grep -v ^$  httpd.conf 
+  295  grep -v ^$  httpd.conf | grep -v #
+  296  grep -v #  httpd.conf 
+  297  grep -v '#'  httpd.conf 
+  298  pwd
+  299  cd /var/www/html
+  300  ll
+  301  rm code.zip
+  302  cd ..
+  303  ll
+  304  cd html
+  305  ll
+  306  cd resources/
+  307  ll
+  308  history > history.txt
