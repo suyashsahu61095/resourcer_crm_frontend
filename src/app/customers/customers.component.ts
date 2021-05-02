@@ -22,7 +22,6 @@ class DataTablesResponse {
   styleUrls: ["./customers.component.less"],
 })
 export class CustomersComponent implements OnDestroy, OnInit {
-  dtOptions: DataTables.Settings = {};
 
   loading = false;
   loadingData = false;
@@ -31,9 +30,11 @@ export class CustomersComponent implements OnDestroy, OnInit {
   gridView: boolean = true;
   image_base_path: any = "";
   currentUser: User;
+  filter_record;
+  totalrecord;
   customerInfo: any = "";
   products_count: any;
-  // dtOptions: any;
+  dtOptions: any;
   pagenumber: any = 1;
   loadmoreflag: boolean = true;
   customerslists: any;
@@ -63,11 +64,12 @@ export class CustomersComponent implements OnDestroy, OnInit {
     this.loading = true;
     this.loadingData = true;
     $(".dataTables_filter").hide();
+      
+    
     const that = this;
     this.dtOptions = {
       pagingType: "full_numbers",
-      pageLength: 50,
-      "ordering": true,
+      pageLength: 10,
       serverSide: true,
       processing: true,
       scrollX: true,
@@ -76,9 +78,10 @@ export class CustomersComponent implements OnDestroy, OnInit {
       ajax: (dataTablesParameters: any, callback) => {
         that.http
           .post<DataTablesResponse>(
+            
             `${environment.apiUrl}/customers`,
             dataTablesParameters,
-            {}
+            { }
           )
           .subscribe((resp) => {
             that.customers = resp.data;
@@ -88,6 +91,8 @@ export class CustomersComponent implements OnDestroy, OnInit {
             this.loading = false;
             this.loadingData = false;
             if (resp.data.length > 0) {
+              this.totalrecord = resp.data[0].total_count;
+              this.filter_record = resp.recordsFiltered;
               this.image_base_path = resp.data[0].image_base_path;
             }
             callback({
@@ -101,7 +106,7 @@ export class CustomersComponent implements OnDestroy, OnInit {
     
       columns: [
         { data: "DT_RowIndex", orderable: false, searchable: false },
-        { data: "customer_name", name: "customer_name" },
+        { data: "customer_name", name: "customer_name", searchable: true},
         { data: "projects_count", name: "projects_count", searchable: false },
         { name: "products_count", data: "products_count", searchable: false },
         { name: "country", data: "country" },
@@ -110,13 +115,13 @@ export class CustomersComponent implements OnDestroy, OnInit {
       ],
       
     };
-    
-   
+  
     $.fn.dataTable.ext.errMode = 'none'; $('#table-id').on('error.dt', function(e, settings, techNote, message) { console.log( 'An error occurred: ', message); });
     this.getgridData();
    
     
   }
+  
 
   viewType(type) {
     if (type == "list") {
@@ -236,50 +241,5 @@ export class CustomersComponent implements OnDestroy, OnInit {
         this.image_base_path = data.image_base_path;
       });
   }
-  getlist() {
-    this.loading = true;
-    this.loadingData = true;
-    $(".dataTables_filter").hide();
-    const that = this;
-    this.dtOptions = {
-      pagingType: "full_numbers",
-      pageLength: 50,
-      serverSide: true,
-      processing: true,
-      scrollX: true,
-      dom: '<"top"lr>rt<"bottom"ip><"clear">',
-      ajax: (dataTablesParameters: any, callback) => {
-        that.http
-          .post<DataTablesResponse>(
-            `${environment.apiUrl}/customers`,
-            dataTablesParameters,
-            {}
-          )
-          .subscribe((resp) => {
-            that.customers = resp.data;
-            this.customers.forEach((customer) => {
-              customer.country = this.countries[customer.country];
-            });
-            this.loading = false;
-            this.loadingData = false;
-            if (resp.data.length > 0) {
-              this.image_base_path = resp.data[0].image_base_path;
-            }
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: resp.data,
-            });
-          });
-      },
-      columns: [
-        { data: "DT_RowIndex", orderable: false, searchable: false },
-        { data: "customer_name", name: "customer_name" },
-        { data: "projects_count", name: "projects_count", searchable: false },
-        { name: "products_count", data: "products_count", searchable: false },
-        { name: "country", data: "country" },
-        { data: "postal_area" },
-      ],
-    };
-  }
+ 
 }

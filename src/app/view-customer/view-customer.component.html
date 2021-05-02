@@ -120,12 +120,23 @@
                           <input type="text" class="input-material" readonly value="{{customerDetails?.email}}" />
                         </div>
                       </div>
-                      <div class="form-group text-center">
-                        <a routerLink="/edit-customer/{{customerDetails?.id}}" class="mr-1 btn btn-default">Edit</a>
+                      <div class="form-group row">
+                        <div class="col-md-4 p-3">
+                       
+                        </div>
+                        <div class="col-md-8">
+                          <div class="form-group text-center">
+                            <a routerLink="/edit-customer/{{customerDetails?.id}}" style =" width: 139.82px;" class="mr-1 btn btn-default">Edit</a>
+                          </div>
+                          <div class="form-group text-center">
+                            <a routerLink="/add-project" [queryParams]="{param_id: customerDetails?.id}" class="btn btn-secondary">Register Project</a>
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-group text-center">
-                        <a routerLink="/add-project" [queryParams]="{param_id: customerDetails?.id}" class="btn btn-secondary">Register Project</a>
-                      </div>
+
+
+
+                   
                     </div>
                   </div>
                   <hr>

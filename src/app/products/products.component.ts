@@ -110,42 +110,42 @@ export class ProductsComponent implements OnDestroy, OnInit {
       scrollX: true,
       dom: '<"top"lr>rt<"bottom"ip><"clear">',
       // Configure the buttons
-      //   buttons: [{
-      //     extend: 'pdfHtml5',
-      //     text: 'PDF',
-      //     exportOptions: {
-      //         modifier: {
-      //             page: 'current'
-      //         }
-      //     }
-      // }, 'print'],
+        buttons: [{
+          extend: 'pdfHtml5',
+          text: 'PDF',
+          exportOptions: {
+              modifier: {
+                  page: 'current'
+              }
+          }
+      }, 'print'],
       ajax: (dataTablesParameters: any, callback) => {
-        //console.log(this.projectobj);
-        //dataTablesParameters.search.value = this.projectobj;
-        // if (this.projectobj) {
-        //   dataTablesParameters.project = this.projectobj;
-        // }
-        // if (this.project_filter.length > 0) {
-        //   dataTablesParameters.project_filter = this.project_filter;
-        // }
-        // if (this.customer_filter.length > 0) {
-        //   dataTablesParameters.customer_filter = this.customer_filter;
-        // }
-        // if (this.category_filter.length > 0) {
-        //   dataTablesParameters.category_filter = this.category_filter;
-        // }
-        // if (this.status_filter.length > 0) {
-        //   dataTablesParameters.status_filter = this.status_filter;
-        // }
+        // console.log(this.projectobj);
+        // dataTablesParameters.search.value = this.projectobj;
+        if (this.projectobj) {
+          dataTablesParameters.project = this.projectobj;
+        }
+        if (this.project_filter.length > 0) {
+          dataTablesParameters.project_filter = this.project_filter;
+        }
+        if (this.customer_filter.length > 0) {
+          dataTablesParameters.customer_filter = this.customer_filter;
+        }
+        if (this.category_filter.length > 0) {
+          dataTablesParameters.category_filter = this.category_filter;
+        }
+        if (this.status_filter.length > 0) {
+          dataTablesParameters.status_filter = this.status_filter;
+        }
         that.http
-          .post<DataTablesResponse>(
+          .post<DataTablesResponse>( 
             `${environment.apiUrl}/products`,
             dataTablesParameters,
             {}
           )
           .subscribe((resp) => {
             that.products = resp.data;
-console.log("product dat-", that.products)
+         console.log("product dat-", that.products)
             this.loading = false;
             this.loadingData = false;
             if (resp.data.length > 0) {
@@ -313,18 +313,25 @@ console.log("product dat-", that.products)
     this.applyFilter();
   }
   search(value) {
-    this.listView = true;
-    this.gridView = false;
+    this.loading = true;
+    // this.listView = true;
+    // this.gridView = false;
+    if(this.listView==true){
+      console.log("called list")
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.search(value);
       dtInstance.draw();
     });
-    // this.userService.searchProduct(value).pipe(first()).subscribe(data => {
-    //     this.loading = false;
-    //     this.loadingData = false;
-    //     this.products = data.products;
-    //     this.image_base_path = data.image_base_path;
-    // });
+  }else{
+    console.log("calledcgrid")
+    this.gridView = true;
+    this.userService.searchProduct(value).pipe(first()).subscribe(data => {
+        this.loading = false;
+        this.loadingData = false;
+        this.products = data.products;
+        this.image_base_path = data.image_base_path;
+    });
+  }
   }
 
   viewProduct(data) {

@@ -31,7 +31,10 @@
                   <div class="col-sm-5" style="margin: auto">
                     <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
                     <label for="imgupload"
-                      ><img
+                      ><img style="
+                        width: 300px;
+                        height: 300px;
+                    "
                         src="assets/images/default.jpg"
                         class="img-fluid"
                         *ngIf="imgURL == ''"
@@ -87,7 +90,7 @@
                       </div>
                       <div class="form-group text-center">
                         <!-- <label for='fileupload' class="btn btn-secondary">Add Files</label> -->
-                        <label
+                        <label 
                           class="btn btn-secondary"
                           data-toggle="modal"
                           data-target="#exampleModal"
@@ -135,7 +138,7 @@
                         >
                       </div>
                       <div class="col-md-8">
-                        <select
+                        <select  style = "text-transform:capitalize;"
                           class="input-material"
                           name="project_id"
                           formControlName="project_id"
@@ -196,7 +199,7 @@
                         >
                       </div>
                       <div class="col-md-8">
-                        <select
+                        <select style = "text-transform:capitalize;"
                           class="input-material"
                           formControlName="category"
                           name="category"
@@ -257,7 +260,7 @@
                             <label for="unit" class="label-material">UNIT :</label>
                           </div>
                           <div class="col-md-8">
-                            <select class="form-control" name="unit" formControlName="unit" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }" class="input-material">
+                            <select class="form-control" name="unit"  formControlName="unit" [ngClass]="{ 'is-invalid': submitted && f.unit.errors }" class="input-material">
                               <option value="">Select</option>
                               <option value="Piece">Piece</option> 
                               <option value="Meters">Meters</option>
@@ -327,7 +330,10 @@
                       </div>
                       <div class="col-md-8">
                         <div class="row">
-                          <div class="col-md-3 p-3">
+                          <div class="col-md-3 p-3" style="
+                            padding-top: 27px;
+                            margin-top: 13px;
+                        ">
                             <select
                               class="input-material"
                               name="unit"
@@ -342,7 +348,11 @@
                               <option value="mm" selected>mm</option>
                             </select>
                           </div>
+
                           <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Length</label>
                             <input
                               type="number"
                               formControlName="length"
@@ -355,7 +365,7 @@
                                 'is-invalid': submitted && f.length.errors
                               }"
                               class="input-material"
-                              placeholder="Length"
+                              placeholder=""
                             />
                             <div
                               *ngIf="submitted && f.length.errors"
@@ -367,6 +377,9 @@
                             </div>
                           </div>
                           <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Height</label>
                             <input
                               type="number"
                               formControlName="height"
@@ -379,7 +392,7 @@
                                 'is-invalid': submitted && f.height.errors
                               }"
                               class="input-material"
-                              placeholder="Height"
+                              placeholder=""
                             />
                             <div
                               *ngIf="submitted && f.height.errors"
@@ -391,6 +404,9 @@
                             </div>
                           </div>
                           <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Width</label>
                             <input
                               type="number"
                               formControlName="width"
@@ -403,12 +419,12 @@
                                 'is-invalid': submitted && f.width.errors
                               }"
                               class="input-material"
-                              placeholder="Width"
+                              placeholder=""
                             />
                             <div
                               *ngIf="submitted && f.width.errors"
                               class="invalid-feedback"
-                            >
+                            > 
                               <div *ngIf="f.width.errors.max">
                                 Width should be in range of 0 - 999999999
                               </div>
@@ -426,10 +442,11 @@
                           >PRODUCTION YEAR :</label
                         >
                       </div>
-                      <div class="col-md-8">
-                        <div class="col-md-8">
+                      <div class="col-md-8" style >
+                        <div class="col-md-8" style="padding-right: -1px;">
                           <div
-                            class="input-group date only_year col-md-5"
+                          style="margin-left: -26px;padding-right: 1px;"
+                            class="input-group date only_year col-md-5" 
                             data-date-format="yyyy"
                             data-link-field="building_year"
                             data-link-format="yyyy"
@@ -442,7 +459,7 @@
                               formControlName="production_year"
                               name="production_year"
                               readonly
-                            />
+                            />     &nbsp;&nbsp;
                             <span class="input-group-addon"
                               ><span class="fa fa-calendar"></span
                             ></span>
@@ -871,6 +888,7 @@
                           type="number"
                           formControlName="price_sold_product"
                           min="0"
+                        
                           maxlength="9"
                           oninput="this.value = 
                             !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
@@ -897,7 +915,7 @@
                         <label
                           for="billing_postal_area"
                           class="label-material margin-left"
-                          >File Name With Category</label
+                          >Category With File Name  </label
                         >
                       </div>
                     </div>
@@ -910,10 +928,10 @@
                           for="billing_postal_area"
                           class="label-material margin-left"
                         >
-                          {{ file.name }}&nbsp;&nbsp;&nbsp;&nbsp;{{
-                            filecattext[i]
-                          }}</label
-                        >&nbsp;&nbsp;&nbsp;
+                        {{
+                          filecattext[i]
+                        }} &nbsp;&nbsp;&nbsp;&nbsp;</label
+                        >&nbsp;&nbsp;&nbsp; {{ file.name }}
                       </div>
                     </div>
                   </div>
@@ -940,7 +958,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Files</h5>
+        <h5 class="modal-title"  id="exampleModalLabel">Add Files</h5>
         <button
           type="button"
           class="close"
@@ -953,7 +971,7 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-md-3">
-            <select class="form-control" name="categories" id="categories">
+            <select style = "text-transform:capitalize;" class="form-control" name="categories" id="categories">
               <option value="">Select</option>
               <option
                 *ngFor="let category of categories; index as i"
@@ -966,6 +984,8 @@
           <div class="col-md-9 row">
             <div class="col-md-7">
               <input
+              style ="
+                padding: 5px;"
                 type="file"
                 id="fileupload"
                 name="fileupload"
@@ -973,14 +993,15 @@
               />
             </div>
             <div class="col-md-2">
-              <input
+              <input style ="
+                padding: 5px;"
                 type="button"
                 name="add_files"
                 id="add_files"
                 value="Add Files"
                 (click)="addcategory()"
               />
-            </div>
+            </div> 
           </div>
         </div>
         <div class="form-group" *ngFor="let file of filesmulti; index as i">
@@ -991,14 +1012,9 @@
             ></span
           >
           <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
+            <div class="progress-bar" style="width:1000px;background-color: #8f979f;" role="progressbar"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
           </div>
+         
         </div>
       </div>
       <div class="modal-footer">

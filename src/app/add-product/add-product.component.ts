@@ -14,6 +14,7 @@ declare var $: any;
   styleUrls: ["./add-product.component.less"],
 })
 export class AddProductComponent implements OnInit {
+  
   productForm: FormGroup;
   currentUser: User;
   loading = false;
@@ -52,6 +53,7 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit() {
+   
     this.yearOptions = this.generateYears(1900);
     $(".only_year").datetimepicker({
       format: "yyyy",
@@ -94,7 +96,7 @@ export class AddProductComponent implements OnInit {
       project_id: this.route.snapshot.queryParams["param_id"]
         ? this.route.snapshot.queryParams["param_id"]
         : ["", Validators.required],
-      description: ["", Validators.required],
+      description: [""],
       status: [""],
       category: [""],
       building_part: [""],
@@ -209,7 +211,7 @@ export class AddProductComponent implements OnInit {
 
     this.loading = true;
     this.loadingData = true;
-    console.log(this.productForm.value);
+    console.log(this.productForm.value); 
     //return false;
     console.log(JSON.stringify(this.productForm.value));
     //this.formData.append('data', JSON.stringify(this.customerForm.value));
@@ -305,18 +307,22 @@ export class AddProductComponent implements OnInit {
           if (data.status == "1") {
             Swal.fire(data.project_id, "Product Added Sucessfully", "success");
             this.info = data.message;
+            console.log("response data - ",  data.products)
+            AuthGuard.blocked=false;
+            this.router.navigate(["/view-product/",data.products]);
           } else {
             this.error = data.message;
           }
           if (this.register) {
+            console.log("response data - ",  this.register)
             AuthGuard.blocked=false;
-            this.router.navigate(["/products"]);
+            this.router.navigate(["/view-product/",data.products]);
           } else if (this.addnew) {
             this.productForm = this.formBuilder.group({
               product_name: ["", Validators.required],
               project_id: (this.route.snapshot.queryParams['param_id']) ? this.route.snapshot.queryParams['param_id'] : ['', Validators.required],
-              description: ["", Validators.required],
-              status: ["", Validators.required],
+              description: [""],
+              status: [""],
               category: [""],
               building_part: [""],
               unit: [""],
@@ -349,7 +355,7 @@ export class AddProductComponent implements OnInit {
       );
   }
 
-  registerfun() {
+  registerfun() { 
     this.register = true;
     this.clone = false;
     this.addnew = false;

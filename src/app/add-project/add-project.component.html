@@ -31,7 +31,8 @@
                   <div class="col-sm-5" style="margin: auto">
                     <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
                     <label for="imgupload"
-                      ><img
+                      ><img style="    height: 300px;
+                      width: 300PX;"
                         src="assets/images/default.jpg"
                         class="img-fluid"
                         *ngIf="imgURL == ''"
@@ -159,7 +160,7 @@
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
                         <label for="project_address" class="label-material"
-                          >POSTAL CODE :</label
+                          >BILLING POSTAL CODE :</label
                         >
                       </div>
                       <div class="col-md-8">
@@ -186,7 +187,7 @@
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
                         <label for="project_address" class="label-material"
-                          >POSTAL AREA :</label
+                          >BILLING POSTAL AREA :</label
                         >
                       </div>
                       <div class="col-md-8">
@@ -1058,7 +1059,7 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-md-3">
-            <select class="form-control" name="categories" id="categories">
+            <select style = "text-transform:capitalize;" class="form-control" name="categories" id="categories">
               <option value="">Select</option>
               <option
                 *ngFor="let category of categories; index as i"

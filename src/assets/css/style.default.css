@@ -12,12 +12,13 @@ developer url: https://bnextitsolutions.com/
 *     GENERAL STYLES
 * ==========================================================
 */
+
 body {
   overflow-x: hidden;
   transition: background-color 0.5s ease;
 }
 
-a,
+a ,
 i,
 span {
   display: inline-block;
@@ -423,6 +424,7 @@ nav.side-navbar {
   position: fixed;
   width: 0px;
     height: 100%;
+    
   left: -264px;
   top: 0px;
   background: #fafafb;
@@ -601,8 +603,8 @@ font-family: "Barlow", sans-serif;
 
 @media screen and (max-width: 400px) {
   nav.side-navbar.shrinked {
-    min-width: 90px;
-    max-width: 90px;
+    min-width: 180px;
+    max-width:200px;
     text-align: center;
     left: 0px;
   }
@@ -817,6 +819,7 @@ nav.navbar {
   padding-top: 15px;
   padding-bottom: 15px;
   width: 100%;
+  left: 0;
   color: #2f333e;
   /* position: relative; */
   border-radius: 0;
@@ -1137,9 +1140,10 @@ footer.main-footer {
   position: absolute;
   /* bottom: 0; */
   width: 100%;
-  background: #2f333e;
-  color: #fff;
-  padding: 20px 10px;
+  background: #e5e5e5;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  font-weight: 600;
 }
 
 footer.main-footer a {

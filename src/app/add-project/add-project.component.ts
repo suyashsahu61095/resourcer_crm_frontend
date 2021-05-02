@@ -366,7 +366,7 @@ export class AddProjectComponent implements OnInit {
             this.error = data.message;
           }
           AuthGuard.blocked=false;
-          this.router.navigate(["/projects"]);
+          this.router.navigate(["/view-project/",data.project]);
         },
         (error) => {
           this.error = error;
