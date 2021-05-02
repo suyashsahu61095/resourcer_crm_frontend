@@ -37,7 +37,7 @@ class ProjectCategoryController extends Controller
     }
 
     public function project_categories() {
-        $categories = ProjectCategory::all();
+        $categories = ProjectCategory::where('status', '1')->get();
         return response()->json(['status'=>'1','message' => 'Projectt Category List', 'categories' => $categories], 200);
     }
 

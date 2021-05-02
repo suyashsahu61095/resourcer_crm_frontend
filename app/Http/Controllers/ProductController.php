@@ -115,7 +115,7 @@ class ProductController extends Controller
             }
         }
         if($product_id) {
-            return response()->json(['status'=>'1','message' => 'Successfully product added.'], 200);
+            return response()->json(['status'=>'1', 'products' => $product_id,'message' => 'Successfully product added.'], 200);
         } else {
             return response()->json(['status'=>'0','message' => 'Error occured in product add.'], 422);
         }
@@ -154,7 +154,7 @@ class ProductController extends Controller
          //echo "<pre>";
          //print_r($products->get()); //die;
         return DataTables::eloquent($products)
-                    ->addColumn('image_base_path', 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/products')
+                    ->addColumn('image_base_path', 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products')
                     ->addIndexColumn('index')
                     ->addColumn('total_count', function($product) use ($products_count) {
                         return $products_count;
@@ -209,8 +209,8 @@ class ProductController extends Controller
     }
 
     public function productList(){
-        $products = Product::select('id', 'product_name')->get();
-        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/products'], 200);
+        $products = Product::select('id', 'product_name')->orderBy('customer_name', 'asc')->get();
+        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products'], 200);
     }
 
     public function productgrid($page_id, $project_id = null){
@@ -222,36 +222,55 @@ class ProductController extends Controller
         }
         $products = $products->skip($limit)->take($offset)->get();
         
-        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products'], 200);
     }
 
+    // public function search_product(Request $request) {
+    //     DB::enableQueryLog();
+    //     $search_text = $request->input('query');
+    //     $products = Product::with(['project' => function($query) {
+    //                             $query->select('project_name', 'id', 'project_image');
+    //                         }])->with(['productdocs' => function($query){
+    //                             $query->select('id','category_id','product_id', 'file_name')->with('productCategory');
+    //                         }])
+    //                         ->where('status', '=', '1')
+    //                         ->where(function($query) use ($search_text) {
+    //                             $query->orWhere('product_name', 'Like', '%'.$search_text.'%')
+    //                             ->orWhere('product_id', 'Like', '%'.$search_text.'%')
+    //                             ->orWhere('description', 'Like', '%'.$search_text.'%');
+    //                         })
+    //                         ->get();
+    //     return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/productimages'], 200);
+    // }
+
+
+
     public function search_product(Request $request) {
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
         $search_text = $request->input('query');
-        $products = Product::with(['project' => function($query) {
-                                $query->select('project_name', 'id', 'project_image');
-                            }])->with(['productdocs' => function($query){
-                                $query->select('id','category_id','product_id', 'file_name')->with('productCategory');
-                            }])
-                            ->where('status', '=', '1')
-                            ->where(function($query) use ($search_text) {
-                                $query->orWhere('product_name', 'Like', '%'.$search_text.'%')
-                                ->orWhere('product_id', 'Like', '%'.$search_text.'%')
-                                ->orWhere('description', 'Like', '%'.$search_text.'%');
-                            })
-                            ->get();
-        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/products'], 200);
+        $products = Product::where('status', '=', '1')
+                     ->where(function($query) use ($search_text) {
+                        $query->orWhere('product_name', 'Like', '%'.$search_text.'%')
+                        ->orWhere('product_id', 'Like', '%'.$search_text.'%')
+                        ->orWhere('description', 'Like', '%'.$search_text.'%');
+                     })
+                     ->get();
+                     //print_r(DB::getQueryLog());
+        return response()->json(['status'=>'1','message' => 'product List', 'products' =>   $products, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products'], 200);
     }
+
+
+
 
     public function get_product_info($id){
         $product = Product::with(['project' => function($query){
             $query->select('project_name', 'id', 'project_image');
         }])->with(['productdocs' => function($query){
-            $query->select('id','category_id','product_id', 'file_name')->with('productCategory');
+            $query->select('id','category_id','product_id', 'file_name')->with('product_categories');
         }])
         ->where('id', $id)
         ->first();
-        return response()->json(['status'=>'1','message' => 'product info', 'product' => $product, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product info', 'product' => $product, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products'], 200);
     }
 
     public function edit_product(Request $request){

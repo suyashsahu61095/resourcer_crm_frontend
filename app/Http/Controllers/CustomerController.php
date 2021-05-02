@@ -53,8 +53,8 @@ class CustomerController extends Controller
             $image = $request->file('imageFile');
             $name = time().rand().'.'.$image->getClientOriginalExtension();
             $file_path = 'uploads/customers/';
-            //$destinationPath = public_path($file_path);
-            //$image->move($destinationPath, $name);
+            // $destinationPath = public_path($file_path);
+            // $image->move($destinationPath, $name);
             Storage::disk('s3')->put($file_path.$name, file_get_contents($image));
             $customer->image_path = $name;
         }
@@ -73,9 +73,8 @@ class CustomerController extends Controller
                         ->join('users', 'users.id', '=', 'customers.user_id')
                         ->where('users.client_id', $request->user()->client_id)
 						->orderBy('customers.id', 'desc');
-                        
         return DataTables::eloquent($customers)
-                        ->addColumn('image_base_path', 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/customers')
+                        ->addColumn('image_base_path', 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers')
                         ->addIndexColumn('index')
                         ->editColumn('customer_name', function($eachcutomer) {
                             return  "<a href='/view-customer/$eachcutomer->id'>".$eachcutomer->customer_name."</a>";
@@ -110,20 +109,20 @@ class CustomerController extends Controller
 
     public function customersList() {
         $customers = Customer::where('status', '=', '1')->select('customer_name', 'id')->orderBy('customer_name', 'asc')->get();
-        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers'], 200);
     }
 
     public function customersgrid($page_id) {
         $limit = ($page_id-1)*12;
         $offset = 12;
         $customers = Customer::where('status', '=', '1')->select('customer_name', 'id', 'image_path')->orderBy('id', 'desc')->skip($limit)->take($offset)->get();
-        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers'], 200);
     }
     
 
     public function get_customer_info($id) {
         $customer = Customer::where('id', '=', $id)->first();
-        return response()->json(['status'=>'1','message' => 'Client Information', 'customer' => $customer, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Client Information', 'customer' => $customer, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers'], 200);
     }
 
     public function search_customer(Request $request) {
@@ -141,7 +140,7 @@ class CustomerController extends Controller
                      })
                      ->get();
                      //print_r(DB::getQueryLog());
-        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers'], 200);
     }
 
     public function edit_customer(Request $request){

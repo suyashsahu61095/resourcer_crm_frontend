@@ -36,7 +36,7 @@ class ProductCategoryController extends Controller
     }
 
     public function product_categories() {
-        $categories = ProductCategory::all();
+        $categories = ProductCategory::where('status','1')->get();
         return response()->json(['status'=>'1','message' => 'Product Category List', 'categories' => $categories], 200);
     }
 
@@ -46,7 +46,7 @@ class ProductCategoryController extends Controller
             'category_id' => 'required',
             'status' => 'required',
         ]);
-        
+         
         $category = ProductCategory::find($request->input('category_id'));
         $category->category_name = $request->input('category_name');
         $category->status = $request->input('status');

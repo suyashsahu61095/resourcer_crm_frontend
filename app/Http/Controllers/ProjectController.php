@@ -92,7 +92,7 @@ class ProjectController extends Controller
             }
         }
         if($project_id) {
-            return response()->json(['status'=>'1','message' => 'Successfully project added.', 'project_id' => $project->project_id], 200);
+            return response()->json(['status'=>'1','products' => $project_id,'message' => 'Successfully project added.', 'project_id' => $project->project_id], 200);
         } else {
             return response()->json(['status'=>'0','message' => 'Error occured in project add.'], 422);
         }
@@ -124,7 +124,7 @@ class ProjectController extends Controller
     }
 
     public function projectList(){
-        $projects = Project::select('id', 'project_name') ->orderBy('project_name', 'desc')->get();
+        $projects = Project::select('id', 'project_name') ->orderBy('project_name', 'asc')->get();
         return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/projects'], 200);
     }
 
