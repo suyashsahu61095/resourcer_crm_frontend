@@ -1,0 +1,73 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="container-fluid">
+      <div class="navbar-holder d-flex align-items-center justify-content-between">
+        <!-- Navbar Header-->
+        <div class="navbar-header">
+          <!-- Navbar Brand -->
+          
+          <!-- Toggle Button--><a id="toggle-btn" (click)= "toggleheader()" href="javascript:void(0);"
+            class="menu-btn"><span></span><span></span><span></span></a>
+             
+        </div>
+        <div class="mx-auto">
+          <a routerLink="/users" class="navbar-brand" *ngIf="currentUser.role == 0"><b>Digits</b></a>
+          <a routerLink="/products" class="navbar-brand" *ngIf="currentUser.role == 1"><b>Digits</b></a>
+      </div> 
+        <!-- Navbar Menu -->
+        <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center" style="
+        border-radius: 0px 1px 5px 8px;">
+            <!-- ============================================================== -->
+                <!-- Profile -->
+                <!-- ============================================================== -->
+                <li class="nav-item dropdown" ngbDropdown placement="bottom-right"  style="
+                border-radius: 0px 1px 5px 8px;" >
+                  <a ngbDropdownToggle  style="
+                  border-radius: 0px 1px 5px 8px;"
+                      href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     
+                      <li class="nav-item"><a  class="nav-link logout"> <span
+                        class="d-none d-sm-inline"></span><i class="material-icons">person_outline</i></a></li>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu   style="
+                  padding: 30px;
+                  border-radius: 0px 1px 8px 8px;"     >
+                      <ul class="list-unstyled" >
+                          <li class="breadcrumb-item">
+                              <div class="dw-user-box">
+                                  <div class="u-img">
+                                      <img src="/src/assets/images/images.jpg" alt="user">
+                                  </div>
+                                  <div class="u-text">
+                                      <h4>{{currentUser.name}} </h4>
+                                      <p class="text-muted"> {{currentUser.email}}</p>
+                                      <a routerLink="/profile" class="btn btn-rounded btn-danger btn-sm" style="
+                                        color: white;"
+                                    >View
+                                          Profile</a>
+                                  </div>
+                              </div>
+                          </li>
+                          <li role="separator" class="divider"></li>
+                          <li role="separator" class="divider"></li>
+                          <li>
+                            <span *ngIf="currentUser.role == 0">Super Admin</span> <span *ngIf="currentUser.role == 1">Admin</span> 
+                          </li>
+                          <li role="separator" class="divider"></li>
+                          <li>
+                              <a href="#">
+                                  <i class="fa fa-power-off"></i> Logout</a>
+                          </li>
+                      </ul>
+                  </div>
+              </li>
+          <!-- Profile  -->
+      
+
+          <!-- Logout    -->
+          <li class="nav-item"><a  class="nav-link logout" (click)="logout()"><i class="fa fa-sign-out"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

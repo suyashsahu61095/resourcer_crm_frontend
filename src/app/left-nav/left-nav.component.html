@@ -1,0 +1,56 @@
+<!-- Side Navbar -->
+<nav class="side-navbar">
+  
+ <div class="text-right closesidebar p-4"><a><span (click)= "toggleheader()" class="material-icons">clear</span></a></div>
+ 
+
+  <ul class="list-unstyled" *ngIf="currentUser.role == 0">
+    <li [class.active]="router.url==='/users'"><a   style=" color: #000000;"routerLink="/users">USERS</a></li>
+    <li><a  style=" color: #b0b1b2; "  routerLink="/user-register">ADD USER</a></li>
+  </ul>
+  <ul class="list-unstyled" *ngIf="currentUser.role == 0">
+    <li><a  style=" color: #000000;" routerLink="/clients">CLIENTS</a></li>
+    <li><a  style=" color: #b0b1b2; " routerLink="/add-client">ADD CLIENT</a></li>
+  </ul>
+
+  <ul class="list-unstyled" *ngIf="currentUser.role == 1">
+    <li ng-class="{ active: isActive('/customers')}" >
+      <a style=" color: #000000;"(click)="onNavigation('/customers')" routerLink="/customers"
+        >CUSTOMERS</a
+      >
+    </li>
+    <li>
+      <a    style=" color: #b0b1b2; "                 (click)="onNavigation('/add-customer')" routerLink="/add-customer"
+        >ADD CUSTOMER</a
+      >
+    </li>
+  </ul>
+  <ul class="list-unstyled" *ngIf="currentUser.role == 1">
+    <li>
+      <a style=" color: #000000;" (click)="onNavigation('/projects')" routerLink="/projects"
+        >PROJECTS</a
+      >
+    </li>
+    <li>
+      <a  style=" color: #b0b1b2; " (click)="onNavigation('/add-project')" routerLink="/add-project"
+        >ADD PROJECT</a
+      >
+    </li>
+  </ul>
+  <ul class="list-unstyled" *ngIf="currentUser.role == 1">
+    <li>
+      <a  style=" color: #000000;"(click)="onNavigation('/products')" routerLink="/products"
+        >PRODUCTS</a>
+    </li>
+    <li>
+      <a  style=" color: #b0b1b2; " (click)="onNavigation('/add-product')" routerLink="/add-product"
+        >ADD PRODUCT</a
+      >
+    </li>
+  </ul>
+  <ul class="list-unstyled" *ngIf="currentUser.role == 0">
+    <li><a routerLink="/categories">PRODUCT CATEGORY</a></li>
+    <li><a routerLink="/file-categories">PROJECT CATEGORY</a></li>
+  </ul>
+</nav>
+
