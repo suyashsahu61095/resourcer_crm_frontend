@@ -66,6 +66,14 @@
                     <br />
                     <div class="form-fbt">
                       <div class="form-group text-center">
+                        <div class="form-group text-center">
+                          <input
+                            type="button" 
+                            value="Clone Product"
+                            class="btn btn-default"
+                            (click)="clone()"
+                          />
+                        </div>
                         <input
                           type="submit"
                           
@@ -89,13 +97,7 @@
                       >
                         {{ file.name }}
                         <div class="progress">
-                          <div
-                            class="progress-bar"
-                            role="progressbar"
-                            aria-valuenow="0"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
+                          <div class="progress-bar" style="width:1000px;background-color: #8f979f;" role="progressbar"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
                         </div>
                       </div>
                     </div>
@@ -352,7 +354,10 @@
                       </div>
                       <div class="col-md-8">
                         <div class="row">
-                          <div class="col-md-3 p-3">
+                          <div class="col-md-3 p-3" style="
+                          padding-top: 27px;
+                          margin-top: 13px;
+                      ">
                             <select
                               class="input-material"
                               name="unit"
@@ -368,6 +373,9 @@
                             </select>
                           </div>
                           <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Length</label>
                             <input
                               type="number"
                               formControlName="length"
@@ -380,7 +388,7 @@
                                 'is-invalid': submitted && f.length.errors
                               }"
                               class="input-material"
-                              placeholder="Length"
+                              placeholder=""
                             />
                             <div
                               *ngIf="submitted && f.length.errors"
@@ -392,6 +400,9 @@
                             </div>
                           </div>
                           <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Height</label>
                             <input
                               type="number"
                               formControlName="height"
@@ -404,7 +415,7 @@
                                 'is-invalid': submitted && f.height.errors
                               }"
                               class="input-material"
-                              placeholder="Height"
+                              placeholder=""
                             />
                             <div
                               *ngIf="submitted && f.height.errors"
@@ -416,6 +427,9 @@
                             </div>
                           </div>
                           <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Width</label>
                             <input
                               type="number"
                               formControlName="width"
@@ -915,6 +929,15 @@
                         </div>
                       </div>
                     </div>
+                    <div class="form-group row" *ngIf="productInfo?.productdocs">
+                      <div class="col-md-6 p-3">
+                        <label
+                          for="billing_postal_area"
+                          class="label-material margin-left"
+                          >Category With File Name  </label
+                        >
+                      </div>
+                    </div>
                     <div
                       class="form-group row"
                       *ngFor="let doc of productInfo?.productdocs; index as i"
@@ -923,9 +946,9 @@
                         <label
                           for="billing_postal_area"
                           class="label-material margin-left"
-                          >{{ doc?.file_name }}&nbsp;&nbsp;{{
+                          >{{
                             doc?.product_category?.category_name
-                          }}</label
+                          }}&nbsp;&nbsp;{{ doc?.file_name }}</label
                         >&nbsp;&nbsp;&nbsp;
                         <label
                           ><a
@@ -1025,13 +1048,7 @@
             ></span
           >
           <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
+            <div class="progress-bar" style="width:1000px;background-color: #8f979f;" role="progressbar"  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
           </div>
         </div>
       </div>

@@ -160,7 +160,7 @@ export class AddCustomerComponent implements OnInit {
           if (data.status == "1") {
             this.info = data.message;
             if (this.register) {
-              this.router.navigate(["/customers"]);
+              this.router.navigate(["/view-customers",data.id]);
             } else if (this.registeraddnew) {
               AuthGuard.blocked=false;
               this.router.navigate(["/add-project"], {

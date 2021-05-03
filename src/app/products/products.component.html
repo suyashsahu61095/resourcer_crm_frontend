@@ -117,7 +117,7 @@
                 </span>
               </div>
             </div>
-            <div class="mydiv p-3">
+            <div class="mydiv p-4">
               <span class="close"
                 ><a (click)="closeFilter()" href="javascript:void(0);"
                   ><i class="fa fa-times" aria-hidden="true"></i></a
@@ -128,7 +128,7 @@
                     <a data-toggle="collapse" href="#collapse0">
                       <i
                         class="indicator fa fa-caret-down"
-                        aria-hidden="true"
+                        aria-hidden="true" style="margin-right: 2px;"
                       ></i>
                       Customers ({{ customer_count }})
                     </a>
@@ -161,7 +161,7 @@
                   <h6 class="panel-title">
                     <a data-toggle="collapse" href="#collapse01">
                       <i
-                        class="indicator fa fa-caret-down"
+                        class="indicator fa fa-caret-down"  style="margin-right: 9px;"
                         aria-hidden="true"
                       ></i
                       >Projects ({{ project_count }})
@@ -202,7 +202,7 @@
                   <h6 class="panel-title">
                     <a data-toggle="collapse" href="#collapse02">
                       <i
-                        class="indicator fa fa-caret-down"
+                        class="indicator fa fa-caret-down"  style="margin-right: 9px;"
                         aria-hidden="true"
                       ></i
                       >Category ({{ product_category_count }})
@@ -235,7 +235,7 @@
                   <h6 class="panel-title">
                     <a data-toggle="collapse" href="#collapse03">
                       <i
-                        class="indicator fa fa-caret-down"
+                        class="indicator fa fa-caret-down"  style="margin-right: 9px;"
                         aria-hidden="true"
                       ></i
                       >Status
@@ -338,7 +338,12 @@
                           href="javascript:void();"
                           routerLink="/view-product/{{ product?.id }}"
                           *ngIf="product.product_image"
-                          ><img
+                          >
+                          <div class="overlay">
+                            <a href="#" class="icon" title="User Profile">
+                              <i class="fa fa-paperclip"></i>
+                            </a>
+                            </div><img
                             src="{{ image_base_path }}/{{
                               product.product_image
                             }}"

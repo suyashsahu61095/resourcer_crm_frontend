@@ -25,7 +25,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <form>
+              <form [formGroup]="productForm"  >
                 <div class="row">
                   <div class="col-sm-5" style="margin: auto">
                     <img src="{{ editimgUrl }}" class="img-fluid" />
@@ -39,6 +39,7 @@
                   <div class="col-sm-7">
                     <br />
                     <div class="form-fbt">
+
                       <div class="form-group text-center">
                         <a
                           routerLink="/edit-product/{{ productInfo?.id }}"
@@ -52,6 +53,20 @@
                       <div class="form-group text-center">
                         <a routerLink="/add-product" class="btn btn-secondary"
                           >Add new</a
+                        >
+                      </div>
+                     
+                      <div class="form-group text-center">
+                        <input
+                          type="submit"
+                          name="submit"
+                          (click)="clonefun()"
+                          value="Clone Product"
+                          class="btn btn-default"
+                        />
+                      </div>
+                      <div class="form-group text-center">
+                        <a (click)="backClicked()">Back</a
                         >
                       </div>
                     </div>
@@ -83,6 +98,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                          formControlName="product_name"
                           type="text"
                           readonly
                           value="{{ productInfo?.product_name }}"
@@ -97,11 +113,15 @@
                         >
                       </div>
                       <div class="col-md-8">
-                        <select class="form-control" disabled>
-                          <option value="">
-                            {{ productInfo?.project.project_name }}
-                          </option>
-                        </select>
+                        <input
+                        formControlName="description"
+                          type="text"
+                          readonly
+                          formControlName="project_id" 
+                          class="input-material"
+                          value="{{productInfo?.project.project_name  }}"
+                        />
+                      
                       </div>
                     </div>
                     <div class="form-group row">
@@ -112,6 +132,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        formControlName="description"
                           type="text"
                           readonly
                           class="input-material"
@@ -127,6 +148,7 @@
                       </div>
                       <div class="col-md-8">
                         <select
+                        formControlName="category"
                           class="input-material"
                           name="category"
                           id="category"
@@ -153,6 +175,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        formControlName="building_part"
                           type="text"
                           readonly
                           value="{{ productInfo?.building_part }}"
@@ -166,11 +189,14 @@
                           >QUANTITY :</label
                         >
                       </div>
-                      <div class="col-md-8 row">
+                      <div class="col-md-8 row" style="
+                        margin-left: -30px;"
+                    >
                         
                         <div class="col-md-3">
                           <div class="p-3">
                             <input
+                            formControlName="quantity"
                               type="text"
                               readonly
                               value="{{ productInfo?.quantity }}"
@@ -180,16 +206,15 @@
                         </div>
                         <div class="col-md-3">
                           <div class="p-3">
-                            <select
-                              class="input-material"
+                            <input
+                            formControlName="quantity"
+                              type="text"
+                              readonly
                               name="unitqnt"
-                             
+                              value=" {{ productInfo?.unitqnt }}"
                               class="input-material"
-                            >
-                              <option value="{{ productInfo?.unitqnt }}">
-                                {{ productInfo?.unitqnt }}
-                              </option>
-                            </select>
+                            />
+                          
                           </div>
                         </div>
                       </div>
@@ -202,9 +227,11 @@
                       </div>
                       <div class="col-md-8">
                         <div class="row">
-                          <div class="col-md-3">
-                            <div class="p-3">
-                              <select class="form-control" name="unit" readonly>                                
+                          <div class="col-md-3" style="
+                          margin-top: 13px;
+                      ">
+                            <div class="p-3" >
+                              <select class="form-control"   formControlName="unit" name="unit" readonly>                                
                                 <option
                                   value="m"
                                   [selected]="productInfo?.unit == 'm'"
@@ -221,26 +248,40 @@
                               </select>
                             </div>
                           </div>
+                        
                           <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Length</label>
                             <input
                               type="text"
                               readonly
+                              formControlName="length"
+                              value="{{ productInfo?.length }}"
+                              class="input-material"
+                            />
+                          </div>
+
+                          <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Height</label>
+                            <input
+                              type="text"
+                              readonly
+                              formControlName="height"
                               value="{{ productInfo?.height }}"
                               class="input-material"
                             />
                           </div>
                           <div class="col-md-3">
+                            <label style="font-size: 13px;
+                            font-weight: 500;
+                            font-style: normal;">Width</label>
                             <input
                               type="text"
                               readonly
-                              value="{{ productInfo?.length }}"
-                              class="input-material"
-                            />
-                          </div>
-                          <div class="col-md-3">
-                            <input
-                              type="text"
-                              readonly
+                              formControlName="width"
                               value="{{ productInfo?.width }}"
                               class="input-material"
                             />
@@ -258,6 +299,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        formControlName="production_year"
                           type="text"
                           readonly
                           value="{{ productInfo?.production_year }}"
@@ -275,6 +317,8 @@
                         <input
                           type="text"
                           readonly
+                          
+                          formControlName="location_building"
                           value="{{ productInfo?.location_building }}"
                           class="input-material"
                         />
@@ -289,6 +333,7 @@
                       <div class="col-md-8">
                         <input
                           type="text"
+                          formControlName="brand_name"
                           readonly
                           value="{{ productInfo?.brand_name }}"
                           class="input-material"
@@ -302,7 +347,27 @@
                         >
                       </div>
                       <div class="col-md-8">
-                        {{ productInfo?.documentation ? "Yes" : "No" }}
+                      
+                      <label class="md-check" *ngIf="productInfo?.documentation == 1">
+                        <input
+                          type="radio"
+                          value="1"
+                          checked
+                          name="documentation"
+                          formControlName="documentation"
+                        />
+                        Yes </label
+                      >&nbsp;&nbsp;
+                      <label class="md-check" *ngIf="productInfo?.documentation == 0">
+                        <input
+                          type="radio"
+                          value="0"
+                          checked
+                          name="documentation"
+                          formControlName="documentation"
+                        />
+                        No
+                      </label>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -315,6 +380,7 @@
                         <input
                           type="text"
                           readonly
+                          formControlName="product_info"
                           value="{{ productInfo?.product_info }}"
                           class="input-material"
                         />
@@ -328,6 +394,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        formControlName="color"
                           type="text"
                           readonly
                           value="{{ productInfo?.color }}"
@@ -345,6 +412,7 @@
                         <input
                           type="text"
                           readonly
+                          formControlName="hazardous"
                           value="{{ productInfo?.hazardous }}"
                           class="input-material"
                         />
@@ -359,6 +427,7 @@
                       <div class="col-md-8">
                         <input
                           type="text"
+                          formControlName="evaluvation"
                           readonly
                           value="{{ productInfo?.evaluvation }}"
                           class="input-material"
@@ -375,6 +444,7 @@
                         <input
                           type="text"
                           readonly
+                          formControlName="precondition"
                           value="{{ productInfo?.precondition }}"
                           class="input-material"
                         />
@@ -390,6 +460,7 @@
                         <input
                           type="text"
                           readonly
+                          formControlName="reuse"
                           value="{{ productInfo?.reuse }}"
                           class="input-material"
                         />
@@ -405,6 +476,7 @@
                         <input
                           type="text"
                           readonly
+                          formControlName="recommendation"
                           value="{{ productInfo?.recommendation }}"
                           class="input-material"
                         />
@@ -418,6 +490,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        formControlName="price_new_product"
                           type="text"
                           readonly
                           value="{{
@@ -434,16 +507,19 @@
                         >
                       </div>
                       <div class="col-md-8">
-                        <label class="md-check" *ngIf="productInfo?.status == 1"
+                    
+
+
+                        <label class="md-check"  formControlName="status" *ngIf="productInfo?.status == 1"
                           >AVAILABLE ONSITE</label
                         >
-                        <label class="md-check" *ngIf="productInfo?.status == 2"
+                        <label class="md-check"  formControlName="status" *ngIf="productInfo?.status == 2"
                           >AVAILABLE FROM STORAGE</label
                         >
-                        <label class="md-check" *ngIf="productInfo?.status == 3"
+                        <label class="md-check"  formControlName="status" *ngIf="productInfo?.status == 3"
                           >SOLD</label
                         >
-                        <label class="md-check" *ngIf="productInfo?.status == 4"
+                        <label class="md-check"  formControlName="status" *ngIf="productInfo?.status == 4"
                           >UNAVAILABLE</label
                         >
                       </div>
@@ -458,6 +534,7 @@
                         <input
                           type="text"
                           readonly
+                          formControlName="price_used_product"
                           value="{{
                             productInfo?.price_used_product | priceDelimiter: 3
                           }}"
@@ -473,6 +550,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        formControlName="price_sold_product"
                           type="text"
                           readonly
                           value="{{
@@ -482,9 +560,18 @@
                         />
                       </div>
                     </div>
+                    <div class="form-group row" *ngIf="productInfo?.productdocs">
+                      <div class="col-md-6 p-3">
+                        <label
+                          for="billing_postal_area"
+                          class="label-material margin-left"
+                          >Category With File Name  </label
+                        >
+                      </div>
+                    </div>
                     <div class="fomr-group row">
                       <div class="col-md-6 p-3" *ngFor="let doc of productInfo?.productdocs; index as i" style="font-size: 12px;">
-                          <label for="billing_postal_area" class="label-material margin-left"><a href="{{doc_path+'/documents/'+doc?.file_name}}" target="_blank">{{doc?.file_name}}</a>&nbsp;&nbsp;{{doc?.product_category?.category_name}}</label>
+                          <label for="billing_postal_area" class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a href="{{doc_path+'/documents/'+doc?.file_name}}" target="_blank">{{doc?.file_name}}</a></label>
                           
                       </div>
                       <div class="col-md-6 p-3"  *ngFor="let file of filesmulti; index as i" style="font-size: 12px;">
