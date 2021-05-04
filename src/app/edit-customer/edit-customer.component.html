@@ -1,0 +1,193 @@
+<div class="gooey align-items-center" *ngIf="loadingData">
+  <span class="dot"></span>
+  <div class="dots">
+      <span></span>
+      <span></span>
+      <span></span>
+  </div> 
+</div>
+<div class="page">
+  
+  <div class="page-content d-flex align-items-stretch">
+    <!-- Side Navbar -->
+    <app-left-nav></app-left-nav>
+      <div class="content-inner">
+      <!-- Main Navbar-->
+      <app-header></app-header>
+      <!-- Breadcrumb-->
+          <div class="breadcrumb-holder container-fluid">
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a routerLink="/customers">Customer</a></li>
+                  <li class="breadcrumb-item"><a routerLink="/view-customer/{{customerInfo?.id}}">{{customerInfo?.customer_id}}</a></li>
+                  <li class="breadcrumb-item active">Edit</li>
+              </ul>
+          </div>
+          <section class="forms pb-5"> 
+              <div class="container-fluid">
+                  <div class="row">
+                      <div class="col-md-12">
+                            <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+                              <div class="row">
+                                <div class="col-sm-5" style="margin:auto;">
+                                  <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
+                                    <!-- <label for='imgupload'><img src="assets/images/default.jpg" class="img-fluid" *ngIf="imgURL== '' && editimgUrl == ''"></label>
+                                    <label for='imgupload'><img src="{{editimgUrl}}" class="img-fluid" *ngIf="imgURL== '' && !editimgUrl == ''" height="200" ></label> -->
+                                    <span style="color:red;" *ngIf="message">{{message}}</span>
+                                    <input type="file" id="imgupload" accept='image/*' (change)="preview($event.target.files)" style="display:none" />
+                                    <br/> <br/>
+                                    <img [src]="imgURL"  class="img-fluid" *ngIf="imgURL">
+                                    <br/>
+                                    <b>{{customerInfo?.customer_id}}</b>
+                                </div>
+                                <div class="col-sm-7">
+                                   <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+                                   <br/>
+                                    <div class="form-group row">
+                                      <div class="col-md-4 p-3">
+                                        <label for="customerName" class="label-material">CUSTOMER NAME*:</label>
+                                      </div>
+                                      <div class="col-md-8">
+                                        <input type="text" formControlName="customerName" name="customerName" [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" class="input-material">
+                                        <div *ngIf="submitted && f.customerName.errors" class="invalid-feedback">
+                                          <div *ngIf="f.customerName.errors.required">Customer Name is required</div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  <div class="form-group row">
+                                    <div class="col-md-4 p-3">
+                                      <label for="orgname" class="label-material">ORG. NO.* :</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <input type="number" formControlName="orgname" name="orgname" [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9" class="input-material">
+                                      <div *ngIf="submitted && f.orgname.errors" class="invalid-feedback">
+                                        <div *ngIf="f.orgname.errors.required">Org. Number is required</div>
+                                        <div *ngIf="f.orgname.errors.pattern">Please enter digits only</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="col-md-4 p-3">
+                                      <label for="address" class="label-material">ADDRESS :</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <input formControlName="address" type="text" name="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" maxlength="64" class="input-material">
+                                      <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                        <div *ngIf="f.address.errors.required">Address is required</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="col-md-4 p-3">
+                                      <label for="postal_code" class="label-material">POSTAL CODE :</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <input formControlName="postal_code" type="number" name="postal_code" [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" maxlength="64">
+                                      <div *ngIf="submitted && f.postal_code.errors" class="invalid-feedback">
+                                        <div *ngIf="f.postal_code.errors.required">Postal Code is required</div>
+                                        <div *ngIf="f.postal_code.errors.pattern">Please enter valid postal code</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="col-md-4 p-3">
+                                      <label for="postal_area" class="label-material">POSTAL AREA :</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <input formControlName="postal_area" type="text" name="postal_area" [ngClass]="{ 'is-invalid': submitted && f.postal_area.errors }" class="input-material" maxlength="20">
+                                      <div *ngIf="submitted && f.postal_area.errors" class="invalid-feedback">
+                                        <div *ngIf="f.postal_area.errors.required">Postal Code is required</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="col-md-4 p-3">
+                                      <label for="postal_area" class="label-material">COUNTRY :</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <select class="input-material" name="country" >
+                                        <!--formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }"-->
+                                        <option value="">Select</option>
+                                        <option value="1" [selected]="country == '1'">India</option>
+                                        <option value="2" [selected]="country == '2'">Norway</option>
+                                        <option value="3" [selected]="country == '3'">France</option>
+                                        <option value="4" [selected]="country == '4'">Italy</option>
+                                        <option value="5" [selected]="country == '5'">UK</option>
+                                        <option value="6" [selected]="country == '6'">Sweden</option>
+                                        <option value="7" [selected]="country == '7'">Germany</option>
+                                        <option value="8" [selected]="country == '8'">Poland</option>
+                                      </select>
+                                      <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                                        <div *ngIf="f.country.errors.required">Country is required</div>
+                                    </div> 
+                                    </div>
+                                  </div>
+                                  <h4>CONTACT PERSON DETAILS</h4>
+                                  <div class="form-group row">
+                                    <div class="col-md-4 p-3">
+                                      <label for="name" class="label-material">NAME :</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <input formControlName="name" type="text" name="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" class="input-material" maxlength="64">
+                                      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                        <div *ngIf="f.name.errors.required">Name is required</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="col-md-4 p-3">
+                                      <label for="mobile" class="label-material">MOBILE NO. :</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <input formControlName="mobile" type="text" name="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" class="input-material">
+                                      <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                                        <div *ngIf="f.mobile.errors.required">Mobile Number is required</div>
+                                        <div *ngIf="f.mobile.errors.pattern">Please enter 10 digit valid mobile number</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <div class="col-md-4 p-3">
+                                      <label for="email" class="label-material">EMAIL ID :</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <input formControlName="email" type="email" name="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="input-material">
+                                      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <div *ngIf="f.email.errors.pattern">Please enter valid email</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group text-center">
+                                    <input type="submit" name="submit" value="Update" class="btn btn-default">
+                                  </div>
+                                  <!-- <div class="form-group">
+                                    <input type="submit" name="submit" value="Register and add new default" class="btn btn-secondary">
+                                  </div> -->
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group row">
+                                      <div class="col-md-5 p-3">
+                                        <label for="note" class="label-material">NOTES :</label>
+                                      </div>
+                                      <div class="col-md-7">
+                                        <textarea formControlName="note" name="note"  class="form-control" rows="7" maxlength="1000"></textarea>
+                                        <!-- <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
+                                          <div *ngIf="f.note.errors.required">Note is required</div>
+                                        </div> -->
+                                      </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </form>                          
+                      </div> 
+                  </div>   
+              </div>    
+          </section>
+<!-- Page Footer-->
+<app-footer></app-footer>
+</div>
+</div>
+</div>
