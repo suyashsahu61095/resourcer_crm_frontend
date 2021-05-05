@@ -266,7 +266,7 @@ class ProductController extends Controller
         $product = Product::with(['project' => function($query){
             $query->select('project_name', 'id', 'project_image');
         }])->with(['productdocs' => function($query){
-            $query->select('id','category_id','product_id', 'file_name')->with('product_categories');
+            $query->select('id','category_id','product_id', 'file_name')->with('productCategory');
         }])
         ->where('id', $id)
         ->first();
@@ -419,11 +419,15 @@ class ProductController extends Controller
                                 ->where('id', $keyprod)
                                 ->with('customer')
                                 ->first();
+                    // foreach($data as $value ){
+                    //     $customer=Customer::
+                    // }
                     if($data){
                         array_push($pdfData, $data->toArray());
                     }          
                    
                 }
+                // dd($pdfData);
                 $html = view('pdf.catalog', compact('pdfData'))->render();
                 return response()->json(['html' => $html]);
             }
@@ -434,8 +438,8 @@ class ProductController extends Controller
     }
 
     public function pdf2() {
-        //$pdf = PDF::loadView('pdf.catalog2');
-        //return $pdf->download('invoice2.pdf');
+        $pdf = PDF::loadView('pdf.catalog2');
+        return $pdf->download('invoice2.pdf');
         return view('pdf.catalog2');
     }
 

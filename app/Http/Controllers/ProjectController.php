@@ -110,7 +110,7 @@ class ProjectController extends Controller
                     ->orderBy('projects.id', 'desc');
 
         return DataTables::eloquent($projects)
-                    ->addColumn('image_base_path', 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/projects')
+                    ->addColumn('image_base_path', 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects')
                     ->addIndexColumn('index')
                     ->editColumn('project_name', function($project) {
                         return  "<a href='/view-project/$project->id'>".$project->project_name."</a>";
@@ -125,14 +125,14 @@ class ProjectController extends Controller
 
     public function projectList(){
         $projects = Project::select('id', 'project_name') ->orderBy('project_name', 'asc')->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
     }
 
     public function projectgrid($page_id){
         $limit = ($page_id-1)*12;
         $offset = 12;
         $projects = Project::select('id', 'project_name', 'project_image')->orderBy('id', 'desc')->skip($limit)->take($offset)->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
     }
 
     public function search_project(Request $request) {
@@ -150,7 +150,7 @@ class ProjectController extends Controller
                         ->orWhere('project_type', 'Like', '%'.$search_text.'%');
                      })
                      ->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
     }
 
     public function get_project_info($id){
@@ -161,7 +161,7 @@ class ProjectController extends Controller
         }])
         ->where('id', $id)
         ->first();
-        return response()->json(['status'=>'1','message' => 'project info', 'project' => $project, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'project info', 'project' => $project, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
     }
 
     public function edit_project(Request $request)

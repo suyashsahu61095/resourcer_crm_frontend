@@ -6,13 +6,22 @@
 	<div class="container">
 		<div class="col-6">
 			<h1>PRODUCT CATALOGUE</h1>
-			<p>Status: {{$eachData['project_status']}} <br/>
-			 Products available:  {{$eachData['project_avail_date']}} - {{$eachData['project_avail_end_date']}}
+			<p>Project Name : {{$eachData['project_name']}} <br/>
+			Project Address : {{$eachData['project_address']}} <br/>
+			Customer Name : {{$eachData['customer']['customer_name']}} 
+			<br/>
+
 			</p>
+		
+			<p>Status: {{$eachData['project_status']}} <br/>
+			   Products available:  {{$eachData['project_avail_date']}} - {{$eachData['project_avail_end_date']}}
+			</p>
+			
 		</div>
 		
 		<div class="col-6">
-			<img src="{{ URL::asset('images/logo.png') }}">
+			<!-- <img src="{{ URL::asset('images/logo.png') }}"> -->
+			<h2>Digits</h2>
 		</div>
 		
 	</div>
@@ -21,28 +30,20 @@
   
   <div class="home-section">
 	<div class="container">
-		<div class="left-home-section">
-			<ul>
-				<li><span> Conatct name: {{$eachData['project_mang_name']}} <br/>Email: {{$eachData['project_mang_email']}}<br/>Phone: {{$eachData['project_mang_mobile']}}</span> </li>
-				<li><span>{{$eachData['customer']['customer_name']}}</span> </li>
-				<li><span>{{$eachData['project_name']}} <br/>{{$eachData['project_address']}} </span> </li>
-			</ul>
-		 
-		</div>
 		
 		<div class="right-home-section">
-			<img height="900" src="https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/projects/{{$eachData['project_image']}}">
+			<img height="400" src="http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects/{{$eachData['project_image']}}">
 		</div>
 	</div>
   </div>
   <div style="page-break-after:always">&nbsp;</div> 
 	<div class="listing-section">
 		<div class="container">
-			<h3>PRODUCT CATALOGUE <img src="{{ URL::asset('images/logo.png') }}"></h3>
+			<h3>PRODUCT CATALOGUE </h3> <!-- <img src="{{ URL::asset('images/logo.png') }}">-->
 			@foreach($eachData['products'] as $k=>$eachprod)
 				<div class="col-12">
 					<div class="one">
-						<img height="417" src="https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/products/{{$eachprod['product_image']}}">
+						<img height="417" src="http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products/{{$eachprod['product_image']}}">
 					</div>
 					<div class="two">
 						<ul class="listing-ul">
