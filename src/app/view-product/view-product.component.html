@@ -25,45 +25,30 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <form [formGroup]="productForm"  >
+              <form [formGroup]="productForm">
                 <div class="row">
                   <div class="col-sm-5" style="margin: auto">
                     <img src="{{ editimgUrl }}" class="img-fluid" />
-                    <label for="imgupload"
-                      ><img
-                        src="assets/images/default.jpg"
-                        class="img-fluid"
-                        *ngIf="!editimgUrl"
-                    /></label>
+                    <label for="imgupload"><img src="assets/images/default.jpg" class="img-fluid"
+                        *ngIf="!editimgUrl" /></label>
                   </div>
                   <div class="col-sm-7">
                     <br />
                     <div class="form-fbt">
 
                       <div class="form-group text-center">
-                        <a
-                          routerLink="/edit-product/{{ productInfo?.id }}"
-                          class="mr-1 btn btn-default"
-                          >Edit</a
-                        >
+                        <a routerLink="/edit-product/{{ productInfo?.id }}" class="mr-1 btn btn-default">Edit</a>
                       </div>
                       <!-- <div class="form-group text-center">
                             <a routerLink="/add-customer" class="btn btn-secondary">Clone</a>
                           </div> -->
                       <div class="form-group text-center">
-                        <a routerLink="/add-product" class="btn btn-secondary"
-                          >Add new</a
-                        >
+                        <a routerLink="/add-product" class="btn btn-default">Add new</a>
                       </div>
-                     
+
                       <div class="form-group text-center">
-                        <input
-                          type="submit"
-                          name="submit"
-                          (click)="clonefun()"
-                          value="Clone Product"
-                          class="btn btn-default"
-                        />
+                        <input type="submit" name="submit" (click)="clonefun()" value="Clone Product"
+                          class="btn btn-default" />
                       </div>
                       <!-- <div class="form-group text-center">
                         <a (click)="backClicked()">Back</a
@@ -77,91 +62,50 @@
                   <div class="col-md-12">
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="product_id" class="label-material"
-                          >PRODUCT ID* :</label
-                        >
+                        <label for="product_id" class="label-material">PRODUCT ID* :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          readonly
-                          value="{{ productInfo?.product_id }}"
-                          class="input-material"
-                        />
+                        <input type="text" readonly value="{{ productInfo?.product_id }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="product_name" class="label-material"
-                          >PRODUCT NAME* :</label
-                        >
+                        <label for="product_name" class="label-material">PRODUCT NAME* :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          formControlName="product_name"
-                          type="text"
-                          readonly
-                          value="{{ productInfo?.product_name }}"
-                          class="input-material"
-                        />
+                        <input formControlName="product_name" type="text" readonly
+                          value="{{ productInfo?.product_name }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="project_id" class="label-material"
-                          >PROJECT NAME* :</label
-                        >
+                        <label for="project_id" class="label-material">PROJECT NAME* :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                        formControlName="description"
-                          type="text"
-                          readonly
-                          formControlName="project_id" 
-                          class="input-material"
-                          value="{{productInfo?.project.project_name  }}"
-                        />
-                      
+                        <input formControlName="description" type="text" readonly formControlName="project_id"
+                          class="input-material" value="{{productInfo?.project.project_name  }}" />
+
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="description" class="label-material"
-                          >DESCRIPTION* :</label
-                        >
+                        <label for="description" class="label-material">DESCRIPTION* :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                        formControlName="description"
-                          type="text"
-                          readonly
-                          class="input-material"
-                          value="{{ productInfo?.description }}"
-                        />
+                        <input formControlName="description" type="text" readonly class="input-material"
+                          value="{{ productInfo?.description }}" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="category" class="label-material"
-                          >CATEGORY :</label
-                        >
+                        <label for="category" class="label-material">CATEGORY :</label>
                       </div>
                       <div class="col-md-8">
-                        <select
-                        formControlName="category"
-                          class="input-material"
-                          name="category"
-                          id="category"
-                          disabled
-                         
-                          class="input-material"
-                        >
+                        <select formControlName="category" class="input-material" name="category" id="category" disabled
+                          class="input-material">
                           <option value="">Select</option>
-                          <option
-                            *ngFor="let category of categories; index as i"
-                            value="{{ category.id }}"
-                            [selected]="category?.id == productInfo?.category"
-                          >
+                          <option style="color: black;" *ngFor="let category of categories; index as i" value="{{ category.id }}"
+                            [selected]="category?.id == productInfo?.category">
                             {{ category.category_name }}
                           </option>
                         </select>
@@ -169,404 +113,241 @@
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="building_part" class="label-material"
-                          >BUILDING PART :</label
-                        >
+                        <label for="building_part" class="label-material">BUILDING PART :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                        formControlName="building_part"
-                          type="text"
-                          readonly
-                          value="{{ productInfo?.building_part }}"
-                          class="input-material"
-                        />
+                        <input formControlName="building_part" type="text" readonly
+                          value="{{ productInfo?.building_part }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="quantity" class="label-material"
-                          >QUANTITY :</label
-                        >
+                        <label for="quantity" class="label-material">QUANTITY :</label>
                       </div>
                       <div class="col-md-8 row" style="
-                        margin-left: -30px;"
-                    >
-                        
+                        margin-left: -30px;">
+
                         <div class="col-md-3">
                           <div class="p-3">
-                            <input
-                            formControlName="quantity"
-                              type="text"
-                              readonly
-                              value="{{ productInfo?.quantity }}"
-                              class="input-material"
-                            />
+                            <input formControlName="quantity" type="text" readonly value="{{ productInfo?.quantity }}"
+                              class="input-material" />
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="p-3">
-                            <input
-                            formControlName="quantity"
-                              type="text"
-                              readonly
-                              name="unitqnt"
-                              value=" {{ productInfo?.unitqnt }}"
-                              class="input-material"
-                            />
-                          
+                            <input formControlName="quantity" type="text" readonly name="unitqnt"
+                              value=" {{ productInfo?.unitqnt }}" class="input-material" />
+
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="dimensions" class="label-material"
-                          >DIMENSIONS :</label
-                        >
+                        <label for="dimensions" class="label-material">DIMENSIONS :</label>
                       </div>
                       <div class="col-md-8">
                         <div class="row">
                           <div class="col-md-3" style="
-                          margin-top: 13px;
+                          margin-top: 10px; 
                       ">
-                            <div class="p-3" >
-                              <select class="form-control"   formControlName="unit" name="unit" readonly>                                
-                                <option
-                                  value="m"
-                                  [selected]="productInfo?.unit == 'm'"
-                                >
+                            <div class="col-md-11" style="    padding-left: 0px;
+                            padding-right: 53px; padding-top: 15px;">
+                              <select class="form-control" formControlName="unit" name="unit" readonly>
+                                <option value="m" [selected]="productInfo?.unit == 'm'">
                                   m
                                 </option>
-                                <option
-                                  value="mm"
-                                  [selected]="productInfo?.unit == 'mm'"
-                                >
+                                <option value="mm" [selected]="productInfo?.unit == 'mm'">
                                   mm
                                 </option>
-                                
+
                               </select>
                             </div>
                           </div>
-                        
-                          <div class="col-md-3">
+
+                          <div class="col-md-2">
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Length</label>
-                            <input
-                              type="text"
-                              readonly
-                              formControlName="length"
-                              value="{{ productInfo?.length }}"
-                              class="input-material"
-                            />
+                            <input style="width: 80px;" type="text" readonly formControlName="length"
+                              value="{{ productInfo?.length }}" class="input-material" />
                           </div>
 
-                          <div class="col-md-3">
+                          <div class="col-md-2">
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Height</label>
-                            <input
-                              type="text"
-                              readonly
-                              formControlName="height"
-                              value="{{ productInfo?.height }}"
-                              class="input-material"
-                            />
+                            <input style="width: 80px;" type="text" readonly formControlName="height"
+                              value="{{ productInfo?.height }}" class="input-material" />
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-2">
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Width</label>
-                            <input
-                              type="text"
-                              readonly
-                              formControlName="width"
-                              value="{{ productInfo?.width }}"
-                              class="input-material"
-                            />
+                            <input style="width: 80px;" type="text" readonly formControlName="width"
+                              value="{{ productInfo?.width }}" class="input-material" />
                           </div>
-                        </div>                        
+                        </div>
                       </div>
                     </div>
                     <br /><br />
                     <br />
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="production_year" class="label-material"
-                          >PRODUCTION YEAR :</label
-                        >
+                        <label for="production_year" class="label-material">PRODUCTION YEAR :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                        formControlName="production_year"
-                          type="text"
-                          readonly
-                          value="{{ productInfo?.production_year }}"
-                          class="input-material"
-                        />
+                        <input formControlName="production_year" type="text" readonly
+                          value="{{ productInfo?.production_year }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="location_building" class="label-material"
-                          >LOCATION IN BUILDING :</label
-                        >
+                        <label for="location_building" class="label-material">LOCATION IN BUILDING :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          readonly
-                          
-                          formControlName="location_building"
-                          value="{{ productInfo?.location_building }}"
-                          class="input-material"
-                        />
+                        <input type="text" readonly formControlName="location_building"
+                          value="{{ productInfo?.location_building }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="brand_name" class="label-material"
-                          >BRAND NAME :</label
-                        >
+                        <label for="brand_name" class="label-material">BRAND NAME :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          formControlName="brand_name"
-                          readonly
-                          value="{{ productInfo?.brand_name }}"
-                          class="input-material"
-                        />
+                        <input type="text" formControlName="brand_name" readonly value="{{ productInfo?.brand_name }}"
+                          class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="documentation" class="label-material"
-                          >DOCUMENTATION :</label
-                        >
+                        <label for="documentation" class="label-material">DOCUMENTATION :</label>
                       </div>
                       <div class="col-md-8">
-                      
-                      <label class="md-check" *ngIf="productInfo?.documentation == 1">
-                        <input
-                          type="radio"
-                          value="1"
-                          checked
-                          name="documentation"
-                          formControlName="documentation"
-                        />
-                        Yes </label
-                      >&nbsp;&nbsp;
-                      <label class="md-check" *ngIf="productInfo?.documentation == 0">
-                        <input
-                          type="radio"
-                          value="0"
-                          checked
-                          name="documentation"
-                          formControlName="documentation"
-                        />
-                        No
-                      </label>
+
+                        <label class="md-check" *ngIf="productInfo?.documentation == 1">
+                          <input type="radio" value="1" checked name="documentation" formControlName="documentation" />
+                          Yes </label>&nbsp;&nbsp;
+                        <label class="md-check" *ngIf="productInfo?.documentation == 0">
+                          <input type="radio" value="0" checked name="documentation" formControlName="documentation" />
+                          No
+                        </label>
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="product_info" class="label-material"
-                          >PRODUCT INFO :</label
-                        >
+                        <label for="product_info" class="label-material">PRODUCT INFO :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          readonly
-                          formControlName="product_info"
-                          value="{{ productInfo?.product_info }}"
-                          class="input-material"
-                        />
+                        <input type="text" readonly formControlName="product_info"
+                          value="{{ productInfo?.product_info }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="color" class="label-material"
-                          >COLOR :</label
-                        >
+                        <label for="color" class="label-material">COLOR :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                        formControlName="color"
-                          type="text"
-                          readonly
-                          value="{{ productInfo?.color }}"
-                          class="input-material"
-                        />
+                        <input formControlName="color" type="text" readonly value="{{ productInfo?.color }}"
+                          class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="hazardous" class="label-material"
-                          >HAZARDOUS CONTENT :</label
-                        >
+                        <label for="hazardous" class="label-material">HAZARDOUS CONTENT :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          readonly
-                          formControlName="hazardous"
-                          value="{{ productInfo?.hazardous }}"
-                          class="input-material"
-                        />
+                        <input type="text" readonly formControlName="hazardous" value="{{ productInfo?.hazardous }}"
+                          class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="evaluvation" class="label-material"
-                          >EVALUATION :</label
-                        >
+                        <label for="evaluvation" class="label-material">EVALUATION :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          formControlName="evaluvation"
-                          readonly
-                          value="{{ productInfo?.evaluvation }}"
-                          class="input-material"
-                        />
+                        <input type="text" formControlName="evaluvation" readonly value="{{ productInfo?.evaluvation }}"
+                          class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="precondition" class="label-material"
-                          >PRECONDITIONS FOR REUSE :</label
-                        >
+                        <label for="precondition" class="label-material">PRECONDITIONS FOR REUSE :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          readonly
-                          formControlName="precondition"
-                          value="{{ productInfo?.precondition }}"
-                          class="input-material"
-                        />
+                        <input type="text" readonly formControlName="precondition"
+                          value="{{ productInfo?.precondition }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="reuse" class="label-material"
-                          >POTENTIAL FOR REUSE :</label
-                        >
+                        <label for="reuse" class="label-material">POTENTIAL FOR REUSE :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          readonly
-                          formControlName="reuse"
-                          value="{{ productInfo?.reuse }}"
-                          class="input-material"
-                        />
+                        <input type="text" readonly formControlName="reuse" value="{{ productInfo?.reuse }}"
+                          class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="recommendation" class="label-material"
-                          >RECOMMENDATION :</label
-                        >
+                        <label for="recommendation" class="label-material">RECOMMENDATION :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          readonly
-                          formControlName="recommendation"
-                          value="{{ productInfo?.recommendation }}"
-                          class="input-material"
-                        />
+                        <input type="text" readonly formControlName="recommendation"
+                          value="{{ productInfo?.recommendation }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="price_new_product" class="label-material"
-                          >PRICE - NEW PRODUCT :</label
-                        >
+                        <label for="price_new_product" class="label-material">PRICE - NEW PRODUCT :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                        formControlName="price_new_product"
-                          type="text"
-                          readonly
-                          value="{{
+                        <input formControlName="price_new_product" type="text" readonly value="{{
                             productInfo?.price_new_product | priceDelimiter: 3
-                          }}"
-                          class="input-material"
-                        />
+                          }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="status" class="label-material"
-                          >STATUS :</label
-                        >
+                        <label for="status" class="label-material">STATUS :</label>
                       </div>
                       <div class="col-md-8">
-                    
 
 
-                        <label class="md-check"  formControlName="status" *ngIf="productInfo?.status == 1"
-                          >AVAILABLE ONSITE</label
-                        >
-                        <label class="md-check"  formControlName="status" *ngIf="productInfo?.status == 2"
-                          >AVAILABLE FROM STORAGE</label
-                        >
-                        <label class="md-check"  formControlName="status" *ngIf="productInfo?.status == 3"
-                          >SOLD</label
-                        >
-                        <label class="md-check"  formControlName="status" *ngIf="productInfo?.status == 4"
-                          >UNAVAILABLE</label
-                        >
+
+                        <label class="md-check" formControlName="status" *ngIf="productInfo?.status == 1">AVAILABLE
+                          ONSITE</label>
+                        <label class="md-check" formControlName="status" *ngIf="productInfo?.status == 2">AVAILABLE FROM
+                          STORAGE</label>
+                        <label class="md-check" formControlName="status" *ngIf="productInfo?.status == 3">SOLD</label>
+                        <label class="md-check" formControlName="status"
+                          *ngIf="productInfo?.status == 4">UNAVAILABLE</label>
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="price_used_product" class="label-material"
-                          >PRICE - USED PRODUCT :</label
-                        >
+                        <label for="price_used_product" class="label-material">PRICE - USED PRODUCT :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                          type="text"
-                          readonly
-                          formControlName="price_used_product"
-                          value="{{
+                        <input type="text" readonly formControlName="price_used_product" value="{{
                             productInfo?.price_used_product | priceDelimiter: 3
-                          }}"
-                          class="input-material"
-                        />
+                          }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="price_sold_product" class="label-material"
-                          >PRICE - SOLD PRODUCT :</label
-                        >
+                        <label for="price_sold_product" class="label-material">PRICE - SOLD PRODUCT :</label>
                       </div>
                       <div class="col-md-8">
-                        <input
-                        formControlName="price_sold_product"
-                          type="text"
-                          readonly
-                          value="{{
+                        <input formControlName="price_sold_product" type="text" readonly value="{{
                             productInfo?.price_sold_product | priceDelimiter: 3
-                          }}"
-                          class="input-material"
-                        />
+                          }}" class="input-material" />
                       </div>
                     </div>
                     <div class="form-group row" *ngIf="productInfo?.productdocs">
                       <div class="col-md-6 p-3">
-                        <label
-                          for="billing_postal_area"
-                          class="label-material margin-left"
-                          >Category With File Name  </label
-                        >
+                        <label for="billing_postal_area" class="label-material margin-left"> File Name With Category 
+                        </label>
                       </div>
                     </div>
                     <div class="fomr-group row">
@@ -574,8 +355,10 @@
                           <label for="billing_postal_area" class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a href="{{doc_path+'/projects/documents/'+doc?.file_name}}" download target="_blank">{{doc?.file_name}}</a></label>
                           
                       </div>
-                      <div class="col-md-6 p-3"  *ngFor="let file of filesmulti; index as i" style="font-size: 12px;">
-                          <label for="billing_postal_area" class="label-material margin-left">{{file.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{filecattext[i]}} </label>&nbsp;&nbsp;&nbsp;
+                      <div class="col-md-6 p-3" *ngFor="let file of filesmulti; index as i" style="font-size: 12px;">
+                        <label for="billing_postal_area"
+                          class="label-material margin-left">{{file.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{filecattext[i]}}
+                        </label>&nbsp;&nbsp;&nbsp;
                       </div>
                     </div>
                   </div>
