@@ -562,10 +562,10 @@ export class ProductsComponent implements OnDestroy, OnInit {
   }
 
   pdf() {
-    // if(this.PDFProduct.length == 0) {
-    //   Swal.fire('', 'Please select Product', 'error');
-    //   return false;
-    // }
+    if(this.PDFProduct.length == 0) {
+      Swal.fire('', 'Please select Product', 'error');
+      return false;
+    }
     ($("#PDFModal") as any).modal("show");
   }
 
@@ -588,10 +588,10 @@ export class ProductsComponent implements OnDestroy, OnInit {
       .getpdfData(this.PDFProduct, this.PDFProductProject)
       .pipe(first())
       .subscribe((data) => {
-        //this.image_base_path = data.image_base_path;
+        this.image_base_path = data.image_base_path;
         console.log(data);
         localStorage.setItem("pdfData", data.html);
-        //this.router.navigate(['/download-catalog']);
+        // this.router.navigate(['/download-catalog']);
         window.open("/download-catalog", "_blank");
       });
   }

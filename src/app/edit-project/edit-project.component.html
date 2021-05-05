@@ -33,16 +33,13 @@
                 <div class="row">
                   <div class="col-sm-5" style="margin: auto">
                     <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
-                    <!-- <label for="imgupload"
-                      ><img
+                    <label for="imgupload"
+                      ><img style="    height: 300px;
+                      width: 300PX;"
                         src="assets/images/default.jpg"
                         class="img-fluid"
-                        *ngIf="imgURL == '' && editimgUrl == ''" />
-                      <img
-                        src="{{ editimgUrl }}"
-                        class="img-fluid"
-                        *ngIf="imgURL == '' && !editimgUrl == ''"
-                    /></label> -->
+                        *ngIf="imgURL == ''"
+                    /></label>
                     <span style="color: red" *ngIf="message">{{
                       message
                     }}</span>
@@ -942,6 +939,7 @@
                           <select
                             class="input-material"
                             name="credit_period_select"
+                            formControlName="credit_period"
                             (change)="credit_period($event.target.value)"
                           >
                             <option value="">Select</option>
@@ -975,13 +973,13 @@
                           class="col-md-4"
                           *ngIf="projectInfo?.credit_period > '45'"
                         >
-                          <input
+                          <!-- <input
                             type="text"
                             formControlName="credit_period"
                             id="credit_period"
                             maxlength="20"
                             name="credit_period"
-                          />
+                          /> -->
                         </div>
                       </div>
                     </div>

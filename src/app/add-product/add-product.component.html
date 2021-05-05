@@ -19,7 +19,7 @@
           <li class="breadcrumb-item">
             <a routerLink="/products">/Product</a>
           </li>
-          <li class="breadcrumb-item active">Add New</li>
+          <li class="breadcrumb-item active" data-dismiss="modal">Add New</li>
         </ul>
       </div>
       <section class="forms pb-5">
@@ -915,7 +915,7 @@
                         <label
                           for="billing_postal_area"
                           class="label-material margin-left"
-                          >Category With File Name  </label
+                          >File Name With Category</label
                         >
                       </div>
                     </div>
@@ -927,11 +927,10 @@
                         <label
                           for="billing_postal_area"
                           class="label-material margin-left"
-                        >
-                        {{
-                          filecattext[i]
-                        }} &nbsp;&nbsp;&nbsp;&nbsp;</label
-                        >&nbsp;&nbsp;&nbsp; {{ file.name }}
+                        >{{ file.name }}
+                        &nbsp;&nbsp;&nbsp;&nbsp;</label
+                        >&nbsp;&nbsp;&nbsp;  
+                       <label  class="label-material margin-left"> {{filecattext[i] }}</label>
                       </div>
                     </div>
                   </div>
