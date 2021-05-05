@@ -50,10 +50,10 @@
                         <input type="submit" name="submit" (click)="clonefun()" value="Clone Product"
                           class="btn btn-default" />
                       </div>
-                      <!--  <div class="form-group text-center">
+                      <!-- <div class="form-group text-center">
                         <a (click)="backClicked()">Back</a
                         >
-                      </div>-->
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -351,13 +351,9 @@
                       </div>
                     </div>
                     <div class="fomr-group row">
-                      <div class="col-md-6 p-3" *ngFor="let doc of productInfo?.productdocs; index as i"
-                        style="font-size: 12px;">
-                        <label for="billing_postal_area"
-                          class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a
-                            href="{{doc_path+'/documents/'+doc?.file_name}}"
-                            target="_blank">{{doc?.file_name}}</a></label>
-
+                      <div class="col-md-6 p-3" *ngFor="let doc of productInfo?.productdocs; index as i" style="font-size: 12px;">
+                          <label for="billing_postal_area" class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a href="{{doc_path+'/projects/documents/'+doc?.file_name}}" download target="_blank">{{doc?.file_name}}</a></label>
+                          
                       </div>
                       <div class="col-md-6 p-3" *ngFor="let file of filesmulti; index as i" style="font-size: 12px;">
                         <label for="billing_postal_area"
