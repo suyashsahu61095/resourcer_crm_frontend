@@ -83,7 +83,7 @@
                             <div class="col-md-4 p-3">
                               <label for="customer" class="label-material">CUSTOMER NAME* :</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 mt-2">
                              <select class="input-material"  name="customer" formControlName="customer" disabled [ngClass]="{ 'is-invalid': submitted && f.customer.errors }">
                                   <option value="">Select</option>
                                   <option *ngFor="let customer of customers; index as i" value="{{customer.id}}" [selected]="true">{{customer.customer_name}}</option>   
@@ -171,7 +171,7 @@
                             <div class="col-md-4 p-3">
                               <label for="project_type" class="label-material">PROJECT TYPE :</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 mt-2">
                               <select class="input-material" disabled name="project_type" formControlName="project_type">
                                 <option value="">Select</option>
                                 <option value="Demolition">Demolition</option> 
@@ -184,7 +184,7 @@
                             <div class="col-md-4 p-3">
                               <label for="project_type" class="label-material">PROJECT STATUS :</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 mt-2">
                               <select class="input-material" disabled name="project_status" formControlName="project_status">
                                 <option value="">Select</option>
                                 <option value="Idea/Planning">Idea/Planning</option>  
@@ -239,7 +239,7 @@
                             <div class="col-md-4 p-3">
                               <label for="project_type" class="label-material">ENVIORMENTAL REPORT :</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 mt-2">
                               <label class="md-check">
                                 <input type="radio" [value]="1" [(ngModel)]="env_report" [checked]="projectInfo?.env_report=='1'" name="env_report" formControlName="env_report">
                                 Yes
@@ -254,7 +254,7 @@
                             <div class="col-md-4 p-3">
                               <label for="project_type" class="label-material">FDV DOCUMENTATION AVAILABLE :</label>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 mt-2">
                               <label class="md-check">
                                 <input type="radio" [value]="1" [(ngModel)]="fdv_document" [checked]="projectInfo?.fdv_document=='1'" name="fdv_document"  formControlName="fdv_document">
                                 Yes
@@ -390,7 +390,7 @@
                             <div class="col-md-4 p-3">
                               <label for="credit_period" class="label-material margin-left">CREDIT PERIOD:</label>
                             </div>
-                            <div class="col-md-8 row">
+                            <div class="col-md-8 row mt-2">
                               <div class="col-md-6">
                                 <select class="input-material" disabled name="credit_period_select"  (change)="credit_period($event.target.value)">
                                   <option value="">Select</option>
@@ -400,7 +400,7 @@
                                   <option value="1" [selected]="projectInfo?.credit_period > '45'">Others</option>
                                 </select>
                               </div>
-                              <div class="col-md-6" *ngIf="projectInfo?.credit_period > '45'">
+                              <div class="col-md-5 row mt-2" *ngIf="projectInfo?.credit_period > '45'">
                                 <input type="text"  formControlName="credit_period" id="credit_period" name="credit_period" readonly >
                               </div>
                             </div>

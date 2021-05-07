@@ -115,7 +115,7 @@
                       <div class="col-md-4 p-3">
                         <label for="project_id" class="label-material">PROJECT NAME* :</label>
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8 mt-1">
                         <select class="input-material" name="project_id" formControlName="project_id" [ngClass]="{
                             'is-invalid': submitted && f.project_id.errors
                           }">
@@ -151,7 +151,7 @@
                       <div class="col-md-4 p-3">
                         <label for="category" class="label-material">CATEGORY :</label>
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8 mt-2">
                         <select class="input-material" formControlName="category" name="category" id="category"
                           [ngClass]="{
                             'is-invalid': submitted && f.category.errors
@@ -218,7 +218,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3 p-3">
+                        <div class="col-md-3 p-2">
                           <select class="input-material" name="unitqnt" formControlName="unitqnt" [ngClass]="{
                               'is-invalid': submitted && f.unitqnt.errors
                             }" class="input-material">
@@ -239,9 +239,9 @@
                         <div class="row">
                           <div class="col-md-3 p-3" style="
                           padding-top: 27px;
-                          margin-top: 13px;
+                          margin-top: 10px;
                       ">
-                            <select  style="margin-top: -220px;"class="input-material" name="unit" formControlName="unit" [ngClass]="{
+                            <select  style="margin-top: -180px;"class="input-material" name="unit" formControlName="unit" [ngClass]="{
                                 'is-invalid': submitted && f.unit.errors
                               }" class="input-material">
                               <option value="">Select Unit</option>
@@ -284,7 +284,7 @@
                             <input type="number" style="width: 100px;"formControlName="width" name="width" min="0" max="999999999" oninput="this.value = 
                                 !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" [ngClass]="{
                                 'is-invalid': submitted && f.width.errors
-                              }" class="input-material" placeholder="Width" />
+                              }" class="input-material" placeholder="" />
                             <div *ngIf="submitted && f.width.errors" class="invalid-feedback">
                               <div *ngIf="f.width.errors.max">
                                 Width should be in range of 0 - 999999999
@@ -329,7 +329,7 @@
                       <div class="col-md-4 p-3">
                         <label for="production_year" class="label-material">PRODUCTION YEAR :</label>
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8 mt-2">
                         <select class="input-material" id="production_year" formControlName="production_year"
                           name="production_year">
                           <option value="">Select</option>
@@ -425,7 +425,7 @@
                       <div class="col-md-4 p-3">
                         <label for="hazardous" class="label-material">HAZARDOUS CONTENT :</label>
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8 mt-2">
                         <select name="hazardous" formControlName="hazardous" [ngClass]="{
                                 'is-invalid': submitted && f.hazardous.errors
                               }" class="input-material">
@@ -526,7 +526,7 @@
                       <div class="col-md-4 p-3">
                         <label for="status" class="label-material">STATUS :</label>
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8 mt-2">
                         <select class="input-material" name="status" selected formControlName="status" [ngClass]="{
                             'is-invalid': submitted && f.status.errors
                           }" class="input-material">

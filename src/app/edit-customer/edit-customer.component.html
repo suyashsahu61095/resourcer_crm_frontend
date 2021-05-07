@@ -103,18 +103,13 @@
                                     <div class="col-md-4 p-3">
                                       <label for="postal_area" class="label-material">COUNTRY :</label>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 mt-2">
                                       <select class="input-material" name="country" >
                                         <!--formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }"-->
                                         <option value="">Select</option>
-                                        <option value="1" [selected]="country == '1'">India</option>
+                                        
                                         <option value="2" [selected]="country == '2'">Norway</option>
-                                        <option value="3" [selected]="country == '3'">France</option>
-                                        <option value="4" [selected]="country == '4'">Italy</option>
-                                        <option value="5" [selected]="country == '5'">UK</option>
-                                        <option value="6" [selected]="country == '6'">Sweden</option>
-                                        <option value="7" [selected]="country == '7'">Germany</option>
-                                        <option value="8" [selected]="country == '8'">Poland</option>
+                                        
                                       </select>
                                       <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                                         <div *ngIf="f.country.errors.required">Country is required</div>
