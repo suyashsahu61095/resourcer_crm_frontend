@@ -12,13 +12,19 @@ developer url: https://bnextitsolutions.com/
 *     GENERAL STYLES
 * ==========================================================
 */
-
+select
+.navbar-brand
 body {
   overflow-x: hidden;
   transition: background-color 0.5s ease;
 }
 
-
+::placeholder
+{
+  font-family: 'Barlow',sans-serif;
+  color: #000;
+  font-size: small;
+}
 a ,
 i,
 span {
@@ -31,7 +37,7 @@ span {
   margin: 0;
   padding: 0;
   outline: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Barlow', sans-serif;
 }
 
 a:hover, a:focus,
@@ -70,7 +76,7 @@ header.page-header {
 table, .table {
   font-size: 18px;
     color: #666;
-    font-family: Barlow;
+    font-family: 'Barlow',sans-serif;
     
   
 }
@@ -180,7 +186,7 @@ input {
 }
 
 .breadcrumb {
-  font-family: Barlow;
+  font-family: 'Barlow',sans-serif;
   background: #e5e5e5;
   position: relative;
   z-index: 7;
@@ -196,13 +202,13 @@ input {
 }
 .breadcrumb li.breadcrumb-item .active {
   color: #aaa;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 18px;
 }
 
 /*=== Helpers ===*/
 .text-bold {
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .text-small {
@@ -454,7 +460,7 @@ nav.side-navbar a[data-toggle="collapse"]::before {
   display: inline-block;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  font-family: 'FontAwesome';
+  font-family: 'Barlow',sans-serif;
   position: absolute;
   top: 50%;
   right: 20px;
@@ -500,7 +506,7 @@ nav.side-navbar .title h1 {
 
 nav.side-navbar .title p {
   font-size: 0.9em;
-  font-weight: 200;
+  font-weight: 400;
   margin-bottom: 0;
   color: #aaa;
 }
@@ -526,7 +532,7 @@ nav.side-navbar ul li a {
   text-decoration: none;
   display: block;
   font-weight: 400;
-  font-family: Barlow;
+  font-family: 'Barlow',sans-serif;
   font-style:normal;
   font-size:18px;
   line-height:24.01px;
@@ -535,7 +541,7 @@ nav.side-navbar ul li a {
 
 nav.side-navbar ul li a:hover {
   color: #2f333e;
-  font-weight:600;
+  font-weight:400;
   font-size: 18px;
   border-left: 4px solid #e5e5e5;
 }
@@ -554,7 +560,7 @@ nav.side-navbar ul li.active > a {
 
 nav.side-navbar ul li li.active > a {
   color: #2f333e;
-  font-weight:600;
+  font-weight:400;
   font-size: 18px;
   
 }
@@ -724,7 +730,7 @@ nav.side-navbar.shrinked ul li a i {
 nav.side-navbar.shrinked ul li.active > a {
     color: #524F4F;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
     font-family: Amiko;
     font-style: normal;
 }
@@ -988,7 +994,7 @@ nav.navbar .dropdown-toggle::after {
   border: none !important;
   content: '\f107';
   vertical-align: baseline;
-  font-family: 'FontAwesome';
+  font-family: 'Barlow',sans-serif;
   margin-left: .3rem;
 }
 
@@ -1040,7 +1046,7 @@ nav.navbar .dropdown-menu span {
 }
 
 nav.navbar .dropdown-menu strong {
-  font-weight: 700;
+  font-weight: 400;
 }
 
 nav.navbar .dropdown-menu .msg-profile {
@@ -1050,7 +1056,7 @@ nav.navbar .dropdown-menu .msg-profile {
 }
 
 nav.navbar .dropdown-menu h3 {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* MAIN NAVBAR MEDIAQUERIES ----------------------------------- */
@@ -1130,7 +1136,7 @@ nav.navbar .dropdown-menu h3 {
 
 
 table.dataTable tbody tr{
-  background:#e5e5e5 !important;
+  background:#f5f5f5 !important;
 }
 
 /*
@@ -1145,7 +1151,7 @@ footer.main-footer {
   background: #e5e5e5;
   color: rgb(0, 0, 0);
   padding: 10px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 footer.main-footer a {
@@ -1174,7 +1180,7 @@ footer.main-footer p {
 
 button, input, optgroup, select, textarea{
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   font-family: "Barlow", sans-serif;
 }
 .form-control {
@@ -1187,21 +1193,21 @@ button, input, optgroup, select, textarea{
 
 .form-control::-moz-placeholder {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   font-family: "Barlow", sans-serif;
   color: #212529;
 }
 
 .form-control::-webkit-input-placeholder {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   font-family: "Barlow", sans-serif;
   color: #212529;
 }
 
 .form-control:-ms-input-placeholder {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   font-family: "Barlow", sans-serif;
   color: #212529;
 }
@@ -1279,7 +1285,7 @@ select.form-control option {
 button, input[type='submit'] {
   cursor: pointer;
   font-family: "Barlow", sans-serif;
-  font-weight: 300 !important;
+  font-weight: 400 !important;
 }
 
 .input-group .dropdown-toggle {
@@ -1322,7 +1328,7 @@ button, input[type='submit'] {
   line-height: 12px;
   text-align: center;
   display: block;
-  font-family: 'FontAwesome';
+  font-family: 'Barlow',sans-serif;
   position: absolute;
   top: 1px;
   left: 1px;
@@ -1366,7 +1372,7 @@ button, input[type='submit'] {
 input.input-material {
   width: 80%;
   border: none;
-  border-bottom: 0.5px solid #727272;
+  border-bottom: 0.5px solid black;
   padding: 18px 10px;
  background-color: #F5F5F5;
   color:#000000;
@@ -1401,7 +1407,7 @@ input.input-material ~ label {
   cursor: text;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 input.input-material ~ label.active {
@@ -1551,7 +1557,7 @@ input.input-material-login:focus {
 .forms form small {
   font-size: 0.8em;
   color: #999;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .forms .line {
@@ -1621,7 +1627,7 @@ input.input-material-login:focus {
 
 .login-page .form-holder .info h1 {
   font-size: 2.5em;
-  font-weight: 600;
+  font-weight: 400;
   font-family: "Barlow", sans-serif;
 }
 
@@ -1712,6 +1718,8 @@ input.input-material-login:focus {
  */
 .navbar {
   padding: 0.5rem 1rem;
+  font-weight: 400;
+  font-family: 'barlow',sans-serif;
 }
 
 .navbar-brand {
@@ -2503,7 +2511,7 @@ h6,
 .h6 {
   margin-bottom: 0.5rem;
   font-family: "Barlow", sans-serif;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.1;
   color: inherit;
 }
@@ -2540,30 +2548,30 @@ h6,
 
 .lead {
   font-size: 1.25rem;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .display-1 {
   font-size: 6rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.1;
 }
 
 .display-2 {
   font-size: 5.5rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.1;
 }
 
 .display-3 {
   font-size: 4.5rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.1;
 }
 
 .display-4 {
   font-size: 3.5rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.1;
 }
 
@@ -3426,4 +3434,9 @@ width:250px; height:500px; top:50px; border:2px solid #e7e7e7; position:fixed; r
    font-weight: 400;
    font-style: normal;
  }
-    
+    .custom{
+      width: 278px;
+    }
+  .table{
+    background-color: #f5f5f5;
+  }
