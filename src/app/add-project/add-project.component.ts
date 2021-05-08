@@ -362,11 +362,13 @@ export class AddProjectComponent implements OnInit {
           if (data.status == "1") {
             Swal.fire(data.project_id, "Project Added Sucessfully", "success");
             this.info = data.message;
+            console.log("id project",data.project)
+            AuthGuard.blocked=false;
+            this.router.navigate(["/view-project/",data.products]);
           } else {
             this.error = data.message;
           }
-          AuthGuard.blocked=false;
-          this.router.navigate(["/view-project/",data.project]);
+        
         },
         (error) => {
           this.error = error;

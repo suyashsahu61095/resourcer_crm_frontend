@@ -15,7 +15,7 @@
       <app-header></app-header>
       <!-- Breadcrumb-->
       <div class="breadcrumb-holder container-fluid">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb" style="    padding-top: 90px;">
           <li class="breadcrumb-item">
             <a routerLink="/projects">/Project</a>
           </li>
@@ -973,6 +973,7 @@
                       <div class="col-md-8 row">
                         <div class="col-md-6">
                           <select
+                          formControlName="credit_period"
                             class="input-material"
                             name="credit_period_select"
                             (change)="credit_period($event.target.value)"
@@ -1003,7 +1004,7 @@
                         <label
                           for="billing_postal_area"
                           class="label-material margin-left"
-                          >FILE NAME - CATEGORY</label
+                          >File Name With Category</label
                         >
                       </div>
                     </div>
@@ -1097,13 +1098,8 @@
             ></span
           >
           <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
+            <div class="progress-bar" style="width:1000px;background-color: #8f979f;" role="progressbar"
+              aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
           </div>
         </div>
       </div>

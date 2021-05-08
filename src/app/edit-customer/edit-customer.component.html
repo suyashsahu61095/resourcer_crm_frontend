@@ -16,7 +16,7 @@
       <app-header></app-header>
       <!-- Breadcrumb-->
           <div class="breadcrumb-holder container-fluid">
-              <ul class="breadcrumb">
+              <ul class="breadcrumb"  style="    padding-top: 90px;">
                   <li class="breadcrumb-item"><a routerLink="/customers">Customer</a></li>
                   <li class="breadcrumb-item"><a routerLink="/view-customer/{{customerInfo?.id}}">{{customerInfo?.customer_id}}</a></li>
                   <li class="breadcrumb-item active">Edit</li>
@@ -31,7 +31,7 @@
                                 <div class="col-sm-5" style="margin:auto;">
                                   <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
                                     <label for='imgupload'><img src="assets/images/default.jpg" class="img-fluid" *ngIf="imgURL== '' && editimgUrl == ''"></label>
-                                    <label for='imgupload'><img src="{{editimgUrl}}" class="img-fluid" *ngIf="imgURL== '' && !editimgUrl == ''" height="200" ></label>
+                                    <!-- <label for='imgupload'><img src="{{editimgUrl}}" class="img-fluid" *ngIf="imgURL == ''" height="200" ></label> -->
                                     <span style="color:red;" *ngIf="message">{{message}}</span>
                                     <input type="file" id="imgupload" accept='image/*' (change)="preview($event.target.files)" style="display:none" />
                                     <br/> <br/>
@@ -44,7 +44,7 @@
                                    <br/>
                                     <div class="form-group row">
                                       <div class="col-md-4 p-3">
-                                        <label for="customerName" class="label-material">CUSTOMER NAME*:</label>
+                                        <label for="customerName" class="label-material">CUSTOMER NAME *:</label>
                                       </div>
                                       <div class="col-md-8">
                                         <input type="text" formControlName="customerName" name="customerName" [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" class="input-material">
@@ -103,18 +103,13 @@
                                     <div class="col-md-4 p-3">
                                       <label for="postal_area" class="label-material">COUNTRY :</label>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 mt-2">
                                       <select class="input-material" name="country" >
                                         <!--formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }"-->
                                         <option value="">Select</option>
-                                        <option value="1" [selected]="country == '1'">India</option>
+                                        
                                         <option value="2" [selected]="country == '2'">Norway</option>
-                                        <option value="3" [selected]="country == '3'">France</option>
-                                        <option value="4" [selected]="country == '4'">Italy</option>
-                                        <option value="5" [selected]="country == '5'">UK</option>
-                                        <option value="6" [selected]="country == '6'">Sweden</option>
-                                        <option value="7" [selected]="country == '7'">Germany</option>
-                                        <option value="8" [selected]="country == '8'">Poland</option>
+                                        
                                       </select>
                                       <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                                         <div *ngIf="f.country.errors.required">Country is required</div>

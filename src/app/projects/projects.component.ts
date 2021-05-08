@@ -129,8 +129,7 @@ export class ProjectsComponent implements OnDestroy, OnInit {
     this.gridView = true;
     this.listView = false;
     this.userService.searchProject(value).pipe(first()).subscribe(data => {
-        this.loading = false;
-        this.loadingData = false;
+     
         this.projectslist = data.projects;
         this.image_base_path = data.image_base_path;
     }); 

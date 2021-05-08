@@ -18,17 +18,14 @@
       <section class="forms bg-white py-5">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12 main">
+            <div class="col-md-12 main" style="
+            padding-top: 55px;
+        ">
               <p class="pagecrumb-title">/Projects</p>
               <div class="form-group has-search">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input
-                  type="text"
-                  name="search"
-                  class="form-control"
-                  placeholder="Search"
-                  (input)="search($event.target.value)"
-                />
+                <input type="text" name="search" class="form-control" placeholder="Search"
+                  (input)="search($event.target.value)" />
               </div>
             </div>
           </div>
@@ -40,23 +37,14 @@
             <div class="col-md-12 main" *ngIf="!projectInfo">
               <div class="form-group has-search">
                 <span style="float: right">
-                  <a (click)="viewType('list')" href="javascript:void(0);"
-                    ><span class="fa fa-list"></span
-                  ></a>
+                  <a (click)="viewType('list')" href="javascript:void(0);"><span class="fa fa-list"></span></a>
                   &nbsp;
-                  <a (click)="viewType('grid')" href="javascript:void(0);"
-                    ><span class="fa fa-th"></span
-                  ></a>
+                  <a (click)="viewType('grid')" href="javascript:void(0);"><span class="fa fa-th"></span></a>
                 </span>
               </div>
             </div>
             <div class="col-md-12" *ngIf="listView">
-              <table
-                class="table table-hover"
-                datatable
-                [dtOptions]="dtOptions"
-                width="100%"
-              >
+              <table class="table table-hover" datatable [dtOptions]="dtOptions" width="100%">
                 <thead>
                   <tr>
                     <th style="background: unset">#</th>
@@ -84,60 +72,48 @@
                           <tr *ngIf="projects.length == 0">
                             <td class="text-center" colspan="8">No Projects Found</td>
                           </tr> -->
-                      <!-- </tbody> -->
+                <!-- </tbody> -->
               </table>
             </div>
-                <div class="col-md-12 mb-4" *ngIf="!projectInfo && gridView">
-                  <div class="">
-                    <div class="">
-                      <div class="row">
-                        <div class="col-md-3 p-2" *ngFor="let project of projectslist; index as i">
-                          <div class="card p-2 text-center" style="border-radius: 10px;">
-                            <a href="javascript:void();" routerLink="/view-project/{{project.id}}"
-                            *ngIf="project.project_image"
-                            >
-                              <img src="{{image_base_path}}/{{project.project_image}}"
-                                class="card-img-top" 
-                                height="227px"
-                                width="283px"
-                                style="border-radius: 10px"
-                              >
-                            </a>
-                            <a href="javascript:void();" routerLink="/view-project/{{project.id}}"
-                            *ngIf="!project.project_image">
-                              <img src="assets/images/default.jpg"
-                                class="card-img-top" 
-                                height="227px"
-                                width="283px"
-                                style="border-radius: 10px"
-                              >
-                            </a>                       
-                          </div>  
-                          <div class="p-2">
-                            <h5 class="card-title"><a href="javascript:void();" routerLink="/view-project/{{project.id}}" style="word-break: break-all;">{{project.project_name}}</a></h5>
-                          </div>
-                          
-                        </div>
-                        <div style="justify-content: center;">
-                        <div *ngIf="projectslist.length === 0" style="justify-content: center;
+            <div class="col-md-12 mb-4" *ngIf="!projectInfo && gridView">
+              <div class="">
+                <div class="">
+                  <div class="row">
+                    <div class="col-md-3 p-2" *ngFor="let project of projectslist; index as i">
+                      <div class="card p-2 text-center" style="border-radius: 10px;">
+                        <a href="javascript:void();" routerLink="/view-project/{{project.id}}"
+                          *ngIf="project.project_image">
+                          <img src="{{image_base_path}}/{{project.project_image}}" class="card-img-top" height="227px"
+                            width="283px" style="border-radius: 10px">
+                        </a>
+                        <a href="javascript:void();" routerLink="/view-project/{{project.id}}"
+                          *ngIf="!project.project_image">
+                          <img src="assets/images/default.jpg" class="card-img-top" height="227px" width="283px"
+                            style="border-radius: 10px">
+                        </a>
+                      </div>
+                      <div class="p-2">
+                        <h5 class="card-title"><a href="javascript:void();" routerLink="/view-project/{{project.id}}"
+                            style="word-break: break-all;">{{project.project_name}}</a></h5>
+                      </div>
+
+                    </div>
+                    <div style="justify-content: center;">
+                      <div *ngIf="projectslist.length === 0" style="justify-content: center;
                         padding: 25px;
                         display: flex;">No matching records found</div>
-                      </div>
                     </div>
-                    </div>
-                  </div>
-                  <div class="text-center">
-                    <button
-                      (click)="loadMore()"
-                      *ngIf="loadmoreflag"
-                      class="btn btn-load"
-                    >
-                      Show More
-                    </button>
                   </div>
                 </div>
-              
-            
+              </div>
+              <div class="text-center">
+                <button (click)="loadMore()" *ngIf="loadmoreflag" class="btn btn-secondary btn-lg btn-secondary custom">
+                  Show More
+                </button>
+              </div>
+            </div>
+
+
           </div>
         </div>
       </section>

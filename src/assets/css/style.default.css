@@ -31,7 +31,7 @@ span {
   margin: 0;
   padding: 0;
   outline: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Barlow", sans-serif;
 }
 
 a:hover, a:focus,
@@ -70,7 +70,7 @@ header.page-header {
 table, .table {
   font-size: 18px;
     color: #666;
-    font-family: Barlow;
+    font-family: "Barlow", sans-serif;
     
   
 }
@@ -180,7 +180,7 @@ input {
 }
 
 .breadcrumb {
-  font-family: Barlow;
+  font-family: "Barlow", sans-serif;
   background: #e5e5e5;
   position: relative;
   z-index: 7;
@@ -526,7 +526,7 @@ nav.side-navbar ul li a {
   text-decoration: none;
   display: block;
   font-weight: 400;
-  font-family: Barlow;
+  font-family:"Barlow", sans-serif;
   font-style:normal;
   font-size:18px;
   line-height:24.01px;

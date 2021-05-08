@@ -24,7 +24,7 @@ export class DownloadPdfComponent implements OnInit {
 
   public downloadAsPDF() {
     const doc = new jsPDF();
-
+console.log("download")
     const specialElementHandlers = {
       '#editor': function (element, renderer) {
         return true;
