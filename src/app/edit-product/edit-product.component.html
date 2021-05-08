@@ -15,7 +15,7 @@
       <app-header></app-header>
       <!-- Breadcrumb-->
       <div class="breadcrumb-holder container-fluid">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb"  style="    padding-top: 90px;">
           <li class="breadcrumb-item"><a routerLink="/products">Product</a></li>
           <li class="breadcrumb-item">
             <a routerLink="/view-product/productInfo?.id">{{
@@ -37,12 +37,13 @@
                       ><img
                         src="assets/images/default.jpg"
                         class="img-fluid"
-                        *ngIf="imgURL == '' && editimgUrl == ''" />
-                      <img
+                        *ngIf="imgURL == ''" />
+                      <!-- <img
                         src="{{ editimgUrl }}"
                         class="img-fluid"
-                        *ngIf="imgURL == '' && !editimgUrl == ''"
-                    /></label>
+                        *ngIf="imgURL == ''"
+                    /> -->
+                  </label>
                     <span style="color: red" *ngIf="message">{{
                       message
                       }}</span>
