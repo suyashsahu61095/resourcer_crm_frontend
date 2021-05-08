@@ -15,7 +15,7 @@
       <app-header></app-header>
       <!-- Breadcrumb-->
       <div class="breadcrumb-holder container-fluid">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb"  style="    padding-top: 90px;">
           <li class="breadcrumb-item">
             <a routerLink="/projects">Project list</a>
           </li>
@@ -52,7 +52,9 @@
                     />
                     <br />
                     <br />
-                    <img [src]="imgURL" height="200" *ngIf="imgURL" />
+                    <label for="imgupload"
+                      ><img [src]="imgURL" height="200" *ngIf="imgURL"
+                    /></label>
                   </div>
                   <div class="col-sm-7">
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
@@ -963,7 +965,7 @@
                             </option>
                             <option
                               value="1"
-                              [selected]="projectInfo?.credit_period > '45'"
+                              [selected]="projectInfo?.credit_period > 45"
                             >
                               Others
                             </option>
@@ -971,15 +973,16 @@
                         </div>
                         <div
                           class="col-md-4"
-                          *ngIf="projectInfo?.credit_period > '45'"
+                          *ngIf="projectInfo?.credit_period > 45"
                         >
-                          <!-- <input
+                          <input
                             type="text"
                             formControlName="credit_period"
                             id="credit_period"
                             maxlength="20"
                             name="credit_period"
-                          /> -->
+                            class="input-material"
+                          />
                         </div>
                       </div>
                     </div>

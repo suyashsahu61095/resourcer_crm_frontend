@@ -16,7 +16,7 @@
     <app-header></app-header>
       <!-- Breadcrumb-->
           <div class="breadcrumb-holder container-fluid">
-              <ul class="breadcrumb">
+              <ul class="breadcrumb" style="    padding-top: 90px;">
                   <li class="breadcrumb-item"><a routerLink="/customers">/ Customer</a></li>
                   <li class="breadcrumb-item active">Add Customer</li>
               </ul>
@@ -179,7 +179,8 @@
                                         <label for="note" class="label-material">NOTES:</label>
                                       </div>
                                       <div class="col-md-7">
-                                        <textarea formControlName="note" name="note" class="form-control" rows="7" maxlength="1000"></textarea>
+                                        <textarea style="    background-color: #ffffff;
+                                        border: 1px solid #F5F5F5;" formControlName="note" name="note" class="form-control" rows="7" maxlength="1000"></textarea>
                                         <!-- <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
                                           <div *ngIf="f.note.errors.required">Note is required</div>
                                         </div> -->

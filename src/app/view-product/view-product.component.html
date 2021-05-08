@@ -15,7 +15,7 @@
       <app-header></app-header>
       <!-- Breadcrumb-->
       <div class="breadcrumb-holder container-fluid">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb"  style="    padding-top: 90px;">
           <li class="breadcrumb-item">
             <a routerLink="/products">/Product</a>
           </li>
@@ -303,24 +303,41 @@
                       </div>
                       <div class="col-md-8">
                         <input formControlName="price_new_product" type="text" readonly value="{{
-                            productInfo?.price_new_product | priceDelimiter: 3
+                            productInfo?.price_new_product| priceDelimiter: 3 
                           }}" class="input-material" />
-                      </div>
+                       </div><!--| priceDelimiter: 3-->
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
                         <label for="status" class="label-material">STATUS :</label>
                       </div>
                       <div class="col-md-8">
-
-
-
-                        <label class="md-check" formControlName="status" *ngIf="productInfo?.status == 1">AVAILABLE
+                        <label style="width: 80%;
+                        border: none;
+                        border-bottom: 0.5px solid #727272;
+                        padding: 18px 10px;
+                        background-color: #F5F5F5;
+                        color: #000000;" formControlName="status" *ngIf="productInfo?.status == 1">AVAILABLE
                           ONSITE</label>
-                        <label class="md-check" formControlName="status" *ngIf="productInfo?.status == 2">AVAILABLE FROM
+                        <label  style="width: 80%;
+                        border: none;
+                        border-bottom: 0.5px solid #727272;
+                        padding: 18px 10px;
+                        background-color: #F5F5F5;
+                        color: #000000;" formControlName="status" *ngIf="productInfo?.status == 2">AVAILABLE FROM
                           STORAGE</label>
-                        <label class="md-check" formControlName="status" *ngIf="productInfo?.status == 3">SOLD</label>
-                        <label class="md-check" formControlName="status"
+                        <label style="width: 80%;
+                        border: none;
+                        border-bottom: 0.5px solid #727272;
+                        padding: 18px 10px;
+                        background-color: #F5F5F5;
+                        color: #000000;"formControlName="status" *ngIf="productInfo?.status == 3">SOLD</label>
+                        <label style="width: 80%;
+                        border: none;
+                        border-bottom: 0.5px solid #727272;
+                        padding: 18px 10px;
+                        background-color: #F5F5F5;
+                        color: #000000;" formControlName="status"
                           *ngIf="productInfo?.status == 4">UNAVAILABLE</label>
                       </div>
                     </div>
@@ -344,22 +361,23 @@
                           }}" class="input-material" />
                       </div>
                     </div>
+
                     <div class="form-group row" *ngIf="productInfo?.productdocs">
-                      <div class="col-md-6 p-3">
-                        <label for="billing_postal_area" class="label-material margin-left"> File Name With Category 
-                        </label>
+                      <div class="col-md-4 p-3">
+                        <label for="billing_postal_area" class="label-material">CATEGORY WITH FILE NAME :</label>
                       </div>
-                    </div>
-                    <div class="fomr-group row">
-                      <div class="col-md-6 p-3" *ngFor="let doc of productInfo?.productdocs; index as i" style="font-size: 12px;">
-                          <label for="billing_postal_area" class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a href="{{doc_path+'/projects/documents/'+doc?.file_name}}" download target="_blank">{{doc?.file_name}}</a></label>
-                          
-                      </div>
+
+                      <div class="col-md-8" style="
+                      padding-top: 12px;
+                  " *ngFor="let doc of productInfo?.productdocs; index as i" >
+                        <label for="billing_postal_area" class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a href="{{'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products/'+doc?.file_name}}"  target="_blank">{{doc?.file_name}}</a></label>
+                      
                       <div class="col-md-6 p-3" *ngFor="let file of filesmulti; index as i" style="font-size: 12px;">
                         <label for="billing_postal_area"
                           class="label-material margin-left">{{file.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{filecattext[i]}}
                         </label>&nbsp;&nbsp;&nbsp;
                       </div>
+                    </div>
                     </div>
                   </div>
                 </div>
