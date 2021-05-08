@@ -33,16 +33,13 @@
                 <div class="row">
                   <div class="col-sm-5" style="margin: auto">
                     <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
-                    <!-- <label for="imgupload"
-                      ><img
+                    <label for="imgupload"
+                      ><img style="    height: 300px;
+                      width: 300PX;"
                         src="assets/images/default.jpg"
                         class="img-fluid"
-                        *ngIf="imgURL == '' && editimgUrl == ''" />
-                      <img
-                        src="{{ editimgUrl }}"
-                        class="img-fluid"
-                        *ngIf="imgURL == '' && !editimgUrl == ''"
-                    /></label> -->
+                        *ngIf="imgURL == ''"
+                    /></label>
                     <span style="color: red" *ngIf="message">{{
                       message
                       }}</span>
@@ -586,8 +583,17 @@
                       </div>
                       <div class="col-md-8 row mt-2">
                         <div class="col-md-4">
+<<<<<<< HEAD
                           <select class="input-material" name="credit_period_select"
                             (change)="credit_period($event.target.value)">
+=======
+                          <select
+                            class="input-material"
+                            name="credit_period_select"
+                            formControlName="credit_period"
+                            (change)="credit_period($event.target.value)"
+                          >
+>>>>>>> d10ce0332d3533bc914daa353911709056f28f04
                             <option value="">Select</option>
                             <option value="14" [selected]="projectInfo?.credit_period == '14'">
                               14 Days
@@ -603,9 +609,23 @@
                             </option>
                           </select>
                         </div>
+<<<<<<< HEAD
                         <div class="col-md-4" *ngIf="projectInfo?.credit_period > '45'">
                           <input type="text" formControlName="credit_period" id="credit_period" maxlength="20"
                             name="credit_period" />
+=======
+                        <div
+                          class="col-md-4"
+                          *ngIf="projectInfo?.credit_period > '45'"
+                        >
+                          <!-- <input
+                            type="text"
+                            formControlName="credit_period"
+                            id="credit_period"
+                            maxlength="20"
+                            name="credit_period"
+                          /> -->
+>>>>>>> d10ce0332d3533bc914daa353911709056f28f04
                         </div>
                       </div>
                     </div>

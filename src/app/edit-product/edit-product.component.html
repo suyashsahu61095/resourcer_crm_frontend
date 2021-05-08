@@ -33,7 +33,7 @@
                 <div class="row">
                   <div class="col-sm-5" style="margin: auto">
                     <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
-                    <!-- <label for="imgupload"
+                    <label for="imgupload"
                       ><img
                         src="assets/images/default.jpg"
                         class="img-fluid"
@@ -42,7 +42,7 @@
                         src="{{ editimgUrl }}"
                         class="img-fluid"
                         *ngIf="imgURL == '' && !editimgUrl == ''"
-                    /></label> -->
+                    /></label>
                     <span style="color: red" *ngIf="message">{{
                       message
                       }}</span>
