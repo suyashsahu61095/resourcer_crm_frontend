@@ -317,6 +317,8 @@ export class ProductsComponent implements OnDestroy, OnInit {
     // this.listView = true;
     // this.gridView = false;
     if(this.listView==true){
+      this.listView = true;
+      this.gridView= false;
       console.log("called list")
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.search(value);
@@ -325,10 +327,11 @@ export class ProductsComponent implements OnDestroy, OnInit {
   }else{
     console.log("calledcgrid")
     this.gridView = true;
+    this.listView = false;
     this.userService.searchProduct(value).pipe(first()).subscribe(data => {
         this.loading = false;
         this.loadingData = false;
-        this.products = data.products;
+        this.productslist = data.products;
         this.image_base_path = data.image_base_path;
     });
   }
@@ -578,7 +581,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
       this.PDFProduct = this.PDFProduct.filter(function (s) {
         return s !== event.target.value;
       });
-    }
+    } 
   }
 
   genratePDF() {
@@ -592,7 +595,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
         console.log(data);
         localStorage.setItem("pdfData", data.html);
         // this.router.navigate(['/download-catalog']);
-        window.open("/download-catalog", "_blank");
+        window.open("/download-catalog","download");
       });
   }
 

@@ -318,7 +318,7 @@ export class AddProductComponent implements OnInit {
             AuthGuard.blocked=false;
             this.router.navigate(["/view-product/",data.products]);
           } else if (this.addnew) {
-            this.productForm = this.formBuilder.group({
+            this.productForm = this.formBuilder.group({ 
               product_name: ["", Validators.required],
               project_id: (this.route.snapshot.queryParams['param_id']) ? this.route.snapshot.queryParams['param_id'] : ['', Validators.required],
               description: [""],
