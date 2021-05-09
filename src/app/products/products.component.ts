@@ -59,6 +59,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
   product_category_count: any;
   status_types: any;
   term: string;
+  termc: string;
   filter_record;
   totalrecord;
   PDFProduct = [];

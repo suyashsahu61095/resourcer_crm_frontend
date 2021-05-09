@@ -83,6 +83,11 @@
                       <div class="card p-2 text-center" style="border-radius: 10px;">
                         <a href="javascript:void();" routerLink="/view-project/{{project.id}}"
                           *ngIf="project.project_image">
+                          <div class="overlay"  >
+                            <a href="#" *ngIf="project.projectdocs.length != 0" class="icon" title="User Profile">
+                              <i class="fa fa-paperclip"></i>
+                            </a>
+                          </div>
                           <img src="{{image_base_path}}/{{project.project_image}}" class="card-img-top" height="227px"
                             width="283px" style="border-radius: 10px">
                         </a>
@@ -106,8 +111,9 @@
                   </div>
                 </div>
               </div>
-              <div class="text-center">
-                <button (click)="loadMore()" *ngIf="loadmoreflag" class="btn btn-secondary btn-lg btn-secondary custom">
+              <div class="text-center"  style="display: flex;
+              justify-content: center;">
+                <button (click)="loadMore()" *ngIf="loadmoreflag"  style="background-color: #e5e5e5; " class="btn btn-secondary btn-lg btn-secondary custom">
                   Show More
                 </button>
               </div>

@@ -7,6 +7,8 @@ import { User } from "@app/_models";
 import { UserService, AuthenticationService } from "@app/_services";
 declare var $: any;
 
+import { AuthGuard } from "@app/_helpers";
+
 @Component({
   selector: "app-edit-project",
   templateUrl: "./edit-project.component.html",
@@ -475,8 +477,9 @@ export class EditProjectComponent implements OnInit {
           } else {
             this.error = data.message;
           }
-          
-          this.router.navigate(["/projects"]);
+          AuthGuard.blocked=false;
+          this.router.navigate(["/view-project/",data.products]);
+          // this.router.navigate(["/projects"]);
         },
         (error) => {
           this.error = error;

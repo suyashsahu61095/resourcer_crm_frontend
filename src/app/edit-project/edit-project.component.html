@@ -38,8 +38,12 @@
                       width: 300PX;"
                         src="assets/images/default.jpg"
                         class="img-fluid"
-                        *ngIf="imgURL == ''"
-                    /></label>
+                        *ngIf="imgURL== '' && editimgUrl == ''"
+                    />  <img
+                    src="{{ editimgUrl }}"
+                    class="img-fluid"
+                    *ngIf="imgURL == ''"
+                /></label>
                     <span style="color: red" *ngIf="message">{{
                       message
                     }}</span>
@@ -67,7 +71,7 @@
                           type="submit"
                           name="submit"
                           value="Update"
-                          class="btn btn-default"
+                          class="btn btn-secondary"
                         />
                       </div>
                       <div class="form-group text-center">
@@ -584,7 +588,7 @@
                           >ENVIORMENTAL REPORT :</label
                         >
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8" style="    top: 15px;">
                         <label class="md-check">
                           <input
                             type="radio"
@@ -615,7 +619,7 @@
                           >FDV DOCUMENTATION AVAILABLE :</label
                         >
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8"  style="    top: 15px;">
                         <label class="md-check">
                           <input
                             type="radio"
@@ -646,7 +650,7 @@
                           >ENVIORMENTAL AMBITION :</label
                         >
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8" style= "  top: -10px;"  >
                         <input
                           type="text"
                           formControlName="ambition"
@@ -662,7 +666,7 @@
                           >PROJECT START DATE :</label
                         >
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8" style=" left: -14px;    top: 6px;">
                         <div
                           class="input-group date fulldate col-md-5"
                           data-date=""
@@ -673,6 +677,7 @@
                           <input
                             class="form-control"
                             size="16"
+                            style="color: #000000;    border-bottom: 0.5px solid #727272; " 
                             type="text"
                             id="project_start_date"
                             formControlName="project_start_date"
@@ -692,7 +697,7 @@
                           >PROJECT CATALOGUE DELIVERY DATE :</label
                         >
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8" style=" left: -14px; top: 6px;">
                         <div
                           class="input-group date fulldate col-md-5"
                           data-date-format="yyyy.mm.dd"
@@ -702,6 +707,7 @@
                           <input
                             class="form-control"
                             size="16"
+                            style="color: #000000;    border-bottom: 0.5px solid #727272; "
                             type="text"
                             id="project_catalog_date"
                             formControlName="project_catalog_date"
@@ -721,7 +727,7 @@
                           >PROJECT AVAILABILITY START DATE :</label
                         >
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8" style="   left: -14px; top: 6px;">
                         <div
                           class="input-group date fulldate col-md-5"
                           data-date-format="yyyy.mm.dd"
@@ -731,6 +737,7 @@
                           <input
                             class="form-control"
                             size="16"
+                            style="color: #000000;     border-bottom: 0.5px solid #727272;"
                             type="text"
                             id="project_avail_date"
                             formControlName="project_avail_date"
@@ -752,7 +759,7 @@
                           >PROJECT AVAILABILITY END DATE :</label
                         >
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8" style="   left: -14px; top: 6px;">
                         <div
                           class="input-group date fulldate col-md-5"
                           data-date-format="yyyy.mm.dd"
@@ -762,6 +769,7 @@
                           <input
                             class="form-control"
                             size="16"
+                            style="color: #000000;     border-bottom: 0.5px solid #727272;" 
                             type="text"
                             id="project_avail_end_date"
                             formControlName="project_avail_end_date"
@@ -965,7 +973,7 @@
                             </option>
                             <option
                               value="1"
-                              [selected]="projectInfo?.credit_period > 45"
+                              [selected]="projectInfo?.credit_period"
                             >
                               Others
                             </option>
@@ -973,7 +981,7 @@
                         </div>
                         <div
                           class="col-md-4"
-                          *ngIf="projectInfo?.credit_period > 45"
+                          *ngIf="projectInfo?.credit_period"
                         >
                           <input
                             type="text"
@@ -988,13 +996,13 @@
                     </div>
                     <div
                       class="form-group row"
-                      *ngIf="projectInfo?.projectdocs.length > 0"
+                      *ngIf="projectInfo?.projectdocs"
                     >
                       <div class="col-md-6 p-3">
                         <label
-                          for="billing_postal_area"
+                          for="projectdocs"
                           class="label-material margin-left"
-                          >FILE NAME - CATEGORY</label
+                          >Category - File Name</label
                         >
                       </div>
                     </div>
@@ -1002,23 +1010,23 @@
                       class="form-group row"
                       *ngFor="let doc of projectInfo?.projectdocs; index as i"
                     >
-                      <div class="col-md-6 p-3" style="font-size: 12px">
+                      <div class="col-md-6 p-3" style="font-size: 12px;">
                         <label
-                          for="billing_postal_area"
+                          for="projectdocs"
                           class="label-material margin-left"
                           ><a
-                            href="{{
-                              doc_path + '/documents/' + doc?.file_name
-                            }}"
-                            target="_blank"
-                            >{{ doc?.file_name }}</a
-                          >&nbsp;&nbsp;<a
-                            href="{{
-                              doc_path + '/documents/' + doc?.file_name
-                            }}"
-                            target="_blank"
-                            >{{ doc?.project_category?.category_name }}</a
-                          ></label
+                          href="{{
+                            doc_path + '/documents/' + doc?.file_name
+                          }}"
+                          target="_blank"
+                          >{{ doc?.project_category?.category_name }}</a
+                        >&nbsp;&nbsp;<a
+                          href="{{
+                            doc_path + '/documents/' + doc?.file_name
+                          }}"
+                          target="_blank"
+                          >{{ doc?.file_name }}</a
+                        ></label
                         >&nbsp;&nbsp;&nbsp;
                         <label
                           ><a
@@ -1032,13 +1040,13 @@
                       class="form-group row"
                       *ngFor="let file of filesmulti; index as i"
                     >
-                      <div class="col-md-6 p-3" style="font-size: 12px">
+                      <div class="col-md-6 p-3" style="font-size: 12px ">
                         <label
                           for="billing_postal_area"
                           class="label-material margin-left"
-                          >{{ file.name }}&nbsp;&nbsp;&nbsp;&nbsp;{{
+                          >{{
                             filecattext[i]
-                          }} </label
+                          }}&nbsp;&nbsp;&nbsp;&nbsp;{{ file.name }} </label
                         >&nbsp;&nbsp;&nbsp;
                       </div>
                     </div>
@@ -1118,13 +1126,8 @@
             ></span
           >
           <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
+            <div class="progress-bar" style="width:1000px;background-color: #8f979f;" role="progressbar"
+              aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
           </div>
         </div>
       </div>

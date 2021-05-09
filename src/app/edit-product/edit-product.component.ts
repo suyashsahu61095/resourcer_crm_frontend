@@ -255,7 +255,7 @@ export class EditProductComponent implements OnInit {
     //this.formData.append('data', JSON.stringify(this.customerForm.value));
     console.log(this.filemultiUpload);
     var formData = new FormData();
-    if (this.fileToUpload) {
+    if (this.filesmulti) {
       if (this.filesmulti.length > 0) {
         for (var i = 0; i < this.filesmulti.length; i++) {
           formData.append("imagemultiFile[]", this.filesmulti[i]);
@@ -484,5 +484,47 @@ export class EditProductComponent implements OnInit {
         }
       );
    
+  }
+  deletedoc(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.userService
+            .deleteProductDoc(id)
+            .pipe(first())
+            .subscribe((data) => {
+              this.loading = false;
+              if (data.status == "1") {
+                this.productInfo.pr;
+                this.productInfo.productdocs.forEach((item, index) => {
+                  if (item.id === id)
+                    this.productInfo.productdocs.splice(index, 1);
+                });
+                Swal.fire("", data.message, "success");
+              }
+            });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+        }
+      });
   }
 }

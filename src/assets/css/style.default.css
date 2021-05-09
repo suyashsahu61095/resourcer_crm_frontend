@@ -118,7 +118,7 @@ table, .table {
 .content-inner {
   position: relative;
   width: calc(100% - 0px);
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 0px);
   padding-bottom: 60px;
 }
 
@@ -1130,7 +1130,8 @@ nav.navbar .dropdown-menu h3 {
 
 
 table.dataTable tbody tr{
-  background:#e5e5e5 !important;
+  /* background:#e5e5e5 !important; */
+  background: #f4f5f6 !important;
 }
 
 /*
@@ -1140,7 +1141,7 @@ table.dataTable tbody tr{
 */
 footer.main-footer {
   position: absolute;
-  /* bottom: 0; */
+  bottom: 0;
   width: 100%;
   background: #e5e5e5;
   color: rgb(0, 0, 0);
@@ -1378,9 +1379,9 @@ select.input-material {
 
   width: 80%;
   border: none;
-  border-bottom: 0.5px solid #000000;
+  border-bottom: 0.5px solid #727272;
   
-  padding: 14px 4px;
+  padding: 23px 4px;
   background: #F5F5F5;
   color:black;
 }

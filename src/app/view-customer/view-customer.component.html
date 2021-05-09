@@ -82,9 +82,8 @@
                           <label for="postal_area" class="label-material">COUNTRY :</label>
                         </div>
                         <div class="col-md-8 mt-2">
-                          <select class="input-material" name="country">
+                          <select class="input-material" name="country" disabled>
                             <!-- [ngClass]="{ 'is-invalid': submitted && f.country.errors }"-->
-                            <option value="">Select</option>
                             <option value="1" [selected]="customerDetails?.country == '2'">Norway</option>
                            
                           </select>

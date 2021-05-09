@@ -14,7 +14,7 @@
       <!-- Main Navbar-->
       <app-header></app-header>
       <!-- Forms Section-->
-      <section class="forms bg-white py-5">
+      <section class="forms bg-white py-4">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 main" style="
@@ -87,9 +87,30 @@
                 </div>
                 <div id="collapse0" class="panel-collapse collapse">
                   <ul class="list-group">
-                    <!--- <li class="list-group-item px-2">
+                    <li class="list-group-item">
+                      <input style="width: 161px;
+                      font-size: 15px;
+                      font-weight: 400;
+                      font-style: normal; "type="text" placeholder="Search" [(ngModel)]="termc" />
+                    </li>
+                    <!--  <li class="list-group-item px-2"><input type="checkbox" name="projectselectall" value="1" (click)="projectSelect($event)"> Select All</li> -->
+
+                    <li class="list-group-item" *ngFor="let customer of customers | filter: termc">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="customers" value="{{ customer.id  }}"
+                            [(ngModel)]="customer.isChecked"  (click)="showProject($event)"  />
+                            {{ customer.customer_name }}
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <div id="collapse0" class="panel-collapse collapse">
+                  <ul class="list-group">
+             <li class="list-group-item px-2">
                             <input type="checkbox" name="customerselectall" value="1" (click)="custmerSelect($event)"> Select All</li> --->
-                    <li class="list-group-item" *ngFor="let customer of customers; index as i">
+                    <!-- <li class="list-group-item" *ngFor="let customer of customers; index as i">
                       <div class="checkbox">
                         <label>
                           <input type="checkbox" name="customers" [(ngModel)]="customer.isChecked"
@@ -98,8 +119,9 @@
                         </label>
                       </div>
                     </li>
-                  </ul>
-                </div>
+                  </ul> -->
+                <!-- </div>  -->
+               
                 <div class="panel-heading py-2">
                   <h6 class="panel-title">
                     <a data-toggle="collapse" href="#collapse01">
@@ -218,11 +240,12 @@
                       <div class="card p-2 text-center" style="border-radius: 10px">
                         <a href="javascript:void();" routerLink="/view-product/{{ product?.id }}"
                           *ngIf="product.product_image">
-                          <div class="overlay">
-                            <a href="#" class="icon" title="User Profile">
+                          <div class="overlay"  >
+                            <a href="#" *ngIf="product.productdocs.length != 0" class="icon" title="User Profile">
                               <i class="fa fa-paperclip"></i>
                             </a>
-                          </div><img src="{{ image_base_path }}/{{
+                          </div>
+                          <img src="{{ image_base_path }}/{{
                               product.product_image
                             }}" class="card-img-top" alt="..." height="227px" width="283px"
                             style="border-radius: 10px" />
@@ -239,8 +262,9 @@
                       </div>
                     </div>
                   </div>
-                  <div class="text-center">
-                    <button (click)="loadMore()" *ngIf="loadmoreflag" class="btn btn-load">
+                  <div class="text-center"  style="display: flex;
+                  justify-content: center;">
+                    <button (click)="loadMore()" style="background-color: #e5e5e5; "  *ngIf="loadmoreflag" class="btn btn-load">
                       Show More
                     </button>
                   </div>

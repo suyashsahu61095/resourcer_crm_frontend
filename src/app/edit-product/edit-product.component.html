@@ -37,12 +37,12 @@
                       ><img
                         src="assets/images/default.jpg"
                         class="img-fluid"
-                        *ngIf="imgURL == ''" />
-                      <!-- <img
+                        *ngIf="imgURL== '' && editimgUrl == ''"/>
+                      <img
                         src="{{ editimgUrl }}"
                         class="img-fluid"
                         *ngIf="imgURL == ''"
-                    /> -->
+                    />
                   </label>
                     <span style="color: red" *ngIf="message">{{
                       message
@@ -99,7 +99,7 @@
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="product_name" class="label-material">PRODUCT NAME* :</label>
+                        <label for="product_name" class="label-material">PRODUCT TYPE* :</label>
                       </div>
                       <div class="col-md-8">
                         <input type="text" formControlName="product_name" maxlength="30" name="product_name" [ngClass]="{
@@ -219,7 +219,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3 p-2">
+                        <div class="col-md-3 p-2" style="    top: -12px;" >
                           <select class="input-material" name="unitqnt" formControlName="unitqnt" [ngClass]="{
                               'is-invalid': submitted && f.unitqnt.errors
                             }" class="input-material">
@@ -238,10 +238,8 @@
                       </div>
                       <div class="col-md-8">
                         <div class="row">
-                          <div class="col-md-3 p-3" style="
-                          padding-top: 27px;
-                          margin-top: 10px;
-                      ">
+                          <div class="col-md-3 p-3" style="    padding-left: 0px;
+                          padding-right: 53px; padding-top: 15px;">
                             <select  style="margin-top: -180px;"class="input-material" name="unit" formControlName="unit" [ngClass]="{
                                 'is-invalid': submitted && f.unit.errors
                               }" class="input-material">
@@ -250,7 +248,7 @@
                               <option value="mm">mm</option>
                             </select>
                           </div>
-                          <div class="col-md-2">
+                          <div class="col-md-2" style="margin-left: -53px;    top: -2px;">
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Length</label>
@@ -527,7 +525,7 @@
                       <div class="col-md-4 p-3">
                         <label for="status" class="label-material">STATUS :</label>
                       </div>
-                      <div class="col-md-8 mt-2">
+                      <div class="col-md-8">
                         <select class="input-material" name="status" selected formControlName="status" [ngClass]="{
                             'is-invalid': submitted && f.status.errors
                           }" class="input-material">
@@ -592,12 +590,12 @@
                     </div>
                     <div class="form-group row" *ngIf="productInfo?.productdocs">
                       <div class="col-md-6 p-3">
-                        <label for="billing_postal_area" class="label-material margin-left">Category With File Name
+                        <label for="billing_postal_area" class="label-material margin-left">Category - File Name
                         </label>
                       </div>
                     </div>
                     <div class="form-group row" *ngFor="let doc of productInfo?.productdocs; index as i">
-                      <div class="col-md-6 p-3" style="font-size: 12px">
+                      <div class="col-md-11 p-3" style="font-size: 12px">
                         <label for="billing_postal_area" class="label-material margin-left">{{
                           doc?.product_category?.category_name
                           }}&nbsp;&nbsp;{{ doc?.file_name }}</label>&nbsp;&nbsp;&nbsp;
@@ -606,10 +604,10 @@
                       </div>
                     </div>
                     <div class="form-group row" *ngFor="let file of filesmulti; index as i">
-                      <div class="col-md-6 p-3" style="font-size: 12px">
-                        <label for="billing_postal_area" class="label-material margin-left">{{ file.name
-                          }}&nbsp;&nbsp;&nbsp;&nbsp;{{
+                      <div class="col-md-11 p-3" style="font-size: 12px">
+                        <label for="billing_postal_area" class="label-material margin-left">{{
                           filecattext[i]
+                          }}&nbsp;&nbsp;&nbsp;&nbsp;{{ file.name
                           }} </label>&nbsp;&nbsp;&nbsp;
                       </div>
                     </div>

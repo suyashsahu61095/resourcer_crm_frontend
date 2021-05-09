@@ -77,7 +77,7 @@
                                       <label for="postal_code" class="label-material">POSTAL CODE:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input formControlName="postal_code" type="number" name="postal_code" [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" maxlength="4">
+                                      <input formControlName="postal_code" type="number" name="postal_code"  [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" >
                                       <div *ngIf="submitted && f.postal_code.errors" class="invalid-feedback">
                                         <div *ngIf="f.postal_code.errors.required">Postal Code is required</div>
                                         <div *ngIf="f.postal_code.errors.pattern">Please enter valid postal code</div>
@@ -100,9 +100,9 @@
                                       <label for="postal_area" class="label-material">COUNTRY:</label>
                                     </div>
                                     <div class="col-md-7">
-                 
-                                      <select style = "text-transform:capitalize;" class="input-material" name="country"  formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
-                                        <option value="">Select</option>
+                                      <input class="input-material" disabled name="country" value="2" placeholder="Norway"   formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" >
+                                      <!-- <select style = "text-transform:capitalize;" value="2"  > -->
+                                        <!-- <option value="">Select</option>
                                         <option value="1">India</option>
                                         <option value="2" selected>Norway</option>
                                         <option value="3">France</option>
@@ -111,7 +111,7 @@
                                         <option value="6">Sweden</option>
                                         <option value="7">Germany</option>
                                         <option value="8">Poland</option>
-                                      </select>
+                                      </select> -->
                                       <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                                         <div *ngIf="f.country.errors.required">Country is required</div>
                                     </div> 
@@ -155,13 +155,15 @@
                                     </div>
                                   </div>
                                   <div class="form-group row">
-                                    <div class="col-md-5 p-3">
+                                    <div class="col-md-4 p-3">
                                      
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-7" style="    top: 14px;
+                                    padding-left: 63px;
+                                ">
                                       <div class="form-group text-center">
                                         <input type="submit" name="submit" (click)="submitfun()" style="
-                                          width: 235.9px;"alue="Register" class="btn btn-default">
+                                          width: 235.9px;"alue="Register" class="btn btn-secondary">
                                       </div>
                                       <div class="form-group text-center">
                                         <input type="submit" name="submit" (click)="submitaddfun()" value="Register and add new Project" class="btn btn-secondary">

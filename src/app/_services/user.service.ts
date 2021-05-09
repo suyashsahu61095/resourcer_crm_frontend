@@ -200,6 +200,10 @@ export class UserService {
     deleteProjectDoc(id){
         return this.http.get<any>(`${environment.apiUrl}/delete_project_doc/`+id);
     }
+    deleteProductDoc(id){
+        return this.http.get<any>(`${environment.apiUrl}/delete_product_doc/`+id);
+    }
+
 
     getFilterData(){
         return this.http.get<any>(`${environment.apiUrl}/filter-data`);

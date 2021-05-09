@@ -48,7 +48,7 @@ export class AddCustomerComponent implements OnInit {
       customerName: ["", Validators.required],
       orgname: ["", [Validators.required, Validators.pattern("[0-9]*")]],
       address: [""],
-      postal_code: ["", [Validators.pattern("[0-9]{4}")]],
+      postal_code: [""],//, [Validators.pattern("[0-9]{4}")]
       postal_area: [""],
       country: [""],
       name: [""],

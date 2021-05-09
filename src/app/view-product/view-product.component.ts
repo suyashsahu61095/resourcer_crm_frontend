@@ -10,6 +10,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 
 import {Location} from '@angular/common';
+
+import { AuthGuard } from "@app/_helpers";
 declare var $: any;
 
 @Component({
@@ -242,6 +244,8 @@ clonefun(){
         this.loading = false;
         this.loadingData = false;
         if (data.status == "1") {
+          AuthGuard.blocked=false;
+          this.router.navigate(["/edit-product/",data.products]);
           Swal.fire(data.project_id, "Product Cloned Sucessfully", "success");
           this.info = data.message;
         } else {

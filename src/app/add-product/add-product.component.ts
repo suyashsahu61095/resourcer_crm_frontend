@@ -16,7 +16,7 @@ declare var $: any;
 export class AddProductComponent implements OnInit {
   
   productForm: FormGroup;
-  currentUser: User;
+  currentUser: User; 
   loading = false;
   loadingData = false;
   submitted = false;

@@ -37,18 +37,18 @@
                     <div class="form-fbt">
 
                       <div class="form-group text-center">
-                        <a routerLink="/edit-product/{{ productInfo?.id }}" class="mr-1 btn btn-default">Edit</a>
+                        <a routerLink="/edit-product/{{ productInfo?.id }}" class="mr-1 btn btn-secondary">Edit</a>
                       </div>
                       <!-- <div class="form-group text-center">
                             <a routerLink="/add-customer" class="btn btn-secondary">Clone</a>
                           </div> -->
                       <div class="form-group text-center">
-                        <a routerLink="/add-product" class="btn btn-default">Add new</a>
+                        <a routerLink="/add-product" class="btn btn-secondary">Add new</a>
                       </div>
 
                       <div class="form-group text-center">
                         <input type="submit" name="submit" (click)="clonefun()" value="Clone Product"
-                          class="btn btn-default" />
+                          class="btn btn-secondary" />
                       </div>
                       <!-- <div class="form-group text-center">
                         <a (click)="backClicked()">Back</a
@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="product_name" class="label-material">PRODUCT NAME* :</label>
+                        <label for="product_name" class="label-material">PRODUCT TYPE* :</label>
                       </div>
                       <div class="col-md-8">
                         <input formControlName="product_name" type="text" readonly
@@ -153,7 +153,7 @@
                       ">
                             <div class="col-md-11" style="    padding-left: 0px;
                             padding-right: 53px; padding-top: 15px;">
-                              <select class="form-control" formControlName="unit" name="unit" readonly>
+                              <select class="form-control" formControlName="unit" disabled name="unit" >
                                 <option value="m" [selected]="productInfo?.unit == 'm'">
                                   m
                                 </option>
@@ -165,7 +165,7 @@
                             </div>
                           </div>
 
-                          <div class="col-md-2">
+                          <div class="col-md-2" style="margin-left: -43px;">
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Length</label>
@@ -190,8 +190,6 @@
                         </div>
                       </div>
                     </div>
-                    <br /><br />
-                    <br />
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
                         <label for="production_year" class="label-material">PRODUCTION YEAR :</label>
@@ -219,19 +217,21 @@
                           class="input-material" />
                       </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" >
                       <div class="col-md-4 p-3">
                         <label for="documentation" class="label-material">DOCUMENTATION :</label>
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-md-8"    style="top: 15px;"
+                      >
 
-                        <label class="md-check" *ngIf="productInfo?.documentation == 1">
+                        <label class="md-check" ><!--*ngIf="productInfo?.documentation == 1"-->
                           <input type="radio" value="1" checked name="documentation" formControlName="documentation" />
                           Yes </label>&nbsp;&nbsp;
-                        <label class="md-check" *ngIf="productInfo?.documentation == 0">
+                        <label class="md-check" >
                           <input type="radio" value="0" checked name="documentation" formControlName="documentation" />
                           No
                         </label>
+                        
                       </div>
                     </div>
                     <div class="form-group row">
@@ -315,6 +315,13 @@
                         <label style="width: 80%;
                         border: none;
                         border-bottom: 0.5px solid #727272;
+                        padding: 33px 10px;
+                        background-color: #F5F5F5;
+                        color: #000000;" formControlName="status" *ngIf="!productInfo?.status">
+                        </label>
+                        <label style="width: 80%;
+                        border: none;
+                        border-bottom: 0.5px solid #727272;
                         padding: 18px 10px;
                         background-color: #F5F5F5;
                         color: #000000;" formControlName="status" *ngIf="productInfo?.status == 1">AVAILABLE
@@ -362,23 +369,22 @@
                       </div>
                     </div>
 
-                    <div class="form-group row" *ngIf="productInfo?.productdocs">
+                    <div class="form-group row" *ngIf="productInfo?.productdocs != 0">
                       <div class="col-md-4 p-3">
-                        <label for="billing_postal_area" class="label-material">CATEGORY WITH FILE NAME :</label>
+                        <label for="billing_postal_area" class="label-material">Category - File Name </label>
                       </div>
-
-                      <div class="col-md-8" style="
-                      padding-top: 12px;
-                  " *ngFor="let doc of productInfo?.productdocs; index as i" >
-                        <label for="billing_postal_area" class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a href="{{'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products/'+doc?.file_name}}"  target="_blank">{{doc?.file_name}}</a></label>
+                    </div>
+                    <div class="form-group row" *ngIf="productInfo?.productdocs != 0">
+ <div class="col-md-8" style=" padding-top: 12px;  " *ngFor="let doc of productInfo?.productdocs; index as i" >
+                        <label for="billing_postal_area" class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a href="{{'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products/documents/'+doc?.file_name}}"  target="_blank">{{doc?.file_name}}</a></label>
                       
-                      <div class="col-md-6 p-3" *ngFor="let file of filesmulti; index as i" style="font-size: 12px;">
+                      <div class="col-md-11 p-3" *ngFor="let file of filesmulti; index as i" style="font-size: 12px;">
                         <label for="billing_postal_area"
                           class="label-material margin-left">{{file.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{filecattext[i]}}
                         </label>&nbsp;&nbsp;&nbsp;
                       </div>
                     </div>
-                    </div>
+                  </div>
                   </div>
                 </div>
               </form>
