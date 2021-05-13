@@ -131,7 +131,9 @@ class ProjectController extends Controller
     public function projectgrid($page_id){
         $limit = ($page_id-1)*12;
         $offset = 12;
-        $projects = Project::select('id', 'project_name', 'project_image')->orderBy('id', 'desc')->skip($limit)->take($offset)->get();
+        $projects = Project::select('id', 'project_name', 'project_image')->with(['projectdocs' => function($query){
+            $query->select('project_id', 'file_name');
+        }])->orderBy('id', 'desc')->skip($limit)->take($offset)->get();
         return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
     }
 
@@ -234,7 +236,7 @@ class ProjectController extends Controller
             }
         }
         if($project_id) {
-            return response()->json(['status'=>'1','message' => 'Successfully project edited.'], 200);
+            return response()->json(['status'=>'1','products' => $project_id,'message' => 'Successfully project edited.'], 200);
         } else {
             return response()->json(['status'=>'0','message' => 'Error occured in project edit.'], 422);
         }

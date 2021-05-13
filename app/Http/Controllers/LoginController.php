@@ -44,25 +44,26 @@ class LoginController extends Controller
 
     public function forget_password(Request $request)
     {
+        
         $request->validate([
             'data.registerUsername' => 'required|email',
         ]);
     
         $user = User::where('email', $request->input('data.registerUsername'))->first();
     
-        if (! $user) {
-            // throw ValidationException::withMessages([
-            //     'email' => ['The provided credentials are incorrect.'],
-            // ]);
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
             return response()->json(['status' => '0', 'message' => 'The provided credentials are incorrect'], 422);
         } else {
             $email = $request->input('data.registerUsername');
             $data = ['name' => $user->name, 'token' => base64_encode($user->id)];
-            // Mail::send('forget-password', $data , function($message) use ($email) {
-            //     $message->to($email)
-            //     ->from('amitpathak.mca@gmail.com', 'Resources')
-            //     ->subject("Forget Password");
-            //     });
+            Mail::send('forget-password', $data , function($message) use ($email) {
+                $message->to($email)
+                ->from('adsininternet0@gmail.com', 'Digit')
+                ->subject("Forget Password");
+                });
             return response()->json(['status' => '1', 'message' => 'Password Reset Email Send Successfully', 'url' => "http://localhost:4300/reset-password/".base64_encode($user->id)], 200);    
         }
         

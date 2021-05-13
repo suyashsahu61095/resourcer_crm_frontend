@@ -216,9 +216,11 @@ class ProductController extends Controller
     public function productgrid($page_id, $project_id = null){
         $limit = ($page_id-1)*12;
         $offset = 12;
-        $products = Product::select('id', 'product_name', 'product_image')->orderBy('id', 'desc');
+        $products = Product::select('id', 'product_name', 'product_image')->with(['productdocs' => function($query){
+            $query->select('id','category_id','product_id', 'file_name')->with('productCategory');
+        }])->orderBy('id', 'desc');
         if($project_id){
-            $products =  $products->where('project_id', $project_id)->orderBy('id', 'desc');
+            $products =  $products->where('project_id', $project_id);
         }
         $products = $products->skip($limit)->take($offset)->get();
         
@@ -246,10 +248,9 @@ class ProductController extends Controller
 
 
     public function search_product(Request $request) {
-        //DB::enableQueryLog();
+        DB::enableQueryLog();
         $search_text = $request->input('query');
-        $products = Product::where('status', '=', '1')
-                     ->where(function($query) use ($search_text) {
+        $products = Product::where(function($query) use ($search_text) {
                         $query->orWhere('product_name', 'Like', '%'.$search_text.'%')
                         ->orWhere('product_id', 'Like', '%'.$search_text.'%')
                         ->orWhere('description', 'Like', '%'.$search_text.'%');
@@ -359,7 +360,7 @@ class ProductController extends Controller
             }
         }
         if($product_id) {
-            return response()->json(['status'=>'1','message' => 'Successfully product edited.'], 200);
+            return response()->json(['status'=>'1','products' => $product_id,'message' => 'Successfully product edited.'], 200);
         } else {
             return response()->json(['status'=>'0','message' => 'Error occured in product edit.'], 422);
         }

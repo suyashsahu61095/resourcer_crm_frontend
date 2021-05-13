@@ -83,7 +83,7 @@ Route::group([
     Route::get('get-product-info/{id}', 'ProductController@get_product_info');
     Route::post('edit-product', 'ProductController@edit_product');
     Route::get('deleteProduct/{id}', 'ProductController@deleteProduct');
-    Route::get('delete_product_doc/{id}', 'ProjectController@delete_product_doc');
+    Route::get('delete_product_doc/{id}', 'ProductController@delete_product_doc');
     Route::get('filter-data', 'ProductController@filter_product');
     Route::post('pdf', 'ProductController@pdf');
     Route::get('productgrid/{pagenumber}/{project_id?}', 'ProductController@productgrid');
