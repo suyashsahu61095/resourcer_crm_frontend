@@ -38,7 +38,12 @@
 		</div>
 		
 		<div class="right-home-section">
-			<img height="400" src="http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects/{{$eachData['project_image']}}">
+		@if(!empty($eachData['project_image']))
+			<img height="400" src="https://d38b2gpjikxyz1.cloudfront.net/uploads/projects/{{$eachData['project_image']}}">
+			<!-- <img src="{{ URL::asset('images/default.jpg') }}"> -->
+		@else
+			<img height="400" src="{{ URL::asset('images/default.jpg')}}">
+		@endif
 		</div>
 	</div>
   </div>
@@ -46,14 +51,20 @@
 </div>
 <!-- page one-->
   <div style="page-break-after:always">&nbsp;</div> 
-	<div class="listing-section">
+	<div class="listing-section"> 
 	
 		<div class="container">
 			<h3>PRODUKTKATALOG</h3><!-- <img src="{{ URL::asset('images/logo.png') }}">-->	
          	@foreach($eachData['products'] as $k=>$eachprod)
 				<div class="col-12">
 					<div class="one">
-						<img height="440" src="http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products/{{$eachprod['product_image']}}">
+
+					@if(!empty($eachprod['product_image']))
+
+						<img height="440" src="https://d38b2gpjikxyz1.cloudfront.net/uploads/products/{{$eachprod['product_image']}}" >
+					@else
+					<img height="440" src="{{ URL::asset('images/default.jpg')}}">
+					@endif
 					</div>
 					<div class="two">
 						<ul class="listing-ul">

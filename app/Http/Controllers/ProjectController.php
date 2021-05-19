@@ -106,11 +106,11 @@ class ProjectController extends Controller
                     }])
                     ->select('projects.*')
                     ->join('users', 'users.id', '=', 'projects.user_id')
-                    ->where('users.client_id', $request->user()->client_id)
-                    ->orderBy('projects.id', 'desc');
+                    ->where('users.client_id', $request->user()->client_id);
+                    // ->orderBy('projects.id', 'desc');
 
         return DataTables::eloquent($projects)
-                    ->addColumn('image_base_path', 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects')
+                    ->addColumn('image_base_path', 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects')
                     ->addIndexColumn('index')
                     ->editColumn('project_name', function($project) {
                         return  "<a href='/view-project/$project->id'>".$project->project_name."</a>";
@@ -125,7 +125,7 @@ class ProjectController extends Controller
 
     public function projectList(){
         $projects = Project::select('id', 'project_name') ->orderBy('project_name', 'asc')->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects'], 200);
     }
 
     public function projectgrid($page_id){
@@ -134,7 +134,7 @@ class ProjectController extends Controller
         $projects = Project::select('id', 'project_name', 'project_image')->with(['projectdocs' => function($query){
             $query->select('project_id', 'file_name');
         }])->orderBy('id', 'desc')->skip($limit)->take($offset)->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects'], 200);
     }
 
     public function search_project(Request $request) {
@@ -152,7 +152,7 @@ class ProjectController extends Controller
                         ->orWhere('project_type', 'Like', '%'.$search_text.'%');
                      })
                      ->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects'], 200);
     }
 
     public function get_project_info($id){
@@ -163,7 +163,7 @@ class ProjectController extends Controller
         }])
         ->where('id', $id)
         ->first();
-        return response()->json(['status'=>'1','message' => 'project info', 'project' => $project, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'project info', 'project' => $project, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects'], 200);
     }
 
     public function edit_project(Request $request)

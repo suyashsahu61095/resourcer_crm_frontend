@@ -71,10 +71,10 @@ class CustomerController extends Controller
                             $query->select('id', 'customer_id')->withCount('products');
                         }])
                         ->join('users', 'users.id', '=', 'customers.user_id')
-                        ->where('users.client_id', $request->user()->client_id)
-						->orderBy('customers.id', 'desc');
+                        ->where('users.client_id', $request->user()->client_id);
+						// ->orderBy('customers.id', 'desc');
         return DataTables::eloquent($customers)
-                        ->addColumn('image_base_path', 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers')
+                        ->addColumn('image_base_path', 'https://d10rdxeixe5doh.cloudfront.net/uploads/customers')
                         ->addIndexColumn('index')
                         ->editColumn('customer_name', function($eachcutomer) {
                             return  "<a href='/view-customer/$eachcutomer->id'>".$eachcutomer->customer_name."</a>";
@@ -104,25 +104,25 @@ class CustomerController extends Controller
         //         $customers[$k]['products_count'] = $product_count;
         //     }
         // }
-        //return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/customers'], 200);
     }
 
     public function customersList() {
         $customers = Customer::where('status', '=', '1')->select('customer_name', 'id')->orderBy('customer_name', 'asc')->get();
-        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/customers'], 200);
     }
 
     public function customersgrid($page_id) {
         $limit = ($page_id-1)*12;
         $offset = 12;
         $customers = Customer::where('status', '=', '1')->select('customer_name', 'id', 'image_path')->orderBy('id', 'desc')->skip($limit)->take($offset)->get();
-        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/customers'], 200);
     }
     
 
     public function get_customer_info($id) {
         $customer = Customer::where('id', '=', $id)->first();
-        return response()->json(['status'=>'1','message' => 'Client Information', 'customer' => $customer, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Client Information', 'customer' => $customer, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/customers'], 200);
     }
 
     public function search_customer(Request $request) {
@@ -140,7 +140,7 @@ class CustomerController extends Controller
                      })
                      ->get();
                      //print_r(DB::getQueryLog());
-        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/customers'], 200);
+        return response()->json(['status'=>'1','message' => 'Customer List', 'customers' => $customers, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/customers'], 200);
     }
 
     public function edit_customer(Request $request){
@@ -182,7 +182,7 @@ class CustomerController extends Controller
             $customer->image_path = $name;
         }
         if($customer->save()) {
-            return response()->json(['status'=>'1','message' => 'Successfully customer edited.'], 200);
+            return response()->json(['status'=>'1','customer' =>$request->input('id'),'data' =>$customer,'message' => 'Successfully customer edited.'], 200);
         } else {
             return response()->json(['status'=>'0','message' => 'Error occured in customer edit.'], 422);
         }

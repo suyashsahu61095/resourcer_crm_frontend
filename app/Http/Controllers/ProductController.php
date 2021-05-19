@@ -121,19 +121,19 @@ class ProductController extends Controller
         }
     }
 
-    public function products(Request $request) {
+    public function products(Request $request){
         $products = Product::with(['project' => function($query){
                         $query->select('project_name', 'id', 'project_image');
                     }])->with(['productdocs' => function($query){
                         $query->select('id','category_id','product_id', 'file_name')->with('productCategory');
                     }])
                     ->join('product_categories', 'product_categories.id', '=', 'products.category')
-                    ->join('projects', 'products.project_id', '=', 'projects.id')
-                    ->join('customers', 'customers.id', '=', 'projects.customer_id')
+                    ->join('projects','products.project_id', '=', 'projects.id')
+                    ->join('customers','customers.id', '=', 'projects.customer_id')
                     ->join('users', 'users.id', '=', 'products.user_id')
                     ->select('products.*', 'product_categories.category_name')
-                    ->where('users.client_id', $request->user()->client_id)
-					->orderBy('products.id', 'desc');
+                    ->where('users.client_id', $request->user()->client_id);
+					// ->orderBy('products.id', 'desc');
         $products_count = Product::join('users', 'users.id', '=', 'products.user_id')->where('users.client_id', $request->user()->client_id)->count();            
         if($request->input('project')){
             $products =  $products->where('products.project_id', $request->input('project'));
@@ -154,7 +154,7 @@ class ProductController extends Controller
          //echo "<pre>";
          //print_r($products->get()); //die;
         return DataTables::eloquent($products)
-                    ->addColumn('image_base_path', 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products')
+                    ->addColumn('image_base_path', 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products')
                     ->addIndexColumn('index')
                     ->addColumn('total_count', function($product) use ($products_count) {
                         return $products_count;
@@ -205,12 +205,12 @@ class ProductController extends Controller
                     // })
                     ->rawColumns(['product_id', 'product_name'])
                     ->make();
-        //return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://resources-products-new.s3.ap-south-1.amazonaws.com/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products'], 200);
     }
 
     public function productList(){
         $products = Product::select('id', 'product_name')->orderBy('customer_name', 'asc')->get();
-        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.netuploads/products'], 200);
     }
 
     public function productgrid($page_id, $project_id = null){
@@ -224,7 +224,7 @@ class ProductController extends Controller
         }
         $products = $products->skip($limit)->take($offset)->get();
         
-        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products'], 200);
     }
 
     // public function search_product(Request $request) {
@@ -254,10 +254,12 @@ class ProductController extends Controller
                         $query->orWhere('product_name', 'Like', '%'.$search_text.'%')
                         ->orWhere('product_id', 'Like', '%'.$search_text.'%')
                         ->orWhere('description', 'Like', '%'.$search_text.'%');
-                     })
+                     })->with(['productdocs' => function($query){
+                        $query->select('id','category_id','product_id', 'file_name')->with('productCategory');
+                    }])
                      ->get();
                      //print_r(DB::getQueryLog());
-        return response()->json(['status'=>'1','message' => 'product List', 'products' =>   $products, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' =>$products, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products'], 200);
     }
 
 
@@ -271,7 +273,7 @@ class ProductController extends Controller
         }])
         ->where('id', $id)
         ->first();
-        return response()->json(['status'=>'1','message' => 'product info', 'product' => $product, 'image_base_path' => 'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product info', 'product' => $product, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products'], 200);
     }
 
     public function edit_product(Request $request){
@@ -412,11 +414,16 @@ class ProductController extends Controller
             foreach($products['PDFProductProject'] as $key=>$eachproject) {
                 $product_map[$eachproject][] = $products['PDFProduct'][$key];
             }
+          //return response()->json(['html' => $product_map]);
+            
             if(count($product_map) > 0) {
                 foreach($product_map as $keyprod=>$product) {
                     $data = Project::with(['products' => function($query) use ($product){
-                                    $query->whereIn('id', $product);
-                                }])
+                                    $query->whereIn('id', $product)
+                                    
+                    ->join('product_categories', 'product_categories.id', '=', 'products.category')
+                                    ->select('product_categories.category_name');
+                                 }])
                                 ->where('id', $keyprod)
                                 ->with('customer')
                                 ->first();
@@ -430,7 +437,7 @@ class ProductController extends Controller
                 }
                 // dd($pdfData);
                 $html = view('pdf.catalog', compact('pdfData'))->render();
-                return response()->json(['html' => $html]);
+                return response()->json(['html' => $pdfData]);
             }
         } catch (Exception $ex) {
             echo $ex->getMessage();
