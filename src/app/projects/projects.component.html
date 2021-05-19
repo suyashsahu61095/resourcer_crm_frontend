@@ -44,10 +44,11 @@
               </div>
             </div>
             <div class="col-md-12" *ngIf="listView">
-              <table class="table table-hover" datatable [dtOptions]="dtOptions" width="100%">
-                <thead>
+              <table class="table table-hover" datatable [dtOptions]="dtOptions"   width="100%">
+                <thead >
                   <tr>
-                    <th style="background: unset">#</th>
+                    <th style="background: unset;
+                ">Sr.No.</th>
                     <th>Project Name</th>
                     <th>Customer Name</th>
                     <th>Postal Area</th>
@@ -113,7 +114,7 @@
               </div>
               <div class="text-center"  style="display: flex;
               justify-content: center;">
-                <button (click)="loadMore()" *ngIf="loadmoreflag"  style="background-color: #e5e5e5; " class="btn btn-secondary btn-lg btn-secondary custom">
+                <button (click)="loadMore()" style="background-color: #e5e5e5;"  *ngIf="loadmoreflag" class="btn btn-load">
                   Show More
                 </button>
               </div>

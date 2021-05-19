@@ -101,7 +101,7 @@ export class EditProjectComponent implements OnInit {
       postal_code: ["", Validators.pattern("[0-9]{4,6}")],
       postal_area: [""],
       project_mang_name: [""],
-      project_mang_mobile: ["", Validators.pattern("[0-9]{8,12}")],
+      project_mang_mobile: ["", Validators.pattern("[0-9]{8}")],
       project_mang_email: [
         "",
         Validators.pattern(
@@ -109,7 +109,7 @@ export class EditProjectComponent implements OnInit {
         ),
       ],
       onsite_name: [""],
-      onsite_mobile: ["", Validators.pattern("[0-9]{8,12}")],
+      onsite_mobile: ["", Validators.pattern("[0-9]{8}")],
       onsite_email: [
         "",
         Validators.pattern(
@@ -119,7 +119,7 @@ export class EditProjectComponent implements OnInit {
       project_type: [""],
       project_status: [""],
       property_area: ["", Validators.pattern("[0-9]*")],
-      no_of_floors: ["", Validators.pattern("[0-9]{2}")],
+      no_of_floors: ["", Validators.pattern("[0-9]")],
       building_year: [""],
       last_refurbished: [""],
       env_report: [""],
@@ -163,7 +163,7 @@ export class EditProjectComponent implements OnInit {
             project_mang_name: this.projectInfo.project_mang_name,
             project_mang_mobile: [
               this.projectInfo.project_mang_mobile,
-              [Validators.pattern("[0-9]{8,12}")],
+              [Validators.pattern("[0-9]{8}")],
             ],
             project_mang_email: [
               this.projectInfo.project_mang_email,
@@ -176,7 +176,7 @@ export class EditProjectComponent implements OnInit {
             onsite_name: this.projectInfo.onsite_name,
             onsite_mobile: [
               this.projectInfo.onsite_mobile,
-              [Validators.pattern("[0-9]{8,12}")],
+              [Validators.pattern("[0-9]{8}")],
             ],
             onsite_email: [
               this.projectInfo.onsite_email,
@@ -194,7 +194,7 @@ export class EditProjectComponent implements OnInit {
             ],
             no_of_floors: [
               this.projectInfo.no_of_floors,
-              [Validators.pattern("[0-9]{2}")],
+              [Validators.pattern("[0-9]")],
             ],
             building_year: this.projectInfo.building_year,
             last_refurbished: this.projectInfo.last_refurbished,
@@ -473,7 +473,11 @@ export class EditProjectComponent implements OnInit {
           this.loading = false;
           this.loadingData = false;
           if (data.status == "1") {
+            
+          AuthGuard.blocked=false;
+          this.router.navigate(["/view-project/",data.products]);
             this.info = data.message;
+
           } else {
             this.error = data.message;
           }

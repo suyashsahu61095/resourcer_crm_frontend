@@ -44,9 +44,7 @@
                         *ngIf="imgURL == ''"
                     />
                   </label>
-                    <span style="color: red" *ngIf="message">{{
-                      message
-                      }}</span>
+                    <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
                     <input type="file" id="imgupload" accept="image/*" (change)="preview($event.target.files)"
                       style="display: none" />
                     <br />
@@ -55,7 +53,7 @@
                   </div>
                   <div class="col-sm-7">
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
-                      {{ error }}
+                      Editing Product failed
                     </div>
                     <br />
                     <div class="form-fbt">
@@ -107,7 +105,7 @@
                           }" class="input-material" />
                         <div *ngIf="submitted && f.product_name.errors" class="invalid-feedback">
                           <div *ngIf="f.product_name.errors.required">
-                            PRODUCT NAME is required
+                            PRODUCT TYPE is required
                           </div>
                         </div>
                       </div>
@@ -157,7 +155,7 @@
                           [ngClass]="{
                             'is-invalid': submitted && f.category.errors
                           }" class="input-material">
-                          <option value="">Select</option>
+                          <option value="0">Not selected</option>
                           <option *ngFor="let category of categories; index as i" value="{{ category.id }}"
                             [selected]="category?.id == productInfo?.category">
                             {{ category.category_name }}
@@ -248,7 +246,7 @@
                               <option value="mm">mm</option>
                             </select>
                           </div>
-                          <div class="col-md-2" style="margin-left: -53px;    top: -2px;">
+                          <div class="col-md-2" style="   top: -6px;">
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Length</label>
@@ -262,7 +260,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-2">
+                          <div class="col-md-2" style="   top: -6px;">
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Height</label>
@@ -276,7 +274,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-2">
+                          <div class="col-md-2" style="   top: -6px;">
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Width</label>
@@ -329,7 +327,7 @@
                         <label for="production_year" class="label-material">PRODUCTION YEAR :</label>
                       </div>
                       <div class="col-md-8 mt-2">
-                        <select class="input-material" id="production_year" formControlName="production_year"
+                        <select class="input-material" style="font-size: 18px;" id="production_year" formControlName="production_year"
                           name="production_year">
                           <option value="">Select</option>
                           <option *ngFor="let year of yearOptions" value="{{ year }}">
@@ -588,7 +586,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group row" *ngIf="productInfo?.productdocs">
+                    <div class="form-group row" *ngIf="productInfo?.productdocslength >= 0">
                       <div class="col-md-6 p-3">
                         <label for="billing_postal_area" class="label-material margin-left">Category - File Name
                         </label>
@@ -597,7 +595,7 @@
                     <div class="form-group row" *ngFor="let doc of productInfo?.productdocs; index as i">
                       <div class="col-md-11 p-3" style="font-size: 12px">
                         <label for="billing_postal_area" class="label-material margin-left">{{
-                          doc?.product_category?.category_name
+                          doc?.category_id
                           }}&nbsp;&nbsp;{{ doc?.file_name }}</label>&nbsp;&nbsp;&nbsp;
                         <label><a href="javascript:void();" (click)="deletedoc(doc.id)"><i class="fa fa-trash"
                               aria-hidden="true"></i></a></label>
@@ -638,11 +636,23 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-md-3">
-            <select class="form-control" name="categories" id="categories">
+            <select class="form-control" style = "text-transform:capitalize; width: 80%;
+            border: none;
+            border-bottom: 0.5px solid #727272;
+            padding: 7px 4px;
+            background: #F5F5F5;
+            color: black;"  name="categories" id="categories">
               <option value="">Select</option>
-              <option *ngFor="let category of categories; index as i" value="{{ category.id }}">
-                {{ category.category_name }}
-              </option>
+              <option  value="PRE (Produktdatablad)​">PRE (Produktdatablad)​</option>
+              <option  value="FDV (Forvaltning, drift og vedlikeholds dokumentasjon)​">FDV (Forvaltning, drift og vedlikeholds dokumentasjon)​</option>
+              <option  value="HMF (Helse, miljø og sikkerhet faktablad)​​">HMF (Helse, miljø og sikkerhet faktablad)​​</option>
+              <option  value="YTE (Ytelseserklæring)​​">YTE (Ytelseserklæring)​​</option>
+              <option  value="MAN (Monteringsanvisning)​​">MAN (Monteringsanvisning)​</option>
+              <option  value="SER (Sertifikat)​">SER (Sertifikat)​</option>
+              <option  value="TEKG (Teknisk godkjenning)​​">TEKG (Teknisk godkjenning)​</option>
+              <option  value="BRO (Brosjyre)​">BRO (Brosjyre)​</option>
+              <option  value="EPD (Environmental Product Declaration)​">EPD (Environmental Product Declaration)​</option>
+              <option  value="Other">Other​</option>
             </select>
           </div>
           <div class="col-md-9 row">

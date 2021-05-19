@@ -4,9 +4,10 @@
 
 export const environment = {
     production: false,
-        apiUrl: 'http://127.0.0.1:8000/api'
+    apiUrl: 'http://127.0.0.1:8000/api'
         //apiUrl: 'http://proponation.com/resourcer/backend/public/api'
-        //  apiUrl: 'http://namanapi.devops.itsolutioncg.com/public/api'
+    //apiUrl: 'https://api.digitsas.no/public/api'
+  //  apiUrl: 'https://apiprod.digitsas.no/public/api'
 };
 
 /*
@@ -16,4 +17,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI. 

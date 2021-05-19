@@ -26,7 +26,7 @@
                         <div class="col-md-12">
                                     <div class="row d-flex align-items-center">
                                         <div class="col-sm-9">
-                                            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+                                            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Something went wrong. Try Again</div>
                                             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                                                 <div class="form-group-material">
                                                     <input type="text" formControlName="fullname" placeholder="Name" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" class="input-material">

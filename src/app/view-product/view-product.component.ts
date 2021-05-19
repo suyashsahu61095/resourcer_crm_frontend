@@ -113,7 +113,7 @@ ngOnInit() {
           : ["", Validators.required],
         description: [""],
         status: [""],
-        category: [""],
+        category: ["0"],
         building_part: [""],
         unit: [""],
         unitqnt: [""],

@@ -8,8 +8,9 @@ import { environment } from "@environments/environment";
 import { DataTableDirective } from "angular-datatables";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CatalogService } from "@app/_services/catalog.service";
-
+import{_,orderBy}from 'lodash';
 import Swal from "sweetalert2";
+import { of } from "rxjs";
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -23,7 +24,7 @@ class DataTablesResponse {
 @Component({
   selector: "app-products",
   templateUrl: "./products.component.html",
-  styleUrls: ["./products.component.less"],
+  styleUrls: ["./products.component.less"], 
 })
 export class ProductsComponent implements OnDestroy, OnInit {
   //dtOptions: DataTables.Settings = {};
@@ -65,6 +66,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
   PDFProduct = [];
   productPDFCategory: FormGroup;
   PDFProductProject = [];
+  PDFProductCategory=[];
   filterFlag = false;
   pagenumber: any = 1;
   loadmoreflag: boolean = true;
@@ -93,7 +95,9 @@ export class ProductsComponent implements OnDestroy, OnInit {
         this.customer_count = data.customer_count;
         this.customers = data.customers;
         this.project_count = data.project_count;
-        this.projects = data.projects;
+        this.projects =data.projects; 
+        console.log("products" , this.projects )
+
         this.status_types = data.status_type;
         this.product_category_count = data.product_category_count;
         this.product_category = data.product_category;
@@ -102,6 +106,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
     this.projectobj = this.route.snapshot.queryParams["param_id"];
     console.log(this.projectobj);
     $(".dataTables_filter").hide();
+    
     const that = this;
     this.dtOptions = {
       pagingType: "full_numbers",
@@ -109,6 +114,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
       serverSide: true,
       processing: true,
       scrollX: true,
+      
       dom: '<"top"lr>rt<"bottom"ip><"clear">',
       // Configure the buttons
         buttons: [{
@@ -137,16 +143,19 @@ export class ProductsComponent implements OnDestroy, OnInit {
         }
         if (this.status_filter.length > 0) {
           dataTablesParameters.status_filter = this.status_filter;
-        }
+        } 
+        
+        
         that.http
           .post<DataTablesResponse>( 
             `${environment.apiUrl}/products`,
-            dataTablesParameters,
+            dataTablesParameters, 
             {}
           )
           .subscribe((resp) => {
             that.products = resp.data;
-         console.log("product dat-", that.products)
+           
+         console.log("parameter", dataTablesParameters)
             this.loading = false;
             this.loadingData = false;
             if (resp.data.length > 0) {
@@ -154,51 +163,66 @@ export class ProductsComponent implements OnDestroy, OnInit {
               this.filter_record = resp.recordsFiltered;
               this.image_base_path = resp.data[0].image_base_path;
             }
+            if(dataTablesParameters.draw==1)
+            {
+              console.log("called by filter")
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
-              data: resp.data,
+              data:  orderBy(resp.data,['id'],['desc']),
             });
-          });
+          }else{
+            console.log("called by filter else")
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsFiltered,
+              data:  resp.data,
+            });
+          }
+          }
+          );
+         
       },
+      
       columns: [
         {
           data: "checkbox",
           name: "checkbox",
           orderable: false,
           searchable: false,
+         
           render: function (data: any, type: any, full: any) {
             //console.log(full);
-            var link =
-              "<div class='round'><input type='checkbox' id='checkbox" +
-              full.id +
-              "' name='prod_id' class='redirect' data-project-id= " +
-              full.project_id +
-              " view-attribute-id=" +
-              full.id +
-              "><label for='checkbox" +
-              full.id +
-              "'></label></div>";
+var link ="<div class='round'><input type='checkbox' id='checkbox"
++full.id +"' name='prod_id' class='redirect' data-project-id= " + full.project_id +" view-attribute-id="
++full.id +"' data-category_name= " + full.category_name +" view-attribute-category_name="
++full.id +"><label for='checkbox" +full.id + "'></label></div>";
             return link;
           },
         },
         { data: "product_id", name: "product_id" },
         { data: "product_name", name: "product_name" },
         { name: "product_categories.category_name", data: "category_name" },
-        { data: "price_new_product" },
+        { data: "price_new_product", render: $.fn.dataTable.render.number( ' ', ',', 2,  ) },
         { data: "quantity" },
         { data: "dimention" },
         { data: "description" },
         { data: "status" },
+        
       ],
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         $(".redirect", row).unbind("click");
+        
         $(".redirect", row).bind("click", (event) => {
           if (event.target.checked) {
             let project_id = $(event.target).attr("data-project-id");
             let product_id = $(event.target).attr("view-attribute-id");
+            let category = $(event.target).attr("data-category_name");
+            console.log("category ids",category)
             this.PDFProduct.push(product_id);
             this.PDFProductProject.push(project_id);
+            this.PDFProductCategory.push(category);
+
           } else {
             let project_id = $(event.target).attr("data-project-id");
             let product_id = $(event.target).attr("view-attribute-id");
@@ -213,6 +237,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
           }
           console.log(this.PDFProduct);
           console.log(this.PDFProductProject);
+          console.log(this.PDFProductCategory);
         });
         return row;
       },
@@ -244,6 +269,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
       this.filterFlag = false;
     }
   }
+  
   removeFilter(type, filter) {
     if (type == "cust") {
       this.customer_filter_text = this.customer_filter_text.filter(function (s) {
@@ -586,12 +612,14 @@ export class ProductsComponent implements OnDestroy, OnInit {
   }
 
   genratePDF() {
+    ($("#PDFModal") as any).modal("hide");
     //this.PDFProduct = [28,23];
     //this.PDFProductProject = [17];
     this.catalogService
-      .getpdfData(this.PDFProduct, this.PDFProductProject)
+      .getpdfData(this.PDFProduct, this.PDFProductProject,this.PDFProductCategory)
       .pipe(first())
       .subscribe((data) => {
+       
         this.image_base_path = data.image_base_path;
         console.log(data);
         localStorage.setItem("pdfData", data.html);

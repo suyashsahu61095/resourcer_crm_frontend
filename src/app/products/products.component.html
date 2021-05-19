@@ -210,17 +210,18 @@
               </div>
             </div>
             <div class="col-md-12" *ngIf="!productInfo && listView">
-              <table class="table" datatable [dtOptions]="dtOptions" width="100%">
+              <table class="table" id="example" datatable [dtOptions]="dtOptions" width="100%">
                 <thead>
                   <tr>
-                    <th style="background: unset">
+                    <th style="background: unset;
+                    padding-left: 11px;">
                       <div class="round">
                         <input type="checkbox" id="checkbox" (change)="onSelectHead($event)" />
                         <label for="checkbox"></label>
                       </div>
                     </th>
                     <th>Product ID</th>
-                    <th>Product Name</th>
+                    <th>Product Type</th>
                     <th>Category</th>
                     <th>Price</th>
                     <th>Qty.</th>
@@ -241,7 +242,7 @@
                         <a href="javascript:void();" routerLink="/view-product/{{ product?.id }}"
                           *ngIf="product.product_image">
                           <div class="overlay"  >
-                            <a href="#" *ngIf="product.productdocs.length != 0" class="icon" title="User Profile">
+                            <a href="#" *ngIf="product.productdocs.length !=0" class="icon" title="User Profile">
                               <i class="fa fa-paperclip"></i>
                             </a>
                           </div>

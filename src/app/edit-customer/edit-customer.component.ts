@@ -8,6 +8,8 @@ import { User } from '@app/_models';
 import { UserService, AuthenticationService } from '@app/_services';
 declare var $: any;
 
+import { AuthGuard } from "@app/_helpers";
+
 @Component({
   selector: 'app-edit-customer',
   templateUrl: './edit-customer.component.html',
@@ -69,12 +71,12 @@ ngOnInit() {
 
     this.customerForm = this.formBuilder.group({
       customerName: ['', Validators.required],
-      orgname: ['', [Validators.required,  Validators.pattern('[0-9]*')]],
+      orgname: ['', [Validators.required,  Validators.pattern('[0-9]{9}')]],
       address: [''],
-      postal_code: ['', [Validators.pattern('[0-9]{4}')]],
+      postal_code: [''],
       postal_area: [''],
       name: [''],
-      mobile: ['', [Validators.pattern('[0-9]{10}')]],
+      mobile: ['', [Validators.pattern('[0-9]{8}')]],
       email: ['', [Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       note: [''],
       country: ['']
@@ -113,7 +115,7 @@ onSubmit() {
       return;
   }
 
-  if(this.customerForm.controls['country'].value == '2') {
+  // if(this.customerForm.controls['country'].value == '2') {
     if(this.customerForm.controls['orgname'].value.toString().length != '9'){
       alert("Org Number should be 9 digit for norway");
       return;
@@ -122,7 +124,7 @@ onSubmit() {
       alert("Mobile should be 8 digit for norway");
       return;
     }
-  }
+  // }
 
   this.loading = true;
   this.loadingData = true;
@@ -156,11 +158,16 @@ onSubmit() {
               this.loading = false;
               this.loadingData = false;
               if(data.status == '1') {
+                 
+          AuthGuard.blocked=false;
+          this.router.navigate(["/view-customer/",data.customer]);
                   this.info = data.message;
               } else {
                   this.error = data.message;
-              }
-              this.router.navigate(['/customers']);
+              } 
+              
+          AuthGuard.blocked=false;
+          this.router.navigate(["/view-customer/",data.customer]);
           },
           error => {
               this.error = error;

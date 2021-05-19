@@ -12,7 +12,7 @@ declare var $: any;
   styleUrls: ['./user-profile.component.less']
 })
 export class UserProfileComponent implements OnInit {
-
+  loadingData = false;
   currentUser: User;
   constructor(
     private route: ActivatedRoute,

@@ -101,7 +101,7 @@ export class AddProjectComponent implements OnInit {
       project_type: [""],
       project_status: [""],
       property_area: ["", Validators.pattern("[0-9]*")],
-      no_of_floors: ["", Validators.pattern("[0-9]{2}")],
+      no_of_floors: ["", Validators.pattern("[0-9]")],
       building_year: [""],
       last_refurbished: [""],
       env_report: [""],

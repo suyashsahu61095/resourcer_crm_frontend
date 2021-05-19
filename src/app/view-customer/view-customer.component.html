@@ -82,11 +82,7 @@
                           <label for="postal_area" class="label-material">COUNTRY :</label>
                         </div>
                         <div class="col-md-8 mt-2">
-                          <select class="input-material" name="country" disabled>
-                            <!-- [ngClass]="{ 'is-invalid': submitted && f.country.errors }"-->
-                            <option value="1" [selected]="customerDetails?.country == '2'">Norway</option>
-                           
-                          </select>
+                          <input type="text" class="input-material" readonly value="Norway"/>
                         </div>
                       </div>
                       <h4>CONTACT PERSON DETAILS</h4>
@@ -141,7 +137,7 @@
                           <label for="note" class="label-material">NOTES :</label>
                         </div>
                         <div class="col-md-7">
-                          <textarea class="form-control" rows="7" readonly>{{customerDetails?.note}}</textarea>
+                          <textarea class="form-control" style="border-bottom: 0.5px solid #F5F5F5;" rows="7" readonly>{{customerDetails?.note}}</textarea>
                         </div>
                       </div>
                     </div>

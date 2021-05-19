@@ -32,7 +32,7 @@
                                   <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
                                     <label for='imgupload'><img src="assets/images/default.jpg" class="img-fluid" *ngIf="imgURL== '' && editimgUrl == ''"></label>
                                     <label for='imgupload'><img src="{{editimgUrl}}" class="img-fluid" *ngIf="imgURL == ''" height="200" ></label>
-                                    <span style="color:red;" *ngIf="message">{{message}}</span>
+                                    <span style="color:red;" *ngIf="message">Something went wrong. Try Again</span>
                                     <input type="file" id="imgupload" accept='image/*' (change)="preview($event.target.files)" style="display:none" />
                                     <br/> <br/>
                                     <img [src]="imgURL"  class="img-fluid" *ngIf="imgURL">
@@ -40,7 +40,7 @@
                                     <b>{{customerInfo?.customer_id}}</b>
                                 </div>
                                 <div class="col-sm-7">
-                                   <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+                                   <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Edit customer failed</div>
                                    <br/>
                                     <div class="form-group row">
                                       <div class="col-md-4 p-3">
@@ -58,7 +58,7 @@
                                       <label for="orgname" class="label-material">ORG. NO.* :</label>
                                     </div>
                                     <div class="col-md-8">
-                                      <input type="number" formControlName="orgname" name="orgname" [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9" class="input-material">
+                                      <input type="text" pattern="[0-9]*" formControlName="orgname" name="orgname" [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9" class="input-material">
                                       <div *ngIf="submitted && f.orgname.errors" class="invalid-feedback">
                                         <div *ngIf="f.orgname.errors.required">Org. Number is required</div>
                                         <div *ngIf="f.orgname.errors.pattern">Please enter digits only</div>
@@ -81,7 +81,7 @@
                                       <label for="postal_code" class="label-material">POSTAL CODE :</label>
                                     </div>
                                     <div class="col-md-8">
-                                      <input formControlName="postal_code" type="number" name="postal_code" [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" maxlength="64">
+                                      <input formControlName="postal_code" pattern="[0-9]*" type="text" name="postal_code" [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" >
                                       <div *ngIf="submitted && f.postal_code.errors" class="invalid-feedback">
                                         <div *ngIf="f.postal_code.errors.required">Postal Code is required</div>
                                         <div *ngIf="f.postal_code.errors.pattern">Please enter valid postal code</div>
@@ -104,13 +104,7 @@
                                       <label for="postal_area" class="label-material">COUNTRY :</label>
                                     </div>
                                     <div class="col-md-8 mt-2">
-                                      <select class="input-material" name="country" formControlName="country"  >
-                                        <!--formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }"-->
-                                        <option value="">Select</option>
-                                        
-                                        <option value="2" [selected]="country == '2'">Norway</option>
-                                        
-                                      </select>
+                                      <input  disabled type="text" name="country" value ="Norway" placeholder="Norway" class="input-material">
                                       <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                                         <div *ngIf="f.country.errors.required">Country is required</div>
                                     </div> 
@@ -133,10 +127,10 @@
                                       <label for="mobile" class="label-material">MOBILE NO. :</label>
                                     </div>
                                     <div class="col-md-8">
-                                      <input formControlName="mobile" type="text" name="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" class="input-material">
+                                      <input formControlName="mobile" type="text" pattern="[0-9]*"  name="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" class="input-material">
                                       <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
                                         <div *ngIf="f.mobile.errors.required">Mobile Number is required</div>
-                                        <div *ngIf="f.mobile.errors.pattern">Please enter 10 digit valid mobile number</div>
+                                        <div *ngIf="f.mobile.errors.pattern">Please enter 8 digit valid mobile number</div>
                                       </div>
                                     </div>
                                   </div>

@@ -98,7 +98,7 @@ export class AddProductComponent implements OnInit {
         : ["", Validators.required],
       description: [""],
       status: [""],
-      category: [""],
+      category: ["0", Validators.required],
       building_part: [""],
       unit: [""],
       unitqnt: [""],

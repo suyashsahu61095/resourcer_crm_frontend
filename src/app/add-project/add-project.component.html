@@ -37,9 +37,7 @@
                         class="img-fluid"
                         *ngIf="imgURL == ''"
                     /></label>
-                    <span style="color: red" *ngIf="message">{{
-                      message
-                    }}</span>
+                    <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
                     <input
                       type="file"
                       id="imgupload"
@@ -53,7 +51,7 @@
                   </div>
                   <div class="col-sm-7">
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
-                      {{ error }}
+                     Adding project failed
                     </div>
                     <br />
                     <div class="form-fbt">
@@ -83,7 +81,7 @@
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
                         <label for="project_name" class="label-material"
-                          >PROJECT TYPE * :</label
+                          >PROJECT NAME * :</label
                         >
                       </div>
                       <div class="col-md-8">
@@ -230,6 +228,7 @@
                       <div class="col-md-8">
                         <input
                           type="text"
+                          pattern="[0-9]*" 
                           formControlName="project_mang_mobile"
                           maxlength="12"
                           name="project_mang_mobile"
@@ -307,7 +306,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
-                          type="text"
+                          type="number"
                           formControlName="onsite_mobile"
                           maxlength="12"
                           name="onsite_mobile"
@@ -486,7 +485,7 @@
                          
                           <span class="input-group-addon"
                             ><span class="fa fa-calendar"></span
-                          ></span>
+                          ></span> 
                         </div>
                       </div>
                     </div> -->
@@ -1060,7 +1059,12 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-md-3">
-            <select style = "text-transform:capitalize;" class="form-control" name="categories" id="categories">
+            <select style = "text-transform:capitalize; width: 80%;
+            border: none;
+            border-bottom: 0.5px solid #727272;
+            padding: 7px 4px;
+            background: #F5F5F5;
+            color: black;" class="form-control" name="categories" id="categories">
               <option value="">Select</option>
               <option
                 *ngFor="let category of categories; index as i"

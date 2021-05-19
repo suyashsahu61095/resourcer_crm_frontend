@@ -35,9 +35,7 @@
                         height: 300px;
                         margin-left: 16px;
                     " src="assets/images/default.jpg" class="img-fluid" *ngIf="imgURL == ''" /></label>
-                    <span style="color: red" *ngIf="message">{{
-                      message
-                      }}</span>
+                    <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
                     <input type="file" id="imgupload" accept="image/*" (change)="preview($event.target.files)"
                       style="display: none" />
                     <br />
@@ -46,7 +44,7 @@
                   </div>
                   <div class="col-sm-7">
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
-                      {{ error }}
+                      Adding product failed
                     </div>
                     <br />
                     <div class="form-fbt">
@@ -84,7 +82,7 @@
                           }" maxlength="30" class="input-material" />
                         <div *ngIf="submitted && f.product_name.errors" class="invalid-feedback">
                           <div *ngIf="f.product_name.errors.required">
-                            PRODUCT NAME is required
+                            PRODUCT TYPE is required
                           </div>
                         </div>
                       </div>
@@ -127,14 +125,14 @@
                     </div>
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
-                        <label for="category" class="label-material">CATEGORY :</label>
+                        <label for="category" class="label-material">CATEGORY* :</label>
                       </div>
                       <div class="col-md-8">
                         <select style="text-transform:capitalize;" class="input-material" formControlName="category"
                           name="category" id="category" [ngClass]="{
                             'is-invalid': submitted && f.category.errors
                           }" class="input-material">
-                          <option value="">Select</option>
+                          <option selected value="0">Not selected</option>
                           <option *ngFor="let category of categories; index as i" value="{{ category.id }}">
                             {{ category.category_name }}
                           </option>
@@ -275,7 +273,7 @@
                           <div style="margin-left: -26px;padding-right: 48px;  "
                             class="input-group date only_year col-md-5" data-date-format="yyyy"
                             data-link-field="building_year" data-link-format="yyyy">
-                            <input class="form-control" style="color: #000000;"size="16" type="text" id="production_year"
+                            <input class="form-control" style="color: #000000; font-size: 18px;"size="16" type="text" id="production_year"
                               formControlName="production_year" name="production_year" readonly /> &nbsp;&nbsp;
                             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
                           </div>
@@ -581,11 +579,23 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-md-3">
-            <select style="text-transform:capitalize;" class="form-control" name="categories" id="categories">
+            <select style = "text-transform:capitalize; width: 80%;
+            border: none;
+            border-bottom: 0.5px solid #727272;
+            padding: 7px 4px;
+            background: #F5F5F5;
+            color: black;"  class="form-control" name="categories" id="categories">
               <option value="">Select</option>
-              <option *ngFor="let category of categories; index as i" value="{{ category.id }}">
-                {{ category.category_name }}
-              </option>
+              <option  value="PRE (Produktdatablad)​">PRE (Produktdatablad)​</option>
+              <option  value="FDV (Forvaltning, drift og vedlikeholds dokumentasjon)​">FDV (Forvaltning, drift og vedlikeholds dokumentasjon)​</option>
+              <option  value="HMF (Helse, miljø og sikkerhet faktablad)​​">HMF (Helse, miljø og sikkerhet faktablad)​​</option>
+              <option  value="YTE (Ytelseserklæring)​​">YTE (Ytelseserklæring)​​</option>
+              <option  value="MAN (Monteringsanvisning)​​">MAN (Monteringsanvisning)​</option>
+              <option  value="SER (Sertifikat)​">SER (Sertifikat)​</option>
+              <option  value="TEKG (Teknisk godkjenning)​​">TEKG (Teknisk godkjenning)​</option>
+              <option  value="BRO (Brosjyre)​">BRO (Brosjyre)​</option>
+              <option  value="EPD (Environmental Product Declaration)​">EPD (Environmental Product Declaration)​</option>
+              <option  value="Other">Other​</option>
             </select>
           </div>
           <div class="col-md-9 row">

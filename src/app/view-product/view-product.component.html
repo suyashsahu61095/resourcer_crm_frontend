@@ -103,7 +103,7 @@
                       <div class="col-md-8">
                         <select formControlName="category" class="input-material" name="category" id="category" disabled
                           class="input-material">
-                          <option value="">Select</option>
+                          <option value="0">Not selected</option>
                           <option style="color: black;" *ngFor="let category of categories; index as i" value="{{ category.id }}"
                             [selected]="category?.id == productInfo?.category">
                             {{ category.category_name }}
@@ -165,7 +165,7 @@
                             </div>
                           </div>
 
-                          <div class="col-md-2" style="margin-left: -43px;">
+                          <div class="col-md-2" >
                             <label style="font-size: 13px;
                             font-weight: 500;
                             font-style: normal;">Length</label>
@@ -376,7 +376,7 @@
                     </div>
                     <div class="form-group row" *ngIf="productInfo?.productdocs != 0">
  <div class="col-md-8" style=" padding-top: 12px;  " *ngFor="let doc of productInfo?.productdocs; index as i" >
-                        <label for="billing_postal_area" class="label-material margin-left">{{doc?.product_category?.category_name}}&nbsp;&nbsp;<a href="{{'http://testdigits.s3-website-eu-west-1.amazonaws.com/uploads/products/documents/'+doc?.file_name}}"  target="_blank">{{doc?.file_name}}</a></label>
+                        <label for="billing_postal_area" class="label-material margin-left">{{doc?.category_id}}&nbsp;&nbsp;<a href="{{'https://d38b2gpjikxyz1.cloudfront.net/uploads/products/documents/'+doc?.file_name}}"  target="_blank">{{doc?.file_name}}</a></label>
                       
                       <div class="col-md-11 p-3" *ngFor="let file of filesmulti; index as i" style="font-size: 12px;">
                         <label for="billing_postal_area"

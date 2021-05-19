@@ -104,7 +104,7 @@ export class AddCustomerComponent implements OnInit {
     if (this.customerForm.invalid) {
       return;
     }
-    if (this.customerForm.controls["country"].value == "2") {
+    // if (this.customerForm.controls["country"].value == "2") {
       if (
         this.customerForm.controls["orgname"].value.toString().length != "9"
       ) {
@@ -115,7 +115,7 @@ export class AddCustomerComponent implements OnInit {
         alert("Mobile should be 8 digit for norway");
         return;
       }
-    }
+   // }
 
     this.loading = true;
     this.loadingData = true;
@@ -133,10 +133,7 @@ export class AddCustomerComponent implements OnInit {
     );
     formData.append("orgname", this.customerForm.controls["orgname"].value);
     formData.append("address", this.customerForm.controls["address"].value);
-    formData.append(
-      "postal_code",
-      this.customerForm.controls["postal_code"].value
-    );
+    formData.append("postal_code",this.customerForm.controls["postal_code"].value);
     formData.append(
       "postal_area",
       this.customerForm.controls["postal_area"].value

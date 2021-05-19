@@ -44,9 +44,7 @@
                     class="img-fluid"
                     *ngIf="imgURL == ''"
                 /></label>
-                    <span style="color: red" *ngIf="message">{{
-                      message
-                    }}</span>
+                    <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
                     <input
                       type="file"
                       id="imgupload"
@@ -62,7 +60,7 @@
                   </div>
                   <div class="col-sm-7">
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
-                      {{ error }}
+                    Edit project failed
                     </div>
                     <br />
                     <div class="form-fbt">
@@ -244,6 +242,7 @@
                       <div class="col-md-8">
                         <input
                           type="text"
+                          pattern="[0-9]*" 
                           formControlName="project_mang_mobile"
                           maxlength="12"
                           name="project_mang_mobile"
@@ -321,10 +320,10 @@
                       </div>
                       <div class="col-md-8">
                         <input
-                          type="text"
+                          type="number"
                           formControlName="onsite_mobile"
                           name="onsite_mobile"
-                          maxlength="12"
+                          maxlength="8"
                           [ngClass]="{
                             'is-invalid': submitted && f.onsite_mobile.errors
                           }"
@@ -511,7 +510,7 @@
                         >
                       </div>
                       <div class="col-md-8">
-                        <select
+                        <select 
                           class="input-material"
                           name="building_year"
                           id="building_year"
@@ -585,7 +584,7 @@
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
                         <label for="project_type" class="label-material"
-                          >ENVIORMENTAL REPORT :</label
+                          >ENVIRONMENTAL REPORT :</label
                         >
                       </div>
                       <div class="col-md-8" style="    top: 15px;">
@@ -647,7 +646,7 @@
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
                         <label for="project_type" class="label-material"
-                          >ENVIORMENTAL AMBITION :</label
+                          >ENVIRONMENTAL AMBITION :</label
                         >
                       </div>
                       <div class="col-md-8" style= "  top: -10px;"  >
@@ -669,6 +668,7 @@
                       <div class="col-md-8" style=" left: -14px;    top: 6px;">
                         <div
                           class="input-group date fulldate col-md-5"
+                          style="color: #000000; font-size: 18px;"
                           data-date=""
                           data-date-format="yyyy.mm.dd"
                           data-link-field="project_start_date"
@@ -677,7 +677,7 @@
                           <input
                             class="form-control"
                             size="16"
-                            style="color: #000000;    border-bottom: 0.5px solid #727272; " 
+                            style="color: #000000;  font-size: 18px;   border-bottom: 0.5px solid #727272; " 
                             type="text"
                             id="project_start_date"
                             formControlName="project_start_date"
@@ -707,7 +707,7 @@
                           <input
                             class="form-control"
                             size="16"
-                            style="color: #000000;    border-bottom: 0.5px solid #727272; "
+                            style="color: #000000;  font-size: 18px;   border-bottom: 0.5px solid #727272; "
                             type="text"
                             id="project_catalog_date"
                             formControlName="project_catalog_date"
@@ -737,7 +737,7 @@
                           <input
                             class="form-control"
                             size="16"
-                            style="color: #000000;     border-bottom: 0.5px solid #727272;"
+                            style="color: #000000;   font-size: 18px;   border-bottom: 0.5px solid #727272;"
                             type="text"
                             id="project_avail_date"
                             formControlName="project_avail_date"
@@ -769,7 +769,7 @@
                           <input
                             class="form-control"
                             size="16"
-                            style="color: #000000;     border-bottom: 0.5px solid #727272;" 
+                            style="color: #000000;    font-size: 18px;  border-bottom: 0.5px solid #727272;" 
                             type="text"
                             id="project_avail_end_date"
                             formControlName="project_avail_end_date"
@@ -973,15 +973,14 @@
                             </option>
                             <option
                               value="1"
-                              [selected]="projectInfo?.credit_period"
+                              [selected]="projectInfo?.credit_period == '1'"
                             >
                               Others
-                            </option>
+                             </option>
                           </select>
                         </div>
                         <div
                           class="col-md-4"
-                          *ngIf="projectInfo?.credit_period"
                         >
                           <input
                             type="text"
@@ -996,10 +995,10 @@
                     </div>
                     <div
                       class="form-group row"
-                      *ngIf="projectInfo?.projectdocs"
+                     
                     >
-                      <div class="col-md-6 p-3">
-                        <label
+                      <div class="col-md-6 p-3"  *ngIf="projectInfo?.projectdocs.length > 0">
+                        <label 
                           for="projectdocs"
                           class="label-material margin-left"
                           >Category - File Name</label
@@ -1088,7 +1087,12 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-md-3">
-            <select class="form-control" name="categories" id="categories">
+            <select style="width: 80%;
+            border: none;
+            border-bottom: 0.5px solid #727272;
+            padding: 7px 4px;
+            background: #F5F5F5;
+            color: black;" class="form-control" name="categories" id="categories">
               <option value="">Select</option>
               <option
                 *ngFor="let category of categories; index as i"

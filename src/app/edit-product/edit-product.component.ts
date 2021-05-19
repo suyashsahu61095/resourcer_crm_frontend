@@ -8,6 +8,7 @@ import { UserService, AuthenticationService } from "@app/_services";
 import Swal from "sweetalert2";
 declare var $: any;
 
+import { AuthGuard } from "@app/_helpers";
 @Component({
   selector: "app-edit-product",
   templateUrl: "./edit-product.component.html",
@@ -93,7 +94,7 @@ export class EditProductComponent implements OnInit {
       product_id: ["", Validators.required],
       description: [""],
       status: [""],
-      category: [""],
+      category: ["0"],
       building_part: [""],
       filesmulti:[""],
       unit: [""],
@@ -354,7 +355,10 @@ export class EditProductComponent implements OnInit {
           } else {
             this.error = data.message;
           }
-          this.router.navigate(["/products"]);
+          
+          AuthGuard.blocked=false;
+          this.router.navigate(["/view-product/",data.products]);
+          // this.router.navigate(["/products"]);
         },
         (error) => {
           this.error = error;

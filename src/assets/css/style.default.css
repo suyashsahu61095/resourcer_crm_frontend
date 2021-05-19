@@ -12,6 +12,14 @@ developer url: https://bnextitsolutions.com/
 *     GENERAL STYLES
 * ==========================================================
 */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 body {
   overflow-x: hidden;
@@ -602,7 +610,7 @@ font-family: "Barlow", sans-serif;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
   nav.side-navbar.shrinked {
     min-width: 180px;
     max-width:200px;
@@ -623,7 +631,7 @@ font-family: "Barlow", sans-serif;
 }
 
 
-@media screen and (max-width: 200px) {
+@media screen and (max-width: 100px) {
   nav.side-navbar.shrinked {
     min-width: 90px;
     max-width: 90px;
@@ -1376,12 +1384,19 @@ select.option{
   color: #000;
 }
 select.input-material {
-
+  opacity: 1;
+  border-color: #727272;
+  font-weight: 400;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: "Barlow", sans-serif;
+  font-style: normal;
+  color: black;
   width: 80%;
   border: none;
   border-bottom: 0.5px solid #727272;
   
-  padding: 23px 4px;
+  padding: 19px 4px;
   background: #F5F5F5;
   color:black;
 }

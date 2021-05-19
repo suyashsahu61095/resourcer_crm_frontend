@@ -246,4 +246,10 @@ export class UserService {
             return customers;
         }));
     }
+    issueMail(data:any) {
+        return this.http.post<any>(`${environment.apiUrl}/issue`, {data})
+            .pipe(map(response => {
+                return response;
+            }));
+    }
 }
