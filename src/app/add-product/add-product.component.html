@@ -36,6 +36,7 @@
                         margin-left: 16px;
                     " src="assets/images/default.jpg" class="img-fluid" *ngIf="imgURL == ''" /></label>
                     <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
+                    <span style="color: red" *ngIf="message2">{{message2}}</span>
                     <input type="file" id="imgupload" accept="image/*" (change)="preview($event.target.files)"
                       style="display: none" />
                     <br />
@@ -179,7 +180,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-3" style="top: -3px;">
+                        <div class="col-md-3" >
                           <select class="input-material" name="unitqnt" formControlName="unitqnt" [ngClass]="{
                               'is-invalid': submitted && f.unitqnt.errors
                             }" class="input-material">

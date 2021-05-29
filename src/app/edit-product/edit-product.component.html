@@ -45,6 +45,8 @@
                     />
                   </label>
                     <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
+                    
+                    <span style="color: red" *ngIf="message2">{{message2}}</span>
                     <input type="file" id="imgupload" accept="image/*" (change)="preview($event.target.files)"
                       style="display: none" />
                     <br />
@@ -586,7 +588,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group row" *ngIf="productInfo?.productdocslength >= 0">
+                    <div class="form-group row" *ngIf="productInfo?.productdocs.length >= 0">
                       <div class="col-md-6 p-3">
                         <label for="billing_postal_area" class="label-material margin-left">Category - File Name
                         </label>

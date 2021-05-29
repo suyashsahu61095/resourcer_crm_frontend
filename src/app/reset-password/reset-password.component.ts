@@ -74,7 +74,7 @@ onSubmit() {
           error => {
             this.loading = false;
             this.loadingData = false;
-              Swal.fire('', 'Invalid Email', 'error');
+              Swal.fire('', 'Invalid Password', 'error');
               this.error = error;
               
           });

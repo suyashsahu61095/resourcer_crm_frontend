@@ -193,10 +193,16 @@ export class ProductsComponent implements OnDestroy, OnInit {
          
           render: function (data: any, type: any, full: any) {
             //console.log(full);
-var link ="<div class='round'><input type='checkbox' id='checkbox"
-+full.id +"' name='prod_id' class='redirect' data-project-id= " + full.project_id +" view-attribute-id="
-+full.id +"' data-category_name= " + full.category_name +" view-attribute-category_name="
-+full.id +"><label for='checkbox" +full.id + "'></label></div>";
+  var link =
+"<div class='round'><input type='checkbox' id='checkbox" +
+full.id +
+"' name='prod_id' class='redirect' data-project-id= " +
+full.project_id +
+" view-attribute-id=" +
+full.id +
+"><label for='checkbox" +
+full.id +
+"'></label></div>";
             return link;
           },
         },
@@ -217,11 +223,8 @@ var link ="<div class='round'><input type='checkbox' id='checkbox"
           if (event.target.checked) {
             let project_id = $(event.target).attr("data-project-id");
             let product_id = $(event.target).attr("view-attribute-id");
-            let category = $(event.target).attr("data-category_name");
-            console.log("category ids",category)
             this.PDFProduct.push(product_id);
             this.PDFProductProject.push(project_id);
-            this.PDFProductCategory.push(category);
 
           } else {
             let project_id = $(event.target).attr("data-project-id");
@@ -237,7 +240,6 @@ var link ="<div class='round'><input type='checkbox' id='checkbox"
           }
           console.log(this.PDFProduct);
           console.log(this.PDFProductProject);
-          console.log(this.PDFProductCategory);
         });
         return row;
       },
@@ -616,7 +618,7 @@ var link ="<div class='round'><input type='checkbox' id='checkbox"
     //this.PDFProduct = [28,23];
     //this.PDFProductProject = [17];
     this.catalogService
-      .getpdfData(this.PDFProduct, this.PDFProductProject,this.PDFProductCategory)
+      .getpdfData(this.PDFProduct, this.PDFProductProject)
       .pipe(first())
       .subscribe((data) => {
        

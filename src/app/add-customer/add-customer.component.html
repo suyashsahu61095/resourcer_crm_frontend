@@ -20,7 +20,7 @@
                   <li class="breadcrumb-item"><a routerLink="/customers">/ Customer</a></li>
                   <li class="breadcrumb-item active">Add Customer</li>
               </ul>
-          </div>
+          </div> 
           <section class="forms pb-5"> 
               <div class="container-fluid">
                   <div class="row">
@@ -30,7 +30,7 @@
                                 <div class="col-sm-5" style="margin:auto;">
                                   <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
                                     <label for='imgupload'><img src="assets/images/default.jpg" class="img-fluid" *ngIf="imgURL== ''"></label>
-                                    <span style="color:red;" *ngIf="message">Something went wrong. Try Again</span>
+                                    <span style="color:red;" *ngIf="message">{{message}}</span>
                                     <input type="file" id="imgupload" accept='image/*'   (change)="preview($event.target.files)" style="display:none" />
                                     <br/> <br/>
                                     <label for='imgupload'><img [src]="imgURL" *ngIf="imgURL" class="img-fluid"></label>
@@ -134,11 +134,11 @@
                                       <label for="mobile" class="label-material">MOBILE NO:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input formControlName="mobile" type="text" name="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" maxlength="8" class="input-material">
+                                      <input formControlName="mobile" type="number" name="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" maxlength="8" class="input-material">
                                       <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
                                         <div *ngIf="f.mobile.errors.required">Mobile Number is required</div>
                                         <div *ngIf="f.mobile.errors.pattern">Please enter valid mobile number</div>
-                                        <div *ngIf="f.mobile.errors.pattern">Please enter 8 digit valid mobile number For Norway</div>
+                                        <!-- <div *ngIf="f.mobile.errors.pattern">Please enter 8 digit valid mobile number For Norway</div> -->
                                       </div>
                                     </div>
                                   </div>

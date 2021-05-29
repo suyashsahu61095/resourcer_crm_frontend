@@ -11,8 +11,8 @@ export class CatalogService {
     pdfData; 
     constructor(private http: HttpClient) { }
 
-    getpdfData(PDFProduct, PDFProductProject,PDFProductCategory): Observable<any> {
-        return this.http.post<any>(`${environment.apiUrl}/pdf`, {PDFProduct, PDFProductProject,PDFProductCategory})
+    getpdfData(PDFProduct, PDFProductProject): Observable<any> {
+        return this.http.post<any>(`${environment.apiUrl}/pdf`, {PDFProduct, PDFProductProject})
             .pipe(map(data => {
                 this.pdfData = data.html;
                 console.log(this.pdfData);

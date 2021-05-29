@@ -26,6 +26,7 @@ export class AddProductComponent implements OnInit {
   public imagePath;
   imgURL: any = "";
   public message: string;
+  public message2: string;
   fileToUpload: File = null;
   filemultiUpload: File = null;
   formData = new FormData();
@@ -144,7 +145,12 @@ export class AddProductComponent implements OnInit {
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
+      this.message2 = "Only images are supported.";
+      return;
+    }
+    
+    if (files[0].size / 15240  > 15) {
+      this.message2 = "file is bigger than 15MB";
       return;
     }
 

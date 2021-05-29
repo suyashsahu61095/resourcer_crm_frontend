@@ -80,8 +80,8 @@ export class AddCustomerComponent implements OnInit {
       this.message = "Only images are supported.";
       return;
     }
-    if (files[0].size / 10240 / 10240 > 10) {
-      this.message = "file is bigger than 10MB";
+    if (files[0].size / 15240  > 15) {
+      this.message = "file is bigger than 15MB";
       return;
     }
 
@@ -165,7 +165,7 @@ export class AddCustomerComponent implements OnInit {
               });
             }
           } else {
-            this.error = data.message;
+            this.error = 'Something went wrong. Try Again';
           }
         },
         (error) => {

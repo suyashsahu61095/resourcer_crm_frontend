@@ -1375,7 +1375,7 @@ button, input[type='submit'] {
 input.input-material {
   width: 80%;
   border: none;
-  border-bottom: 0.5px solid #727272;
+  border-bottom: 0.5px solid #727272 !important;
   padding: 18px 10px;
  background-color: #F5F5F5;
   color:#000000;

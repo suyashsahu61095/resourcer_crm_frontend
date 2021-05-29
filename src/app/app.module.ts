@@ -42,6 +42,8 @@ import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { DownloadPdfComponent } from "./download-pdf/download-pdf.component";
 import { PriceDelimiterPipe } from "./_pipes/price-delimiter.pipe";
 
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -88,6 +90,9 @@ import { PriceDelimiterPipe } from "./_pipes/price-delimiter.pipe";
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: DeviceDetectorService,
+    },
 
     // provider used to create fake backend
     // fakeBackendProvider

@@ -17,7 +17,7 @@
       <div class="breadcrumb-holder container-fluid">
         <ul class="breadcrumb"  style="    padding-top: 90px;">
           <li class="breadcrumb-item">
-            <a routerLink="/projects">Project list</a>
+            <a routerLink="/projects">Projects</a>
           </li>
           <li class="breadcrumb-item">
             <a routerLink="/view-project/{{ editId }}">{{ editId }}</a>
@@ -45,6 +45,8 @@
                     *ngIf="imgURL == ''"
                 /></label>
                     <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
+                    
+                    <span style="color: red" *ngIf="message2">{{message2}}</span>
                     <input
                       type="file"
                       id="imgupload"
@@ -149,7 +151,7 @@
                           class="invalid-feedback"
                         >
                           <div *ngIf="f.customer.errors.required">
-                            Customer is required
+                            Customer Name is required
                           </div>
                         </div>
                       </div>
@@ -454,13 +456,11 @@
                           type="number"
                           formControlName="no_of_floors"
                           name="no_of_floors"
-                          min="0"
-                          max="20"
+                         
                           [ngClass]="{
                             'is-invalid': submitted && f.no_of_floors.errors
                           }"
-                          oninput="this.value = 
-                            !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                       
                           class="input-material"
                         />
                         <div
@@ -973,7 +973,7 @@
                             </option>
                             <option
                               value="1"
-                              [selected]="projectInfo?.credit_period == '1'"
+                              [selected]="projectInfo?.credit_period >'45'"
                             >
                               Others
                              </option>

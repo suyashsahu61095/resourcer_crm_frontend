@@ -26,6 +26,8 @@ export class EditProjectComponent implements OnInit {
   public imagePath;
   imgURL: any = "";
   public message: string;
+  
+  public message2: string;
   fileToUpload: File = null;
   filemultiUpload: File = null;
   formData = new FormData();
@@ -119,7 +121,7 @@ export class EditProjectComponent implements OnInit {
       project_type: [""],
       project_status: [""],
       property_area: ["", Validators.pattern("[0-9]*")],
-      no_of_floors: ["", Validators.pattern("[0-9]")],
+      no_of_floors: [""],
       building_year: [""],
       last_refurbished: [""],
       env_report: [""],
@@ -194,7 +196,7 @@ export class EditProjectComponent implements OnInit {
             ],
             no_of_floors: [
               this.projectInfo.no_of_floors,
-              [Validators.pattern("[0-9]")],
+              [],
             ],
             building_year: this.projectInfo.building_year,
             last_refurbished: this.projectInfo.last_refurbished,
@@ -241,10 +243,14 @@ export class EditProjectComponent implements OnInit {
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
+      this.message2 = "Only images are supported.";
       return;
     }
 
+    if (files[0].size / 15240 > 15) {
+      this.message2 = "file is bigger than 15MB";
+      return;
+    }
     var reader = new FileReader();
     this.fileToUpload = files[0];
     reader.readAsDataURL(files[0]);

@@ -12,6 +12,8 @@ import Swal from "sweetalert2";
 import {Location} from '@angular/common';
 
 import { AuthGuard } from "@app/_helpers";
+
+import { environment } from '../../environments/environment.prod';
 declare var $: any;
 
 @Component({
@@ -39,7 +41,7 @@ export class ViewProductComponent implements OnInit {
   editId:any;
   editimgUrl:any = '';
   categories:any;
-  
+  imgBucket:any;
   filesmulti:any;
 constructor(
   private route: ActivatedRoute,
@@ -49,6 +51,8 @@ constructor(
   private formBuilder: FormBuilder,
   private _location: Location
 ) { 
+  this.imgBucket=environment.imgBucket;
+  console.log("image address", this.imgBucket)
   this.currentUser = this.authenticationService.currentUserValue;
 }
 backClicked() {

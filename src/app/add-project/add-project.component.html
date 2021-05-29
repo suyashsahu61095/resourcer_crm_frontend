@@ -38,6 +38,7 @@
                         *ngIf="imgURL == ''"
                     /></label>
                     <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
+                    <span style="color: red" *ngIf="message2">{{message2}}</span>
                     <input
                       type="file"
                       id="imgupload"
@@ -134,7 +135,7 @@
                           class="invalid-feedback"
                         >
                           <div *ngIf="f.customer.errors.required">
-                            Customer is required
+                            Customer Name is required
                           </div>
                         </div>
                       </div>
