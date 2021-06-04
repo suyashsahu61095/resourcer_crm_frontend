@@ -26,14 +26,15 @@
               <div class="container-fluid">
                   <div class="row">
                       <div class="col-md-12">
-                            <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+                            <form [formGroup]="customerForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()">
                               <div class="row">
                                 <div class="col-sm-5" style="margin:auto;">
                                   <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
                                     <label for='imgupload'><img src="assets/images/default.jpg" class="img-fluid" *ngIf="imgURL== '' && editimgUrl == ''"></label>
                                     <label for='imgupload'><img src="{{editimgUrl}}" class="img-fluid" *ngIf="imgURL == ''" height="200" ></label>
                                     <span style="color:red;" *ngIf="message">Something went wrong. Try Again</span>
-                                    <span style="color:red;" *ngIf="message2">{{essage2}}</span>
+                                    <span style="color:red;" *ngIf="message2">{{message2}}</span>
+                                    <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div>
                                     <input type="file" id="imgupload" accept='image/*' (change)="preview($event.target.files)" style="display:none" />
                                     <br/> <br/>
                                     <img [src]="imgURL"  class="img-fluid" *ngIf="imgURL">
@@ -48,7 +49,7 @@
                                         <label for="customerName" class="label-material">CUSTOMER NAME *:</label>
                                       </div>
                                       <div class="col-md-8">
-                                        <input type="text" formControlName="customerName" name="customerName" [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" class="input-material">
+                                        <input type="text" formControlName="customerName" [(ngModel)]="name"  name="customerName" [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" class="input-material">
                                         <div *ngIf="submitted && f.customerName.errors" class="invalid-feedback">
                                           <div *ngIf="f.customerName.errors.required">Customer Name is required</div>
                                         </div>
@@ -59,7 +60,7 @@
                                       <label for="orgname" class="label-material">ORG. NO.* :</label>
                                     </div>
                                     <div class="col-md-8">
-                                      <input type="text" pattern="[0-9]*" formControlName="orgname" name="orgname" [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9" class="input-material">
+                                      <input [(ngModel)]="orgVal" (keyup.enter)="getOrg()" (keyup)="getOrg()" (change)="getOrg()"  type="text" pattern="[0-9]*" formControlName="orgname" name="orgname" [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9" class="input-material">
                                       <div *ngIf="submitted && f.orgname.errors" class="invalid-feedback">
                                         <div *ngIf="f.orgname.errors.required">Org. Number is required</div>
                                         <div *ngIf="f.orgname.errors.pattern">Please enter digits only</div>
@@ -71,7 +72,7 @@
                                       <label for="address" class="label-material">ADDRESS :</label>
                                     </div>
                                     <div class="col-md-8">
-                                      <input formControlName="address" type="text" name="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" maxlength="64" class="input-material">
+                                      <input formControlName="address" [(ngModel)]="address" type="text" name="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" maxlength="64" class="input-material">
                                       <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
                                         <div *ngIf="f.address.errors.required">Address is required</div>
                                       </div>
@@ -82,7 +83,7 @@
                                       <label for="postal_code" class="label-material">POSTAL CODE :</label>
                                     </div>
                                     <div class="col-md-8">
-                                      <input formControlName="postal_code" pattern="[0-9]*" type="text" name="postal_code" [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" >
+                                      <input formControlName="postal_code" [(ngModel)]="postal_code"  pattern="[0-9]*" type="text" name="postal_code" [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" >
                                       <div *ngIf="submitted && f.postal_code.errors" class="invalid-feedback">
                                         <div *ngIf="f.postal_code.errors.required">Postal Code is required</div>
                                         <div *ngIf="f.postal_code.errors.pattern">Please enter valid postal code</div>
@@ -94,7 +95,7 @@
                                       <label for="postal_area" class="label-material">POSTAL AREA :</label>
                                     </div>
                                     <div class="col-md-8">
-                                      <input formControlName="postal_area" type="text" name="postal_area" [ngClass]="{ 'is-invalid': submitted && f.postal_area.errors }" class="input-material" maxlength="20">
+                                      <input formControlName="postal_area" [(ngModel)]="postal_area" type="text" name="postal_area" [ngClass]="{ 'is-invalid': submitted && f.postal_area.errors }" class="input-material" maxlength="20">
                                       <div *ngIf="submitted && f.postal_area.errors" class="invalid-feedback">
                                         <div *ngIf="f.postal_area.errors.required">Postal Code is required</div>
                                       </div>

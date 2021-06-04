@@ -6,6 +6,7 @@ import { first } from "rxjs/operators";
 import { User } from "@app/_models";
 import { UserService, AuthenticationService } from "@app/_services";
 import { AuthGuard } from "@app/_helpers";
+import { A11yModule } from "@angular/cdk/a11y";
 declare var $: any;
 
 @Component({
@@ -31,7 +32,14 @@ export class AddCustomerComponent implements OnInit {
   orgVal: any = "";
   register = true;
   registeraddnew = false;
+  name:any;
+  address:any;
+  postal_area:any;
+  postal_code:any;
 
+
+org:any;
+error2:any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -128,15 +136,13 @@ export class AddCustomerComponent implements OnInit {
       formData.set("imageFile", this.fileToUpload, this.fileToUpload.name);
     }
     formData.append(
-      "customerName",
-      this.customerForm.controls["customerName"].value
+      "customerName",this.name
     );
     formData.append("orgname", this.customerForm.controls["orgname"].value);
-    formData.append("address", this.customerForm.controls["address"].value);
-    formData.append("postal_code",this.customerForm.controls["postal_code"].value);
+    formData.append("address",this.address);
+    formData.append("postal_code",this.postal_code);
     formData.append(
-      "postal_area",
-      this.customerForm.controls["postal_area"].value
+      "postal_area",this.postal_area
     );
     formData.append("country", this.customerForm.controls["country"].value);
     formData.append("name", this.customerForm.controls["name"].value);
@@ -185,4 +191,34 @@ export class AddCustomerComponent implements OnInit {
     this.register = false;
     this.registeraddnew = true;
   }
+getOrg(){
+  
+  this.loading = true;
+  this.loadingData = true;
+console.log("get org called");
+this.orgVal;
+console.log("org ",this.orgVal);
+this.userService.getOrg(this.orgVal).subscribe(
+  (data) => {
+    this.loading = false;
+    this.loadingData = false;
+      this.info = data.message;
+      console.log("data - geted on org link",data)
+     this.name=data.navn;
+     this.address=data.forretningsadresse.adresse[0];
+     this.postal_area=data.forretningsadresse.kommune;
+     this.postal_code=data.forretningsadresse.postnummer;
+     this.error2="";
+  },
+  (error) => {
+    this.error2 = error;
+    this.loading = false;
+    this.loadingData = false;
+  }
+);
+
+}
+
+
+
 }

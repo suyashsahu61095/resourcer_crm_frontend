@@ -46,6 +46,13 @@ export class EditProjectComponent implements OnInit {
   closeResult: string;
   doc_path: any;
   yearOptions = [];
+  
+  orgVal:any;
+  postal_code:any;
+  postal_area:any;
+  address:any;
+  name:any;
+  error2:any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -220,6 +227,16 @@ export class EditProjectComponent implements OnInit {
             billing_postal_area: this.projectInfo.billing_postal_area,
             credit_period: this.projectInfo.credit_period,
           }));
+
+              this.name = this.projectInfo.billing_project_company;
+              this.orgVal= this.projectInfo.billing_orgno;
+              this.address=this.projectInfo.billing_address;
+              this.postal_code=  this.projectInfo.billing_postal_code;
+              this.postal_area= this.projectInfo.billing_postal_area;
+
+
+
+
         if (this.projectInfo.project_image) {
           this.editimgUrl =
             data.image_base_path + "/" + this.projectInfo.project_image;
@@ -496,7 +513,7 @@ export class EditProjectComponent implements OnInit {
           this.loading = false;
           this.loadingData = false;
         }
-      );
+      ); 
   }
 
   credit_period(obj) {
@@ -510,4 +527,32 @@ export class EditProjectComponent implements OnInit {
       $("#credit_period").val(obj);
     }
   }
+  getOrg(){
+  
+    this.loading = true;
+    this.loadingData = true;
+  console.log("get org called");
+  this.orgVal;
+  console.log("org ",this.orgVal);
+  this.userService.getOrg(this.orgVal).subscribe(
+    (data) => {
+      this.loading = false;
+      this.loadingData = false;
+       this.info = data.message;
+       console.log("data - geted on org link",data)
+       this.name=data.navn;
+       this.address=data.forretningsadresse.adresse[0];
+       this.postal_area=data.forretningsadresse.kommune;
+       this.postal_code=data.forretningsadresse.postnummer;
+       this.error2="";
+    },
+    (error) => {
+      this.error2 = error;
+      this.loading = false;
+      this.loadingData = false;
+    }
+  );
+  
+  }
+
 }

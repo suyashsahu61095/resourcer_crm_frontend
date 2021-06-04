@@ -41,8 +41,8 @@ export class ViewProductComponent implements OnInit {
   editId:any;
   editimgUrl:any = '';
   categories:any;
-  imgBucket:any;
   filesmulti:any;
+  imgBucket:any;
 constructor(
   private route: ActivatedRoute,
   private router: Router,
@@ -51,8 +51,6 @@ constructor(
   private formBuilder: FormBuilder,
   private _location: Location
 ) { 
-  this.imgBucket=environment.imgBucket;
-  console.log("image address", this.imgBucket)
   this.currentUser = this.authenticationService.currentUserValue;
 }
 backClicked() {
@@ -96,7 +94,8 @@ ngOnInit() {
             price_used_product: this.productInfo.price_used_product,
             price_sold_product: this.productInfo.price_sold_product,
           });
-         
+          this.imgBucket = data.file_path;
+          console.log("file path from db", this.imgBucket)
           if(this.productInfo.product_image != undefined){
             this.editimgUrl = data.image_base_path+'/'+this.productInfo.product_image;
           }

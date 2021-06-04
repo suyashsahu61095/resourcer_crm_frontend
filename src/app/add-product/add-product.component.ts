@@ -370,7 +370,7 @@ export class AddProductComponent implements OnInit {
   clonefun() {
     this.register = false;
     this.clone = true;
-    this.addnew = false;
+    this.addnew = true;
   }
 
   addnewfun() {

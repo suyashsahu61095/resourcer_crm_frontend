@@ -43,6 +43,13 @@ export class AddProjectComponent implements OnInit {
   closeResult: string;
   changesCounter: number = 0;
 
+  orgVal:any;
+  postal_code:any;
+  postal_area:any;
+  address:any;
+  name:any;
+  error2:any;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -327,14 +334,12 @@ export class AddProjectComponent implements OnInit {
     );
     formData.append("note", this.projectForm.controls["note"].value);
     formData.append(
-      "billing_project_company",
-      this.projectForm.controls["billing_project_company"].value
+      "billing_project_company",this.name
     );
     formData.append(
-      "billing_orgno",
-      this.projectForm.controls["billing_orgno"].value
+      "billing_orgno",this.orgVal
     );
-    formData.append(
+    formData.append( 
       "billing_project_number",
       this.projectForm.controls["billing_project_number"].value
     );
@@ -343,16 +348,13 @@ export class AddProjectComponent implements OnInit {
       this.projectForm.controls["billing_customer_ref"].value
     );
     formData.append(
-      "billing_address",
-      this.projectForm.controls["billing_address"].value
+      "billing_address",this.address
     );
     formData.append(
-      "billing_postal_code",
-      this.projectForm.controls["billing_postal_code"].value
+      "billing_postal_code",this.postal_code
     );
     formData.append(
-      "billing_postal_area",
-      this.projectForm.controls["billing_postal_area"].value
+      "billing_postal_area",this.postal_area
     );
     formData.append("credit_period", $("#credit_period").val());
 
@@ -382,7 +384,7 @@ export class AddProjectComponent implements OnInit {
           this.loadingData = false;
         }
       );
-  }
+  } 
 
   credit_period(obj) {
     if (obj == 1) {
@@ -395,4 +397,38 @@ export class AddProjectComponent implements OnInit {
       $("#credit_period").val(obj);
     }
   }
+
+
+  getOrg(){
+  
+    this.loading = true;
+    this.loadingData = true;
+  console.log("get org called");
+  this.orgVal;
+  console.log("org ",this.orgVal);
+  this.userService.getOrg(this.orgVal).subscribe(
+    (data) => {
+      this.loading = false;
+      this.loadingData = false;
+       this.info = data.message;
+       console.log("data - geted on org link",data)
+       this.name=data.navn;
+       this.address=data.forretningsadresse.adresse[0];
+       this.postal_area=data.forretningsadresse.kommune;
+       this.postal_code=data.forretningsadresse.postnummer;
+       this.error2="";
+    },
+    (error) => {
+      this.error2 = error;
+      this.loading = false;
+      this.loadingData = false;
+    }
+  );
+  
+  }
+
+
+
+
+
 }

@@ -36,6 +36,12 @@ export class EditCustomerComponent implements OnInit {
   currentUser: User;
   editimgUrl:any = '';
   country:any;
+  name:any;
+  address:any;
+  postal_area:any;
+  postal_code:any;
+  orgVal:any;
+  error2:any;
 constructor(
   private formBuilder: FormBuilder,
   private route: ActivatedRoute,
@@ -66,6 +72,11 @@ ngOnInit() {
           note: this.customerInfo.note,
           country: this.customerInfo.country
         });
+        this.name=this.customerInfo.customer_name;
+        this.address= this.customerInfo.address;
+        this.postal_code=this.customerInfo.postal_code;
+        this.postal_area= this.customerInfo.postal_area;
+        this.orgVal=this.customerInfo.org_number;
         if(this.customerInfo.image_path){
           this.editimgUrl = data.image_base_path+'/'+this.customerInfo.image_path;
         }
@@ -142,12 +153,12 @@ onSubmit() {
   if(this.fileToUpload){
     formData.set("imageFile", this.fileToUpload, this.fileToUpload.name);
   }
-  formData.append("orgname", this.customerForm.controls['orgname'].value)
+  formData.append("orgname", this.orgVal)
   formData.append("id", this.editId)
-  formData.append("address", this.customerForm.controls['address'].value)
-  formData.append("customerName", this.customerForm.controls['customerName'].value)
-  formData.append("postal_code", this.customerForm.controls['postal_code'].value)
-  formData.append("postal_area", this.customerForm.controls['postal_area'].value)
+  formData.append("address", this.address)
+  formData.append("customerName", this.name)
+  formData.append("postal_code", this.postal_code)
+  formData.append("postal_area", this.postal_area)
   formData.append("name", this.customerForm.controls['name'].value)
   formData.append("country", this.customerForm.controls['country'].value)
   formData.append("email", this.customerForm.controls['email'].value)
@@ -180,6 +191,33 @@ onSubmit() {
               this.loading = false;
               this.loadingData = false;
           });
+}
+getOrg(){
+  
+  this.loading = true;
+  this.loadingData = true;
+console.log("get org called");
+this.orgVal;
+console.log("org ",this.orgVal);
+this.userService.getOrg(this.orgVal).subscribe(
+  (data) => {
+    this.loading = false;
+    this.loadingData = false;
+      this.info = data.message;
+      console.log("data - geted on org link",data)
+     this.name=data.navn;
+     this.address=data.forretningsadresse.adresse[0];
+     this.postal_area=data.forretningsadresse.kommune;
+     this.postal_code=data.forretningsadresse.postnummer;
+     this.error2="";
+  },
+  (error) => {
+    this.error2 = error;
+    this.loading = false;
+    this.loadingData = false;
+  }
+);
+
 }
 
 }

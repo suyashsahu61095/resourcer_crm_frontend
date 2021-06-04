@@ -252,4 +252,10 @@ export class UserService {
                 return user;
         }));
     }
+    getOrg(pagenumber): Observable<any> {
+        return this.http.get<any>(`https://data.brreg.no/enhetsregisteret/api/enheter/`+ pagenumber)
+            .pipe(map(user => {
+                return user;
+        }));
+    }
 }

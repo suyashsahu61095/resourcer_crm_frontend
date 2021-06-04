@@ -29,7 +29,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
-              <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+              <form [formGroup]="projectForm"  (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()">
                 <div class="row">
                   <div class="col-sm-5" style="margin: auto">
                     <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
@@ -47,6 +47,8 @@
                     <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
                     
                     <span style="color: red" *ngIf="message2">{{message2}}</span>
+                    
+                    <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div>
                     <input
                       type="file"
                       id="imgupload"
@@ -808,6 +810,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        [(ngModel)]="name" 
                           type="text"
                           formControlName="billing_project_company"
                           maxlength="60"
@@ -830,6 +833,8 @@
                           formControlName="billing_orgno"
                           name="billing_orgno"
                           class="input-material"
+                          (keyup)="getOrg()"
+                          [(ngModel)]="orgVal" (change)="getOrg()" 
                         />
                       </div>
                     </div>
@@ -880,6 +885,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        [(ngModel)]="address" 
                           type="text"
                           formControlName="billing_address"
                           name="billing_address"
@@ -899,6 +905,7 @@
                       <div class="col-md-8">
                         <input
                           type="text"
+                          [(ngModel)]="postal_code"
                           formControlName="billing_postal_code"
                           name="billing_postal_code"
                           [ngClass]="{
@@ -928,6 +935,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        [(ngModel)]="postal_area"
                           type="text"
                           formControlName="billing_postal_area"
                           name="billing_postal_area"
@@ -983,12 +991,14 @@
                           class="col-md-4"
                         >
                           <input
-                            type="text"
-                            formControlName="credit_period"
-                            id="credit_period"
-                            maxlength="20"
-                            name="credit_period"
-                            class="input-material"
+                          type="text"
+                          class="input-material"
+                          formControlName="credit_period"
+                          id="credit_period"
+                          maxlength="20"
+                          style="display: none"
+                          name="credit_period"
+                          readonly
                           />
                         </div>
                       </div>

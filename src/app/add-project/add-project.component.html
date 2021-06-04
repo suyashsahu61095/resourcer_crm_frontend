@@ -39,6 +39,8 @@
                     /></label>
                     <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
                     <span style="color: red" *ngIf="message2">{{message2}}</span>
+                    
+                    <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div>
                     <input
                       type="file"
                       id="imgupload"
@@ -54,6 +56,10 @@
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
                      Adding project failed
                     </div>
+                    <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">
+                      Invalid Org. Number
+
+                     </div>
                     <br />
                     <div class="form-fbt">
                       <div class="form-group text-center">
@@ -446,8 +452,7 @@
                           [ngClass]="{
                             'is-invalid': submitted && f.no_of_floors.errors
                           }"
-                          oninput="this.value = 
-                            !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
+                        
                           class="input-material"
                         />
                         <div
@@ -838,6 +843,7 @@
                           maxlength="60"
                           name="billing_project_company"
                           class="input-material"
+                          [(ngModel)]="name" 
                         />
                       </div>
                     </div>
@@ -856,6 +862,8 @@
                           name="billing_orgno"
                           maxlength="10"
                           class="input-material"
+                          (keyup)="getOrg()"
+                          [(ngModel)]="orgVal" (change)="getOrg()" 
                         />
                       </div>
                     </div>
@@ -893,7 +901,7 @@
                           maxlength="30"
                           name="billing_customer_ref"
                           class="input-material"
-                        />
+                        /> 
                       </div>
                     </div>
                     <div class="form-group row">
@@ -907,6 +915,7 @@
                       <div class="col-md-8">
                         <input
                           type="text"
+                          [(ngModel)]="address" 
                           formControlName="billing_address"
                           name="billing_address"
                           maxlength="200"
@@ -924,6 +933,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        [(ngModel)]="postal_code" 
                           type="text"
                           formControlName="billing_postal_code"
                           name="billing_postal_code"
@@ -954,6 +964,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
+                        [(ngModel)]="postal_area" 
                           type="text"
                           formControlName="billing_postal_area"
                           name="billing_postal_area"
@@ -974,7 +985,7 @@
                         <div class="col-md-6" style="max-width: 408px;">
                           <select
                           formControlName="credit_period"
-                            class="input-material"
+                            class="input-material" 
                             name="credit_period_select"
                             (change)="credit_period($event.target.value)"
                           >
@@ -982,7 +993,7 @@
                             <option value="14">14 Days</option>
                             <option value="30">30 Days</option>
                             <option value="45">45 Days</option>
-                            <option value="1">Others</option>
+                            <option value="1">Others</option>  
                           </select>
                         </div>
                         <div class="col-md-6">
