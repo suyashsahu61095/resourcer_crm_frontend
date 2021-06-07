@@ -191,33 +191,7 @@ error2:any;
     this.register = false;
     this.registeraddnew = true;
   }
-getOrg(){
-  
-  this.loading = true;
-  this.loadingData = true;
-console.log("get org called");
-this.orgVal;
-console.log("org ",this.orgVal);
-this.userService.getOrg(this.orgVal).subscribe(
-  (data) => {
-    this.loading = false;
-    this.loadingData = false;
-      this.info = data.message;
-      console.log("data - geted on org link",data)
-     this.name=data.navn;
-     this.address=data.forretningsadresse.adresse[0];
-     this.postal_area=data.forretningsadresse.kommune;
-     this.postal_code=data.forretningsadresse.postnummer;
-     this.error2="";
-  },
-  (error) => {
-    this.error2 = error;
-    this.loading = false;
-    this.loadingData = false;
-  }
-);
 
-}
 
 
 
