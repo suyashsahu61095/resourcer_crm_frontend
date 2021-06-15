@@ -97,7 +97,7 @@ export class AddProductComponent implements OnInit {
       project_id: this.route.snapshot.queryParams["param_id"]
         ? this.route.snapshot.queryParams["param_id"]
         : ["", Validators.required],
-      description: [""],
+      description: ["", Validators.required],
       status: [""],
       category: ["0", Validators.required],
       building_part: [""],

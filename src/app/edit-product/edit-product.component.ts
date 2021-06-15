@@ -94,7 +94,7 @@ export class EditProductComponent implements OnInit {
       product_name: ["", Validators.required],
       project_id: ["", Validators.required],
       product_id: ["", Validators.required],
-      description: [""],
+      description: ["", Validators.required],
       status: [""],
       category: ["0"],
       building_part: [""],
