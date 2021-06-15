@@ -13,6 +13,8 @@ use Illuminate\Validation\ValidationException;
 
 use App\Models\User;
 
+use Illuminate\Support\Facades\App;
+
 class LoginController extends Controller
 {
     /**
@@ -24,6 +26,7 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
+        
         $request->validate([
             'username' => 'required|email',
             'password' => 'required',
@@ -42,9 +45,12 @@ class LoginController extends Controller
         return response()->json(['status' => '1', 'message' => 'Successfully Login', 'user' => $dataResponse ], 200);
     }
 
+   
+
     public function forget_password(Request $request)
     {
-        
+        $path=config('app.reset');
+        $default = config('app.mail');
         $request->validate([
             'data.registerUsername' => 'required|email',
         ]);
@@ -58,28 +64,32 @@ class LoginController extends Controller
             return response()->json(['status' => '0', 'message' => 'The provided credentials are incorrect'], 422);
         } else {
             $email = $request->input('data.registerUsername');
-            $data = ['name' => $user->name, 'token' => base64_encode($user->id)];
+            $data = ['name' => $user->name, 'token' => encrypt($user->id)];
             Mail::send('forget-password', $data , function($message) use ($email) {
                 $message->to($email)
-                ->from('adsininternet0@gmail.com', 'Digit')
+                ->from($default, 'Digit')
                 ->subject("Forget Password");
                 });
-            return response()->json(['status' => '1', 'message' => 'Password Reset Email Send Successfully', 'url' => "http://localhost:4300/reset-password/".base64_encode($user->id)], 200);    
+            return response()->json(['status' => '1', 'message' => 'Password Reset Email Send Successfully', 'url' => "'.$path.'/reset-password/".base64_encode($user->id)], 200);    
         }
         
     }
 
     public function reset_password(Request $request) {
+        
         $validator = $request->validate([
             'data.password' => 'required| min:4 | max:12 |confirmed',
             'data.password_confirmation' => 'required| min:4'
         ]);
-        $id = base64_decode($request->input('token')); 
+        $id = decrypt($request->input('token')); 
         $user = User::find($id);
         $user->password = Hash::make($request->input('data.password'));
+      
         $user->save();
         return response()->json(['status'=>'1','message' => 'Successfully Password Reset'], 200);
     }
     
+    
+
 
 }

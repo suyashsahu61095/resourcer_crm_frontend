@@ -32,15 +32,15 @@
 			<ul>
 				<!-- <li><span> <br/><br/></span> </li> -->
 				<li><span >Kundenavn : {{$eachData['customer']['customer_name']}}</span> </li>
-				<li><span >Prosjektnavn : {{$eachData['project_name']}}</span> <br/><span >Prosjetadresse : {{$eachData['project_address']}} <br/></span> </li>
+				<li ><span style="white-space: nowrap;" >Prosjektnavn : {{$eachData['project_name']}}</span> <br/><span >Prosjetadresse : {{$eachData['project_address']}} <br/></span> </li>
 			</ul>
 		 
 		</div>
 		
 		<div class="right-home-section">
 		@if(!empty($eachData['project_image']))
-			<img height="400" src="https://d38b2gpjikxyz1.cloudfront.net/uploads/projects/{{$eachData['project_image']}}">
-			<!-- <img src="{{ URL::asset('images/default.jpg') }}"> -->
+			<img height="400" src="https://d10rdxeixe5doh.cloudfront.net/uploads/projects/{{$eachData['project_image']}}">
+		
 		@else
 			<img height="400" src="{{ URL::asset('images/default.jpg')}}">
 		@endif
@@ -61,7 +61,7 @@
 
 					@if(!empty($eachprod['product_image']))
 
-						<img height="440" src="https://d38b2gpjikxyz1.cloudfront.net/uploads/products/{{$eachprod['product_image']}}" >
+						<img height="440" src="d10rdxeixe5doh.cloudfront.net/uploads/products/{{$eachprod['product_image']}}" >
 					@else
 					<img height="440" src="{{ URL::asset('images/default.jpg')}}">
 					@endif
@@ -69,7 +69,7 @@
 					<div class="two">
 						<ul class="listing-ul">
 							<li>
-							<div><h5> {{ $k + 1 }} BÆRENDE</h5></div>
+							<div><h5>{{$k+1}} {{$eachprod['category']['category_name']}}</h5></div>
 								<!-- <div><h5> {{$eachprod['product_name']}} </h5></div> -->
 								<div><h5> BYGNINGSDEL : {{$eachprod['building_part']}} </h5></div>
 								<div><h5>PRODUKT ID : {{$eachprod['product_id']}} </h5></div>
@@ -115,7 +115,7 @@
 									<span>{{$eachprod['production_year']}}</span>
 								</div>
 								<div>
-									<h6>EVALUVATION VURDERING </h6>
+									<h6> VURDERING </h6>
 									<span>{{$eachprod['evaluvation']}}</span>
 								</div>
 							</li>

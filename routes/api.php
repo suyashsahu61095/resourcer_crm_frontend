@@ -46,6 +46,9 @@ Route::group([
     Route::get('deleteUser/{id}', 'UsersController@deleteUser');
     Route::get('users/logout', 'UsersController@logout');
     Route::post('change-password', 'UsersController@change_password');
+    
+    Route::post('report-issue', 'UsersController@report_issue');
+
 
     //Client
     Route::get('clients', 'ClientController@clients');
@@ -63,6 +66,7 @@ Route::group([
     Route::post('edit-customer', 'CustomerController@edit_customer');
     Route::get('deleteCustomer/{id}', 'CustomerController@deleteCustomer');
     Route::get('customersgrid/{pagenumber}', 'CustomerController@customersgrid');
+    
     
     //Project
     Route::post('projects', 'ProjectController@projects');

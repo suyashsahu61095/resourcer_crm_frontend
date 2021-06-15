@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\App;
+use Mail;
 use App\Models\User;
 
 class UsersController extends Controller
@@ -106,6 +107,29 @@ class UsersController extends Controller
     public function deleteUser ($id) {
         User::where('id', '=', $id)->delete();
         return response()->json(['status'=>'1','message' => 'User Deleted SuccessFully'], 200);
+    }
+
+
+
+    //////report and issue
+    public function report_issue(Request $request)
+    {
+        
+            $email = config('app.mail');
+            $image = $request->file('imageFile');
+           
+            $data = ['issue'=>$request->input('issue'),'page'=>$request->input('page'),'browser'=>$request->input('browser'),'usermail'=>$request->input('usermail')];
+
+            Mail::send('report-issue', $data , function($message) use ($email,$image) {
+                $message->to($email)
+                ->from($email, 'Digit')
+                ->subject("User Reported An Issue");
+                if(isset( $image)){
+                  $message->attach($image);
+                }
+                });
+                // return response()->json(['status'=>'1','data'=>  $data,'message' => 'Successfully Reported'], 200); 
+                return response()->json(['status'=>'1','message' => 'Successfully Reported'], 200);   
     }
 
 

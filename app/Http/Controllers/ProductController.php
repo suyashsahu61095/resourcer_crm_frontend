@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -122,6 +123,7 @@ class ProductController extends Controller
     }
 
     public function products(Request $request){
+        $path=config('app.image_bucket');
         $products = Product::with(['project' => function($query){
                         $query->select('project_name', 'id', 'project_image');
                     }])->with(['productdocs' => function($query){
@@ -154,7 +156,7 @@ class ProductController extends Controller
          //echo "<pre>";
          //print_r($products->get()); //die;
         return DataTables::eloquent($products)
-                    ->addColumn('image_base_path', 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products')
+                    ->addColumn('image_base_path', ''.$path.'/uploads/products')
                     ->addIndexColumn('index')
                     ->addColumn('total_count', function($product) use ($products_count) {
                         return $products_count;
@@ -165,16 +167,19 @@ class ProductController extends Controller
 					// 							<label for='checkbox".$product->id."'></label></div>";
                     // })
                     ->editColumn('status', function($product) {
-                        //return  ($product->status) ? "Available" : "Not Available";
+                      //  return  ($product->status)==null ? "Available" : "Not Available";
                         if($product->status == '1') {
                              $status = 'AVAILABLE ONSITE'; 
                         } else if($product->status == '2') {
                             $status = 'AVAILABLE FROM STORAGE';
                         } else if($product->status == '3') {
                             $status = 'SOLD';
-                        } else {
+                        } else if($product->status == ""){
+                            $status = 'UNAVAILABLE';
+                        }else{
                             $status = 'UNAVAILABLE';
                         }
+                
                         return  $status; 
                     })
                     ->editColumn('product_id', function($product) {
@@ -205,26 +210,28 @@ class ProductController extends Controller
                     // })
                     ->rawColumns(['product_id', 'product_name'])
                     ->make();
-        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => ''.$path.'/uploads/products'], 200);
     }
 
     public function productList(){
+        $path=config('app.image_bucket');
         $products = Product::select('id', 'product_name')->orderBy('customer_name', 'asc')->get();
-        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.netuploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => ''.$path.'/uploads/products'], 200);
     }
 
     public function productgrid($page_id, $project_id = null){
+        $path=config('app.image_bucket');
         $limit = ($page_id-1)*12;
         $offset = 12;
         $products = Product::select('id', 'product_name', 'product_image')->with(['productdocs' => function($query){
             $query->select('id','category_id','product_id', 'file_name')->with('productCategory');
-        }])->orderBy('id', 'desc');
+        }])->orderBy('updated_at', 'desc');
         if($project_id){
             $products =  $products->where('project_id', $project_id);
         }
         $products = $products->skip($limit)->take($offset)->get();
         
-        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' => $products, 'image_base_path' => ''.$path.'/uploads/products'], 200);
     }
 
     // public function search_product(Request $request) {
@@ -248,6 +255,7 @@ class ProductController extends Controller
 
 
     public function search_product(Request $request) {
+        $path=config('app.image_bucket');
         DB::enableQueryLog();
         $search_text = $request->input('query');
         $products = Product::where(function($query) use ($search_text) {
@@ -259,13 +267,14 @@ class ProductController extends Controller
                     }])
                      ->get();
                      //print_r(DB::getQueryLog());
-        return response()->json(['status'=>'1','message' => 'product List', 'products' =>$products, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product List', 'products' =>$products, 'image_base_path' => ''.$path.'/uploads/products'], 200);
     }
 
 
 
 
     public function get_product_info($id){
+        $path=config('app.image_bucket');
         $product = Product::with(['project' => function($query){
             $query->select('project_name', 'id', 'project_image');
         }])->with(['productdocs' => function($query){
@@ -273,7 +282,7 @@ class ProductController extends Controller
         }])
         ->where('id', $id)
         ->first();
-        return response()->json(['status'=>'1','message' => 'product info', 'product' => $product, 'image_base_path' => 'https://d38b2gpjikxyz1.cloudfront.net/uploads/products'], 200);
+        return response()->json(['status'=>'1','message' => 'product info', 'product' => $product, 'image_base_path' => ''.$path.'/uploads/products'], 200);
     }
 
     public function edit_product(Request $request){
@@ -414,36 +423,29 @@ class ProductController extends Controller
             foreach($products['PDFProductProject'] as $key=>$eachproject) {
                 $product_map[$eachproject][] = $products['PDFProduct'][$key];
             }
-          //return response()->json(['html' => $product_map]);
-            
+         
             if(count($product_map) > 0) {
                 foreach($product_map as $keyprod=>$product) {
                     $data = Project::with(['products' => function($query) use ($product){
-                                    $query->whereIn('id', $product)
-                                    
-                    ->join('product_categories', 'product_categories.id', '=', 'products.category')
-                                    ->select('product_categories.category_name');
-                                 }])
+                                    $query->whereIn('id', $product)->with('category');
+                                }])
                                 ->where('id', $keyprod)
                                 ->with('customer')
                                 ->first();
-                    // foreach($data as $value ){
-                    //     $customer=Customer::
-                    // }
+                               
                     if($data){
                         array_push($pdfData, $data->toArray());
                     }          
-                   
                 }
-                // dd($pdfData);
                 $html = view('pdf.catalog', compact('pdfData'))->render();
-                return response()->json(['html' => $pdfData]);
+                return response()->json(['html' => $html]);
             }
         } catch (Exception $ex) {
             echo $ex->getMessage();
             echo $ex->getTraceAsString();
         }
     }
+
 
     public function pdf2() {
         $pdf = PDF::loadView('pdf.catalog2');

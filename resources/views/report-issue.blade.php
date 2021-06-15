@@ -57,12 +57,12 @@
                                     <!-- START LOGO -->
                                     <table width="200" border="0" cellpadding="0" cellspacing="0" align="center">
                                         <tbody>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td width="100%" align="center">
                                                 <h1 style="color:#ffffff" >Digit</h1>
-                                                    <!-- <img width="200" src="https://codewiz.co/img/email_templates/codewiz_email_logo.png" alt="CodeWiz Logo" border="0" style="text-align: center;"/> -->
+                                                    <img width="200" src="https://codewiz.co/img/email_templates/codewiz_email_logo.png" alt="CodeWiz Logo" border="0" style="text-align: center;"/>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                     <!-- END LOGO -->
@@ -108,7 +108,8 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td width="100%" align="center">
-                                                                    <h1 style="font-family:'Ubuntu Mono', monospace; font-size:20px; color:#202020; font-weight:bold; padding-left:20px; padding-right:20px;">Reset your password</h1>
+                                                                    <h1 style="font-family:'Ubuntu Mono', monospace; font-size:20px; color:#202020; font-weight:bold; padding-left:20px; padding-right:20px;">Reported An Issue</h1>
+                                                                    
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -120,8 +121,11 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td width="100%" align="center">
-                                                                    <p style="font-family:'Ubuntu', sans-serif; font-size:14px; color:#202020; padding-left:20px; padding-right:20px; text-align:justify;">Hi <strong>{{ $name }}</strong>, You received this E-mail in response to your request to reset your password.</p>
-                                                                    <p style="font-family:'Ubuntu', sans-serif; font-size:14px; color:#202020; padding-left:20px; padding-right:20px; text-align:justify;">Click the button below to reset your password, the reset password link is only valid for 1 hour.</p>
+                                                                    <p style="font-family:'Ubuntu', sans-serif; font-size:14px; color:#202020; padding-left:20px; padding-right:20px; text-align:justify;">Hi <strong>Digits AS Support Team,</strong></p>
+                                                                    <p style="font-family:'Ubuntu', sans-serif; font-size:14px; color:#202020; padding-left:20px; padding-right:20px; text-align:justify;">User {{$usermail}} has reported an issue. Please find below details for the same.</p>
+                                                                    <p style="font-family:'Ubuntu', sans-serif; font-size:14px; color:#202020; padding-left:20px; padding-right:20px; text-align:justify;">Issue details :{{$issue}}</p>
+                                                                    <p style="font-family:'Ubuntu', sans-serif; font-size:14px; color:#202020; padding-left:20px; padding-right:20px; text-align:justify;">Browser :{{$browser}}</p>
+                                                                    <p style="font-family:'Ubuntu', sans-serif; font-size:14px; color:#202020; padding-left:20px; padding-right:20px; text-align:justify;">Page :{{$page}}</p>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -139,19 +143,7 @@
                                                     <!-- END SPACING -->
                                                     
                                                     <!-- START BUTTON -->
-                                                    <table width="200" border="0" cellpadding="0" cellspacing="0" align="center">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td align="center" bgcolor="#6c757d">
-                                                                    <a style="font-family:'Ubuntu Mono', 
-                                                                    monospace; display:block; color:#ffffff; font-size:14px; 
-                                                                font-weight:bold; text-decoration:none; 
-                                                                padding-left:20px; padding-right:20px; padding-top:20px; padding-bottom:20px;"
-                                                                href="https://apiprod.digitsas.no/public/api/reset-password/<?php echo $token; ?>">Reset Password</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                  
                                                     <!-- END BUTTON -->
                                                     
                                                     <!-- START SPACING -->
@@ -165,15 +157,7 @@
                                                     <!-- END SPACING -->
                                                     
                                                     <!-- START PARAGRAPH -->
-                                                    <table width="90%" border="0" cellpadding="0" cellspacing="0" align="center">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td width="100%" align="center">
-                                                                    <p style="font-family:'Ubuntu', sans-serif; font-size:14px; color:#202020; padding-left:20px; padding-right:20px; text-align:justify;">If the above button doesn't work, you can reset your password by clicking the following link, <a   href="https://apiprod.digitsas.no/public/api/reset-password/<?php echo $token; ?>">Reset password</a>.</p>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                  
                                                     <!-- END PARAGRAPH -->
                                                     
                                                     <!-- START SPACING -->
@@ -226,16 +210,16 @@
                                         <tbody>
                                             <tr>
                                                 <td width="100%" align="center" style="padding-left:15px; padding-right:15px;">
-                                                    <p style="font-family:'Ubuntu Mono', monospace; color:#ffffff; font-size:12px;">Digit &copy; 2021, All Rights Reserved</p>
+                                                    <p style="font-family:'Ubuntu Mono', monospace; color:#ffffff; font-size:12px;">Digits AS&copy; 2021, All Rights Reserved</p>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td width="100%" align="center" style="padding-left:15px; padding-right:15px;">
                                                     <a href="#" style="text-decoration:underline; font-family:'Ubuntu Mono', monospace; color:#ffffff; font-size:12px;">Terms of Use</a>
                                                     <span style="font-family:'Ubuntu Mono', monospace; color:#ffffff;">|</span>
                                                     <a href="#" style="text-decoration:underline; font-family:'Ubuntu Mono', monospace; color:#ffffff; font-size:12px;">Privacy Policy</a>
                                                 </td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                     <!-- END FOOTER -->

@@ -1,6 +1,19 @@
 <?php
 
 return [
+    ////for flexible flow
+    'mail' => env('SUPPORT_MAIL', 'deeppak.sonii@gmail.com'),//change support mail
+    'image_bucket'=> env('IMAGE_BUCKET', 'https://d10rdxeixe5doh.cloudfront.net'),//change image bucket 
+    //'image_bucket'=> env('IMAGE_BUCKET', 'https://d10rdxeixe5doh.cloudfront.net'),//change image bucket 
+
+
+
+//for reset password
+
+'reset'=> env('RESET', 'https://d10rdxeixe5doh.cloudfront.net'),//change for rest password use here admin web site url not api
+
+
+
 
     /*
     |--------------------------------------------------------------------------

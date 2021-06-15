@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\App;
+
 use App\Models\Project;
 use App\Models\ProjectFile;
 use Illuminate\Support\Facades\Storage;
@@ -40,7 +42,6 @@ class ProjectController extends Controller
         $project->project_mang_name = $this->filter_data($request->input('project_mang_name'));
         $project->project_mang_mobile = $this->filter_data($request->input('project_mang_mobile'));
         $project->project_mang_email = $this->filter_data($request->input('project_mang_email'));
-        
         $project->onsite_name = $this->filter_data($request->input('onsite_name'));
         $project->onsite_mobile = $this->filter_data($request->input('onsite_mobile'));
         $project->onsite_email = $this->filter_data($request->input('onsite_email'));
@@ -58,13 +59,29 @@ class ProjectController extends Controller
         $project->project_avail_date = $this->filter_data($request->input('project_avail_date'));
         $project->project_avail_end_date = $this->filter_data($request->input('project_avail_end_date'));
         $project->note = $this->filter_data($request->input('note'));
+        if($this->filter_data($request->input('billing_project_company'))!='undefined')
+{
         $project->billing_project_company = $this->filter_data($request->input('billing_project_company'));
+}
+if($this->filter_data($request->input('billing_orgno'))!='undefined')
+{
         $project->billing_orgno = $this->filter_data($request->input('billing_orgno'));
+}
+
         $project->billing_project_number = $this->filter_data($request->input('billing_project_number'));
         $project->billing_customer_ref = $this->filter_data($request->input('billing_customer_ref'));
+        if($this->filter_data($request->input('billing_address'))!='undefined')
+        {
         $project->billing_address = $this->filter_data($request->input('billing_address'));
+        }
+        if($this->filter_data($request->input('billing_postal_code'))!='undefined')
+{
         $project->billing_postal_code = $this->filter_data($request->input('billing_postal_code'));
+}
+if($this->filter_data($request->input('billing_postal_area'))!='undefined')
+{
         $project->billing_postal_area = $this->filter_data($request->input('billing_postal_area'));
+}
         $project->credit_period = $this->filter_data($request->input('credit_period'));
         if($request->hasFile('imageFile')) {
             $image = $request->file('imageFile');
@@ -99,6 +116,7 @@ class ProjectController extends Controller
     }
 
     public function projects(Request $request) {
+        $path=config('app.image_bucket');
         $projects = Project::with(['customer' => function($query){
                         $query->select('customer_name', 'id', 'image_path');
                     }])->with(['projectdocs' => function($query){
@@ -110,7 +128,7 @@ class ProjectController extends Controller
                     // ->orderBy('projects.id', 'desc');
 
         return DataTables::eloquent($projects)
-                    ->addColumn('image_base_path', 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects')
+                    ->addColumn('image_base_path', ''.$path.'/uploads/projects')
                     ->addIndexColumn('index')
                     ->editColumn('project_name', function($project) {
                         return  "<a href='/view-project/$project->id'>".$project->project_name."</a>";
@@ -124,20 +142,23 @@ class ProjectController extends Controller
     }
 
     public function projectList(){
+        $path=config('app.image_bucket');
         $projects = Project::select('id', 'project_name') ->orderBy('project_name', 'asc')->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => ''.$path.'/uploads/projects','file_path'=> ''.$path.'/uploads/projects/documents/'], 200);
     }
 
     public function projectgrid($page_id){
+        $path=config('app.image_bucket');
         $limit = ($page_id-1)*12;
         $offset = 12;
         $projects = Project::select('id', 'project_name', 'project_image')->with(['projectdocs' => function($query){
             $query->select('project_id', 'file_name');
-        }])->orderBy('id', 'desc')->skip($limit)->take($offset)->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects'], 200);
+        }])->orderBy('updated_at', 'desc')->skip($limit)->take($offset)->get();
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => ''.$path.'/uploads/projects','file_path'=> ''.$path.'/uploads/projects/documents/'], 200);
     }
 
     public function search_project(Request $request) {
+        $path=config('app.image_bucket');
         DB::enableQueryLog();
         $search_text = $request->input('query');
         $projects = Project::with(['customer' => function($query){
@@ -152,10 +173,11 @@ class ProjectController extends Controller
                         ->orWhere('project_type', 'Like', '%'.$search_text.'%');
                      })
                      ->get();
-        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'Project List', 'projects' => $projects, 'image_base_path' => ''.$path.'/uploads/projects','file_path'=> ''.$path.'/uploads/projects/documents/'], 200);
     }
 
     public function get_project_info($id){
+        $path=config('app.image_bucket');
         $project = Project::with(['customer' => function($query){
             $query->select('name as customer_name', 'id', 'image_path');
         }])->with(['projectdocs' => function($query){
@@ -163,7 +185,7 @@ class ProjectController extends Controller
         }])
         ->where('id', $id)
         ->first();
-        return response()->json(['status'=>'1','message' => 'project info', 'project' => $project, 'image_base_path' => 'https://d10rdxeixe5doh.cloudfront.net/uploads/projects'], 200);
+        return response()->json(['status'=>'1','message' => 'project info', 'project' => $project, 'image_base_path' => ''.$path.'/uploads/projects','file_path'=> ''.$path.'/uploads/projects/documents/'], 200);
     }
 
     public function edit_project(Request $request)
@@ -202,13 +224,32 @@ class ProjectController extends Controller
         $project->project_avail_date = $this->filter_data($request->input('project_avail_date'));
         $project->project_avail_end_date = $this->filter_data($request->input('project_avail_end_date'));
         $project->note = $this->filter_data($request->input('note'));
+if( $this->filter_data($request->input('billing_project_company'))!='undefined')
+{
         $project->billing_project_company = $this->filter_data($request->input('billing_project_company'));
+}
+if( $this->filter_data($request->input('billing_orgno'))!='undefined')
+{
         $project->billing_orgno = $this->filter_data($request->input('billing_orgno'));
+}
         $project->billing_project_number = $this->filter_data($request->input('billing_project_number'));
         $project->billing_customer_ref = $this->filter_data($request->input('billing_customer_ref'));
+
+        if($this->filter_data($request->input('billing_address'))!='undefined')
+{
         $project->billing_address = $this->filter_data($request->input('billing_address'));
+
+}
+if( $this->filter_data($request->input('billing_postal_code'))!='undefined')
+{
         $project->billing_postal_code = $this->filter_data($request->input('billing_postal_code'));
+}
+if( $this->filter_data($request->input('billing_postal_area'))!='undefined')
+{
+
         $project->billing_postal_area = $this->filter_data($request->input('billing_postal_area'));
+}
+
         $project->credit_period = $this->filter_data($request->input('credit_period'));
         if($request->hasFile('imageFile')) { 
             $image = $request->file('imageFile');
