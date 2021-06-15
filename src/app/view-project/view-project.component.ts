@@ -159,7 +159,7 @@ export class ViewProjectComponent implements OnInit {
     if(this.projectInfo.project_image){
       this.editimgUrl = data.image_base_path+'/'+this.projectInfo.project_image;
     }
-    this.doc_path = data.image_base_path;
+    this.doc_path = data.file_path;
   });
   }
 

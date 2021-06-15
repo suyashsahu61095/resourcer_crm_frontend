@@ -598,7 +598,12 @@
                       <div class="col-md-11 p-3" style="font-size: 12px">
                         <label for="billing_postal_area" class="label-material margin-left">{{
                           doc?.category_id
-                          }}&nbsp;&nbsp;{{ doc?.file_name }}</label>&nbsp;&nbsp;&nbsp;
+                          }}&nbsp;&nbsp;<a
+                          href="{{
+                            doc_path + doc?.file_name
+                          }}"
+                          target="_blank"
+                          >{{ doc?.file_name }}</a></label>&nbsp;&nbsp;&nbsp;
                         <label><a href="javascript:void();" (click)="deletedoc(doc.id)"><i class="fa fa-trash"
                               aria-hidden="true"></i></a></label>
                       </div>

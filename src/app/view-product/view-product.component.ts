@@ -26,7 +26,7 @@ export class ViewProductComponent implements OnInit {
   productForm: FormGroup;
   
   filecat: string[] = [];
-  
+  doc_path:any;
   fileToUpload: File = null;
   filemultiUpload: File = null;
   currentUser: User;
@@ -99,6 +99,7 @@ ngOnInit() {
           if(this.productInfo.product_image != undefined){
             this.editimgUrl = data.image_base_path+'/'+this.productInfo.product_image;
           }
+          this.doc_path = data.image_base_path+ "/documents/" ;
       });
 
       this.userService.getProductCategories().pipe(first()).subscribe(data => {

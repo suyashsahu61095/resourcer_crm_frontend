@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Adding customer failed</div>
-                                   <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div>
+                                   <!-- <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div> -->
                                    <br/>
                                     <div class="form-group row">
                                       <div class="col-md-5 p-3">
@@ -55,11 +55,12 @@
                                       <label for="orgname" class="label-material">ORG. NUMBER*:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input type="text" pattern="[0-9]*" formControlName="orgname" name="orgname"  [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9"   [(ngModel)]="orgVal" (keyup.enter)="getOrg()" (keyup)="getOrg()" (change)="getOrg()" class="input-material">
-                                      <div *ngIf="submitted && f.orgname.errors" class="invalid-feedback">
+                                      <input type="text" pattern="[0-9]*" formControlName="orgname" name="orgname"  [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9"   [(ngModel)]="orgVal" (keyup.enter)="getOrg()" (change)="getOrg()" class="input-material">
+                                      <div *ngIf="submitted && f.orgname.errors && !error2" class="invalid-feedback">
                                         <div *ngIf="f.orgname.errors.required">Org. Number is required</div>
                                         <div *ngIf="f.orgname.errors.pattern">Please enter 9 digits only</div>
                                       </div>
+                                      <div style="color:#dc3545;font-size: 14px;" *ngIf="error2">Invalid Org. Number</div>
                                     </div>
                                   </div>
                                   <div class="form-group row">
@@ -137,9 +138,9 @@
                                     <div class="col-md-7">
                                       <input formControlName="mobile" type="number" name="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" maxlength="8" class="input-material">
                                       <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
-                                        <div *ngIf="f.mobile.errors.required">Mobile Number is required</div>
-                                        <div *ngIf="f.mobile.errors.pattern">Please enter valid mobile number</div>
-                                        <!-- <div *ngIf="f.mobile.errors.pattern">Please enter 8 digit valid mobile number For Norway</div> -->
+                                        <!-- <div *ngIf="f.mobile.errors.required">Mobile Number is required</div> -->
+                                        <!-- <div *ngIf="f.mobile.errors.pattern">Please enter valid mobile number</div> -->
+                                        <div *ngIf="f.mobile.errors.pattern">Please enter 8 digit valid mobile number For Norway</div>
                                       </div>
                                     </div>
                                   </div>

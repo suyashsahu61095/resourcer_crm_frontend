@@ -27,7 +27,7 @@ export class EditProductComponent implements OnInit {
   public imagePath;
   imgURL: any = "";
   public message: string;
-  
+  doc_path:any;
   public message2: string;
   fileToUpload: File = null;
   filemultiUpload: File = null;
@@ -164,6 +164,7 @@ export class EditProductComponent implements OnInit {
           this.editimgUrl =
             data.image_base_path + "/" + this.productInfo.product_image;
         }
+        this.doc_path = data.image_base_path+ "/documents/" ;
       });
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";

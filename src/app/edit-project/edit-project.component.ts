@@ -46,8 +46,7 @@ export class EditProjectComponent implements OnInit {
   closeResult: string;
   doc_path: any;
   yearOptions = [];
-  
-  orgVal:any;
+  orgVal: any = "";
   postal_code:any;
   postal_area:any;
   address:any;
@@ -241,7 +240,7 @@ export class EditProjectComponent implements OnInit {
           this.editimgUrl =
             data.image_base_path + "/" + this.projectInfo.project_image;
         }
-        this.doc_path = data.image_base_path;
+        this.doc_path = data.file_path;
       });
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
@@ -528,11 +527,10 @@ export class EditProjectComponent implements OnInit {
     }
   }
   getOrg(){
-  
+  if( this.projectForm.controls["billing_orgno"].value.toString().length == '9'){
     this.loading = true;
-    this.loadingData = true;
-  console.log("get org called");
-  this.orgVal;
+    this.loadingData = true; 
+
   console.log("org ",this.orgVal);
   this.userService.getOrg(this.orgVal).subscribe(
     (data) => {
@@ -552,7 +550,10 @@ export class EditProjectComponent implements OnInit {
       this.loadingData = false;
     }
   );
-  
+  }else{
+    alert("Org Number should be 9 digit for norway");
+    this.loading = false;
+  }
   }
 
 }

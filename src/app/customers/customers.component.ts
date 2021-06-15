@@ -104,7 +104,7 @@ export class CustomersComponent implements OnDestroy, OnInit {
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
-              data: orderBy(resp.data,['id'],['desc']),
+              data: orderBy(resp.data,['updated_at'],['desc']),
             });
           }else{
             console.log("else")

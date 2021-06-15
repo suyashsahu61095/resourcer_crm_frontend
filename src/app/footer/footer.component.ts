@@ -81,8 +81,10 @@ preview(files) {
   };
 }
   onSubmit() {
-    ($("#report") as any).modal("hide");
+    this.loading = true;
+  
     this.submitted = true;
+    ($("#report") as any).modal("hide");
 console.log("called")
 console.log(this.fileToUpload);
 var formData = new FormData();
@@ -106,6 +108,7 @@ var formData = new FormData();
         .pipe(first())
         .subscribe(
             data => {
+            
                 this.loading = false;
                 this.loadingData = false;
                 if(data.status == '1') {

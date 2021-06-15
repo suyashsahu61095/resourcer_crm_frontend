@@ -38,8 +38,8 @@ export class AddCustomerComponent implements OnInit {
   postal_code:any;
 
 
+   error2="";
 org:any;
-error2:any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -60,7 +60,7 @@ error2:any;
       postal_area: [""],
       country: [""],
       name: [""],
-      mobile: ["", [Validators.pattern("[0-9]*")]],
+      mobile: ["", [Validators.pattern("[0-9]{8}")]],
       email: [
         "", Validators.pattern(
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -110,19 +110,22 @@ error2:any;
 
     // stop here if form is invalid
     if (this.customerForm.invalid) {
+      this.loading = false;
       return;
     }
     // if (this.customerForm.controls["country"].value == "2") {
-      if (
-        this.customerForm.controls["orgname"].value.toString().length != "9"
-      ) {
-        alert("Org Number should be 9 digit for norway");
-        return;
-      }
-      if (this.customerForm.controls["mobile"].value.toString().length != "8") {
-        alert("Mobile should be 8 digit for norway");
-        return;
-      }
+      // if (
+      //   this.customerForm.controls["orgname"].value.toString().length != "9" 
+      // ) {
+      //   this.loading = false;
+      //   alert("Org Number should be 9 digit for norway");
+      //   return;
+      // }
+      // if (this.customerForm.controls["mobile"].value.toString().length != "8"&&  this.customerForm.controls["orgname"].value !=null) {
+      //   alert("Mobile should be 8 digit for norway");
+      //   this.loading = false;
+      //   return;
+      // }
    // }
 
     this.loading = true;
@@ -193,6 +196,38 @@ error2:any;
   }
 
 
+  getOrg(){
+  
+  if(this.orgVal.length == '9'){
+    this.loading = true;
+    this.loadingData = true;
+  console.log("get org called");
+  this.orgVal;
+  console.log("org ",this.orgVal);
+  this.userService.getOrg(this.orgVal).subscribe(
+    (data) => {
+      this.loading = false;
+      this.loadingData = false;
+        this.info = data.message;
+        console.log("data - geted on org link",data)
+       this.name=data.navn;
+       this.address=data.forretningsadresse.adresse[0];
+       this.postal_area=data.forretningsadresse.kommune;
+       this.postal_code=data.forretningsadresse.postnummer;
+       this.error2="";
+    },
+    (error) => {
+      this.error2 = error;
+      this.loading = false;
+      this.loadingData = false;
+    }
+  );
+  }else{
+    this.loading = false;
+    this.loadingData = false;
+    alert("Org Number should be 9 digit for norway");
+  }
+  }
 
 
 }

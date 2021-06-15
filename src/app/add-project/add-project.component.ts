@@ -110,7 +110,7 @@ export class AddProjectComponent implements OnInit {
       project_type: [""],
       project_status: [""],
       property_area: ["", Validators.pattern("[0-9]*")],
-      no_of_floors: ["", Validators.pattern("[0-9]")],
+      no_of_floors: [""],
       building_year: [""],
       last_refurbished: [""],
       env_report: [""],
@@ -186,7 +186,7 @@ export class AddProjectComponent implements OnInit {
       return;
     }
 
-    if (files[0].size  / 1240 > 15) {
+    if (files[0].size  / 15240 > 15) {
       this.message2 = "file is bigger than 15MB";
       return;
     }
@@ -374,7 +374,7 @@ export class AddProjectComponent implements OnInit {
             AuthGuard.blocked=false;
             this.router.navigate(["/view-project/",data.products]);
           } else {
-            this.error = data.message;
+            this.error = data.message; 
           }
         
         },
@@ -403,6 +403,7 @@ export class AddProjectComponent implements OnInit {
   
     this.loading = true;
     this.loadingData = true;
+    if( this.projectForm.controls["billing_orgno"].value.toString().length == '9'){
   console.log("get org called");
   this.orgVal;
   console.log("org ",this.orgVal);
@@ -424,7 +425,10 @@ export class AddProjectComponent implements OnInit {
       this.loadingData = false;
     }
   );
-  
+    }else{
+      alert("Org Number should be 9 digit for norway");
+      this.loading = false;
+    }
   }
 
 

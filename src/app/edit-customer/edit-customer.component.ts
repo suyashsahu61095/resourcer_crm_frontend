@@ -89,7 +89,7 @@ ngOnInit() {
       postal_code: [''],
       postal_area: [''],
       name: [''],
-      mobile: ['', [Validators.pattern('[0-9]{8}')]],
+      mobile: ["", [Validators.pattern("[0-9]{8}")]],
       email: ['', [Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       note: [''],
       country: ['']
@@ -116,7 +116,7 @@ if (files[0].size / 15240 > 15) {
 var reader = new FileReader();
 this.fileToUpload = files[0];
 reader.readAsDataURL(files[0]); 
-reader.onload = (_event) => { 
+reader.onload = (_event) => {  
   this.imgURL = reader.result; 
 }
 
@@ -129,18 +129,19 @@ onSubmit() {
 
   // stop here if form is invalid
   if (this.customerForm.invalid) {
+    this.loading = false;
       return;
   }
 
   // if(this.customerForm.controls['country'].value == '2') {
-    if(this.customerForm.controls['orgname'].value.toString().length != '9'){
-      alert("Org Number should be 9 digit for norway");
-      return;
-    }
-    if(this.customerForm.controls['mobile'].value.toString().length != '8'){
-      alert("Mobile should be 8 digit for norway");
-      return;
-    }
+    // if(this.customerForm.controls['orgname'].value.toString().length != '9'){
+    //   alert("Org Number should be 9 digit for norway");
+    //   return;
+    // }
+    // if(this.customerForm.controls['mobile'].value.toString().length != '8'){
+    //   alert("Mobile should be 8 digit for norway");
+    //   return;
+    // }
   // }
 
   this.loading = true;
@@ -193,7 +194,8 @@ onSubmit() {
           });
 }
 getOrg(){
-  
+  if(this.orgVal.length == '9'){
+ 
   this.loading = true;
   this.loadingData = true;
 console.log("get org called");
@@ -217,7 +219,8 @@ this.userService.getOrg(this.orgVal).subscribe(
     this.loadingData = false;
   }
 );
-
+}else {
+  alert("Org Number should be 9 digit for norway");
 }
-
+} 
 }

@@ -39,8 +39,8 @@
                     /></label>
                     <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
                     <span style="color: red" *ngIf="message2">{{message2}}</span>
-                    
-                    <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div>
+<!--                     
+                    <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div> -->
                     <input
                       type="file"
                       id="imgupload"
@@ -56,10 +56,10 @@
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
                      Adding project failed
                     </div>
-                    <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">
+                    <!-- <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">
                       Invalid Org. Number
 
-                     </div>
+                     </div> -->
                     <br />
                     <div class="form-fbt">
                       <div class="form-group text-center">
@@ -848,7 +848,7 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <div class="col-md-4 p-3">
+                       <div class="col-md-4 p-3">
                         <label
                           for="billing_orgno"
                           class="label-material margin-left"
@@ -862,9 +862,10 @@
                           name="billing_orgno"
                           maxlength="10"
                           class="input-material"
-                          (keyup)="getOrg()"
+                          (keyup.enter)="getOrg()"
                           [(ngModel)]="orgVal" (change)="getOrg()" 
                         />
+                        <div style="color:#dc3545;font-size: 14px;" *ngIf="error2">Invalid Org. Number</div>
                       </div>
                     </div>
                     <div class="form-group row">

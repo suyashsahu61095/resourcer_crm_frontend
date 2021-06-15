@@ -12,7 +12,9 @@
   .logo{
     padding-left : 100%;
 }
-   
+.lii{
+  margin-top: 600%;
+}
   p{
   font-family: 'Josefin Sans', sans-serif;
       font-style: normal;
@@ -59,17 +61,22 @@
   header img{float:right}
   .home-section{width:100%; float:left}
   .left-home-section img{}
-  
+ 
   .home-section{width:100%; float:left;}
-  .left-home-section{width:19%; float:left; height:900px; }
+  .left-home-section{    width: 15%;
+    float: left;
+    margin-top: 10%;
+    margin-right: 45px;
+    height: 958px;
+    margin-left: -80px;}
   .right-home-section{width:81%; float:left;overflow: hidden;height:900px;}
   .right-home-section img{width:100%; float:left;  }
   .home-section ul{   }
   .home-section ul li{    font-size: 14px;
     margin: 95px -39px 163px 0px;}
     .address{text-align: end;}
-  .home-section ul li:nth-of-type(1){text-align: right;}
-  .home-section ul li:nth-of-type(2){}
+  .home-section ul li:nth-of-type(1){text-align: right;margin-top: 440%;}
+  .home-section ul li:nth-of-type(2){  margin-top: 200%;}
   .home-section ul li:nth-of-type(3){text-align: left;}
   .home-section ul li  { /* Safari */
     -webkit-transform: rotate(-90deg);
