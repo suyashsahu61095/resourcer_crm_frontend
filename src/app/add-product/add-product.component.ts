@@ -149,9 +149,11 @@ export class AddProductComponent implements OnInit {
       return;
     }
     
-    if (files[0].size / 15240  > 15) {
+    if (files[0].size / 152400  > 15) {
       this.message2 = "file is bigger than 15MB";
       return;
+    }else{
+      this.message2 = "";
     }
 
     var reader = new FileReader();
@@ -321,10 +323,10 @@ export class AddProductComponent implements OnInit {
           }
           if (this.register) {
             console.log("response data - ",  this.register)
-            if(this.clone!=true ||this.addnew!=true){
-            AuthGuard.blocked=false;
-            this.router.navigate(["/view-product/",data.products]);
-            }
+            // if(this.clone!=true ||this.addnew!=true){
+            // AuthGuard.blocked=false;
+            // this.router.navigate(["/view-product/",data.products]);
+            // }
           } else if (this.addnew) {
             this.productForm = this.formBuilder.group({ 
               product_name: ["", Validators.required],
@@ -363,24 +365,9 @@ export class AddProductComponent implements OnInit {
       );
   }
 
-  registerfun() { 
-    this.register = true;
-    this.clone = false;
-    this.addnew = false;
-  }
 
-  clonefun() {//register & clone
-    this.register = true;
-    this.clone = true;
-    this.addnew = false;
-    this.cloneData();
-  }
 
-  addnewfun() {//Register and add new
-    this.register = false;
-    this.clone = false;
-    this.addnew = true;
-  }
+
   cloneData() {
     this.submitted = false;
     if (this.productForm.invalid) {

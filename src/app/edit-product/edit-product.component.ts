@@ -187,9 +187,12 @@ export class EditProductComponent implements OnInit {
       return;
     }
 
-    if (files[0].size / 15240 > 15) {
+    
+    if (files[0].size / 152400  > 15) {
       this.message2 = "file is bigger than 15MB";
       return;
+    }else{
+      this.message2 = "";
     }
     var reader = new FileReader();
     this.fileToUpload = files[0];

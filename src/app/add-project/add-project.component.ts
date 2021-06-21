@@ -185,10 +185,12 @@ export class AddProjectComponent implements OnInit {
       this.message2 = "Only images are supported.";
       return;
     }
-
-    if (files[0].size  / 15240 > 15) {
+ 
+    if (files[0].size / 152400  > 15) {
       this.message2 = "file is bigger than 15MB";
       return;
+    }else{
+      this.message2 = "";
     }
     var reader = new FileReader();
     this.fileToUpload = files[0];
@@ -399,38 +401,7 @@ export class AddProjectComponent implements OnInit {
   }
 
 
-  getOrg(){
   
-    this.loading = true;
-    this.loadingData = true;
-    if( this.projectForm.controls["billing_orgno"].value.toString().length == '9'){
-  console.log("get org called");
-  this.orgVal;
-  console.log("org ",this.orgVal);
-  this.userService.getOrg(this.orgVal).subscribe(
-    (data) => {
-      this.loading = false;
-      this.loadingData = false;
-       this.info = data.message;
-       console.log("data - geted on org link",data)
-       this.name=data.navn;
-       this.address=data.forretningsadresse.adresse[0];
-       this.postal_area=data.forretningsadresse.kommune;
-       this.postal_code=data.forretningsadresse.postnummer;
-       this.error2="";
-    },
-    (error) => {
-      this.error2 = error;
-      this.loading = false;
-      this.loadingData = false;
-    }
-  );
-    }else{
-      alert("Org Number should be 9 digit for norway");
-      this.loading = false;
-    }
-  }
-
 
 
 

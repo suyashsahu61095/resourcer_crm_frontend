@@ -277,52 +277,72 @@ full.id +
       this.customer_filter_text = this.customer_filter_text.filter(function (s) {
         return s != filter;
       });
+      console.log("customer filter text",    this.customer_filter_text);
       let id = -1;
+      // console.log("data of customer",this.customers);
       Object.keys(this.customers).forEach((key) => {
-        const arr = this.customers[key];
-        arr.forEach((elm) => {
-          //console.log(filter);
-          //console.log(elm.project_name); // == filter);
-          if (elm.customer_name.trim() == filter.trim()) id = elm.id;
-        });
-      });
+        var arr = this.customers[key];
+        //  arr.forEach((elm) => {
+         
+          console.log(arr.customer_name,arr.id); // == filter);
+          if (arr.customer_name == filter.trim()){
+            id = arr.id;
+            arr.isChecked = 0;
+          }
+        
+        //  });
+       });
+       console.log("before filered data opt", this.customer_filter)
       this.customer_filter = this.customer_filter.filter(function (s) {
         return s != id;
       });
+      console.log("filered data opt", this.customer_filter)
     }
     if (type == "proj") {
       this.project_filter_text = this.project_filter_text.filter(function (s) {
-        return s != filter;
+        console.log("ssssssssssss",s)
+        return s != filter;//
       });
       let id = -1;
       Object.keys(this.projects).forEach((key) => {
         const arr = this.projects[key];
-        arr.forEach((elm) => {
+        // arr.forEach((elm) => {
+        //   console.log("project f cross",elm.id)
           //console.log(filter);
           //console.log(elm.project_name); // == filter);
-          if (elm.project_name.trim() == filter.trim()) id = elm.id;
-        });
+          if (arr.project_name == filter.trim()) 
+          id = arr.id;
+        // });
       });
       this.project_filter = this.project_filter.filter(function (s) {
         return s != id;
       });
+    
     }
     if (type == "cat") {
-      this.category_filter_text = this.category_filter_text.filter(function (s) {
+
+      console.log("getted filter data",filter);
+      this.category_filter_text = this.category_filter_text.filter(
+        function (s) {
+        console.log("sssssssssss");
         return s != filter;
-      });
+   });
       let id = -1;
-      Object.keys(this.category).forEach((key) => {
-        const arr = this.category[key];
-        arr.forEach((elm) => {
+      Object.keys(this.product_category).forEach((key) => {
+        var arr = this.product_category[key];
+console.log("arrr->",arr);
+        // arr.forEach((elm) => {
           //console.log(filter);
           //console.log(elm.product_name); // == filter);
-          if (elm.category_name.trim() == filter.trim()) id = elm.id;
-        });
+          if (arr.category_name == filter.trim()) 
+          id = arr.id;
+         
+      //  });
       });
-      this.category_filter = this.category_filter.filter(function (s) {
-        return s != id;
-      });
+      this.category_filter = this.category_filter.filter(
+         function (s) {
+         return s != id;
+       });
     }
     if (type == "stat") {
       console.log(this.status_types);
@@ -537,6 +557,7 @@ full.id +
     }
   }
   addCategory(event) {
+    console.log("tgt value",event)
     this.showSearchKeys = false;
     if (event.target.checked) {
       this.category_filter.push(event.target.value);
@@ -635,36 +656,4 @@ full.id +
     this.getgridData();
   }
 
-  getgridData() {
-    this.userService
-      .getproductsgrid(this.pagenumber, this.projectobj)
-      .pipe(first())
-      .subscribe((data) => {
-        this.loading = false;
-        this.loadingData = false;
-        if (this.pagenumber == "1") {
-          if (data.products.length < 12) {
-            this.loadmoreflag = false;
-          }
-          this.productslist = data.products;
-          console.log(this.productslist); // ---> No Project_id is present
-        } else {
-          if (data.products.length > 0) {
-            data.products.forEach((element) => {
-              //console.log(element);
-              this.productslist.push(element);
-            });
-            if (data.products.length < 12) {
-              this.loadmoreflag = false;
-            }
-            //this.projectslist.push(data.projects);
-            console.log(this.productslist);
-          } else {
-            this.loadmoreflag = false;
-          }
-        }
-
-        this.image_base_path = data.image_base_path;
-      });
-  }
 }

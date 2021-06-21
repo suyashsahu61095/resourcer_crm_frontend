@@ -246,16 +246,5 @@ export class UserService {
             return customers;
         }));
     }
-    issueMail(data:any): Observable<any> {
-        return this.http.post<any>(`${environment.apiUrl}/report-issue`, data)
-            .pipe(map(user => {
-                return user;
-        }));
-    }
-    getOrg(pagenumber): Observable<any> {
-        return this.http.get<any>(`https://data.brreg.no/enhetsregisteret/api/enheter/`+ pagenumber)
-            .pipe(map(user => {
-                return user;
-        }));
-    }
+   
 }

@@ -36,7 +36,7 @@
                   </small>
                   <small *ngIf="category_filter_text.length > 0" class="search-texts">Category:<span
                       *ngFor="let filter of category_filter_text" class="px-2">{{ filter }}
-                      <span (click)="removeFilter('cat', filter)">x</span>,</span></small>
+                      <span (click)="removeFilter('cat', filter)"  (click)="addCategory($event)">x</span>,</span></small>
                   <small *ngIf="status_filter_text.length > 0" class="search-texts pr-3">Status:<span
                       *ngFor="let filter of status_filter_text" class="px-2">{{ filter }}
                       <span (click)="removeFilter('stat', filter)">x</span>,</span>
@@ -168,7 +168,7 @@
                           <input type="checkbox" name="category" value="{{ eachcategory.id }}"
                             [(ngModel)]="eachcategory.isChecked" (click)="addCategory($event)" />
                           {{ eachcategory.category_name }}
-                        </label>
+                        </label> 
                       </div>
                     </li>
                   </ul>
