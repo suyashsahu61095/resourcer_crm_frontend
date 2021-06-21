@@ -15,7 +15,7 @@
       <div class="content-inner">
       <!-- Breadcrumb-->
           <div class="breadcrumb-holder container-fluid">
-              <ul class="breadcrumb"  style="    padding-top: 90px;">
+              <ul class="breadcrumb">
                   <li class="breadcrumb-item"><a routerLink="/users">/Users</a></li>
                   <li class="breadcrumb-item active">Edit User</li>
               </ul>
@@ -26,7 +26,7 @@
                       <div class="col-md-12">
                                   <div class="row d-flex align-items-center">
                                       <div class="col-sm-9">
-                                          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Edit user failed</div>
+                                          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
                                           <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                                               <div class="form-group-material">
                                                   <input type="text" formControlName="fullname" placeholder="Name" value="{{user.name}}" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }" class="input-material">

@@ -7,8 +7,6 @@ import { UserService, AuthenticationService } from "@app/_services";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { environment } from "@environments/environment";
 import { DataTableDirective } from "angular-datatables";
-
-import{_,orderBy}from 'lodash';
 import Swal from "sweetalert2";
 
 class DataTablesResponse {
@@ -87,7 +85,6 @@ export class CustomersComponent implements OnDestroy, OnInit {
           )
           .subscribe((resp) => {
             that.customers = resp.data;
-            console.log(   that.customers )
             this.customers.forEach((customer) => {
               customer.country = this.countries[customer.country];
             });
@@ -98,22 +95,11 @@ export class CustomersComponent implements OnDestroy, OnInit {
               this.filter_record = resp.recordsFiltered;
               this.image_base_path = resp.data[0].image_base_path;
             }
-            if(dataTablesParameters.draw==1)
-            {
-              console.log("called true")
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: orderBy(resp.data,['updated_at'],['desc']),
-            });
-          }else{
-            console.log("else")
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
               data: resp.data,
             });
-          }
           });
       },
       

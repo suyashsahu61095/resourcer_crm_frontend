@@ -7,8 +7,6 @@ import { User } from "@app/_models";
 import { UserService, AuthenticationService } from "@app/_services";
 declare var $: any;
 
-import { AuthGuard } from "@app/_helpers";
-
 @Component({
   selector: "app-edit-project",
   templateUrl: "./edit-project.component.html",
@@ -26,8 +24,6 @@ export class EditProjectComponent implements OnInit {
   public imagePath;
   imgURL: any = "";
   public message: string;
-  
-  public message2: string;
   fileToUpload: File = null;
   filemultiUpload: File = null;
   formData = new FormData();
@@ -46,12 +42,6 @@ export class EditProjectComponent implements OnInit {
   closeResult: string;
   doc_path: any;
   yearOptions = [];
-  orgVal: any = "";
-  postal_code:any;
-  postal_area:any;
-  address:any;
-  name:any;
-  error2:any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -109,7 +99,7 @@ export class EditProjectComponent implements OnInit {
       postal_code: ["", Validators.pattern("[0-9]{4,6}")],
       postal_area: [""],
       project_mang_name: [""],
-      project_mang_mobile: ["", Validators.pattern("[0-9]{8}")],
+      project_mang_mobile: ["", Validators.pattern("[0-9]{8,12}")],
       project_mang_email: [
         "",
         Validators.pattern(
@@ -117,7 +107,7 @@ export class EditProjectComponent implements OnInit {
         ),
       ],
       onsite_name: [""],
-      onsite_mobile: ["", Validators.pattern("[0-9]{8}")],
+      onsite_mobile: ["", Validators.pattern("[0-9]{8,12}")],
       onsite_email: [
         "",
         Validators.pattern(
@@ -127,7 +117,7 @@ export class EditProjectComponent implements OnInit {
       project_type: [""],
       project_status: [""],
       property_area: ["", Validators.pattern("[0-9]*")],
-      no_of_floors: [""],
+      no_of_floors: ["", Validators.pattern("[0-9]{2}")],
       building_year: [""],
       last_refurbished: [""],
       env_report: [""],
@@ -171,7 +161,7 @@ export class EditProjectComponent implements OnInit {
             project_mang_name: this.projectInfo.project_mang_name,
             project_mang_mobile: [
               this.projectInfo.project_mang_mobile,
-              [Validators.pattern("[0-9]{8}")],
+              [Validators.pattern("[0-9]{8,12}")],
             ],
             project_mang_email: [
               this.projectInfo.project_mang_email,
@@ -184,7 +174,7 @@ export class EditProjectComponent implements OnInit {
             onsite_name: this.projectInfo.onsite_name,
             onsite_mobile: [
               this.projectInfo.onsite_mobile,
-              [Validators.pattern("[0-9]{8}")],
+              [Validators.pattern("[0-9]{8,12}")],
             ],
             onsite_email: [
               this.projectInfo.onsite_email,
@@ -202,7 +192,7 @@ export class EditProjectComponent implements OnInit {
             ],
             no_of_floors: [
               this.projectInfo.no_of_floors,
-              [],
+              [Validators.pattern("[0-9]{2}")],
             ],
             building_year: this.projectInfo.building_year,
             last_refurbished: this.projectInfo.last_refurbished,
@@ -226,21 +216,11 @@ export class EditProjectComponent implements OnInit {
             billing_postal_area: this.projectInfo.billing_postal_area,
             credit_period: this.projectInfo.credit_period,
           }));
-
-              this.name = this.projectInfo.billing_project_company;
-              this.orgVal= this.projectInfo.billing_orgno;
-              this.address=this.projectInfo.billing_address;
-              this.postal_code=  this.projectInfo.billing_postal_code;
-              this.postal_area= this.projectInfo.billing_postal_area;
-
-
-
-
         if (this.projectInfo.project_image) {
           this.editimgUrl =
             data.image_base_path + "/" + this.projectInfo.project_image;
         }
-        this.doc_path = data.file_path;
+        this.doc_path = data.image_base_path;
       });
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
@@ -259,17 +239,10 @@ export class EditProjectComponent implements OnInit {
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message2 = "Only images are supported.";
+      this.message = "Only images are supported.";
       return;
     }
 
-    
-    if (files[0].size / 152400  > 15) {
-      this.message2 = "file is bigger than 15MB";
-      return;
-    }else{
-      this.message2 = "";
-    }
     var reader = new FileReader();
     this.fileToUpload = files[0];
     reader.readAsDataURL(files[0]);
@@ -498,24 +471,19 @@ export class EditProjectComponent implements OnInit {
           this.loading = false;
           this.loadingData = false;
           if (data.status == "1") {
-            
-          AuthGuard.blocked=false;
-          this.router.navigate(["/view-project/",data.products]);
             this.info = data.message;
-
           } else {
             this.error = data.message;
           }
-          AuthGuard.blocked=false;
-          this.router.navigate(["/view-project/",data.products]);
-          // this.router.navigate(["/projects"]);
+          
+          this.router.navigate(["/projects"]);
         },
         (error) => {
           this.error = error;
           this.loading = false;
           this.loadingData = false;
         }
-      ); 
+      );
   }
 
   credit_period(obj) {
@@ -529,34 +497,4 @@ export class EditProjectComponent implements OnInit {
       $("#credit_period").val(obj);
     }
   }
-  getOrg(){
-  if( this.projectForm.controls["billing_orgno"].value.toString().length == '9'){
-    this.loading = true;
-    this.loadingData = true; 
-
-  console.log("org ",this.orgVal);
-  this.userService.getOrg(this.orgVal).subscribe(
-    (data) => {
-      this.loading = false;
-      this.loadingData = false;
-       this.info = data.message;
-       console.log("data - geted on org link",data)
-       this.name=data.navn;
-       this.address=data.forretningsadresse.adresse[0];
-       this.postal_area=data.forretningsadresse.kommune;
-       this.postal_code=data.forretningsadresse.postnummer;
-       this.error2="";
-    },
-    (error) => {
-      this.error2 = error;
-      this.loading = false;
-      this.loadingData = false;
-    }
-  );
-  }else{
-    alert("Org Number should be 9 digit for norway");
-    this.loading = false;
-  }
-  }
-
 }

@@ -17,14 +17,17 @@
       <section class="forms py-5 bg-white">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12 main" style="
-              padding-top: 55px;
-          ">
+            <div class="col-md-12 main">
               <p class="pagecrumb-title">/Customers</p>
               <div class="form-group has-search">
                 <span class="fa fa-search form-control-feedback"></span>
-                <input type="text" name="search" class="form-control" placeholder="Search"
-                  (input)="search($event.target.value)" />
+                <input
+                  type="text"
+                  name="search"
+                  class="form-control"
+                  placeholder="Search"
+                  (input)="search($event.target.value)"
+                />
               </div>
             </div>
           </div>
@@ -37,17 +40,26 @@
             <div class="col-md-12 main">
               <div class="form-group has-search">
                 <span style="float: right; transition: background-color 0.5s ease;">
-                  <a (click)="viewType('list')" href="javascript:void(0);"><span class="fa fa-list"></span></a>
+                  <a (click)="viewType('list')" href="javascript:void(0);"
+                    ><span class="fa fa-list"></span
+                  ></a>
                   &nbsp;
-                  <a (click)="viewType('grid')" href="javascript:void(0);"><span class="fa fa-th"></span></a>
+                  <a (click)="viewType('grid')" href="javascript:void(0);"
+                    ><span class="fa fa-th"></span
+                  ></a>
                 </span>
               </div>
             </div>
             <div class="col-md-12" *ngIf="listView">
-              <table id="example" class="table table-hover" datatable [dtOptions]="dtOptions" width="100%">
+              <table  id="example"
+                class="table table-hover"
+                datatable
+                [dtOptions]="dtOptions"
+                width="100%"
+              >
                 <thead>
                   <tr>
-                    <th style="background: unset">Sr. No.</th>
+                    <th style="background: unset">#</th>
                     <th>Name</th>
                     <th>No of Project</th>
                     <th>No. Of Product</th>
@@ -63,25 +75,49 @@
                 <div class="">
                   <div class="row">
                     <div class="col-md-3 p-2" *ngFor="let customer of customerslists; index as i">
-                      <div class="card p-2 text-center"
-                        style="border-radius: 10px;  transition: background-color 0.5s ease;">
-                        <a routerLink="/view-customer/{{ customer.id }}" *ngIf="customer.image_path"><img src="{{image_base_path}}{{customer.image_path}}" class="card-img-top" alt="..." height="227px" width="283px"
-                            style="border-radius: 10px" /></a>
-                        <a href="javascript:void();" routerLink="/view-customer/{{ customer.id }}"
-                          *ngIf="!customer.image_path"><img src="assets/images/default.jpg" class="card-img-top"
-                            alt="..." height="227px" width="283px" style="border-radius: 10px" /></a>
-                      </div>
-                      <div class="p-2">
-                        <h5 class="card-title">
-                          <a routerLink="/view-customer/{{ customer.id }}" style="word-break: break-all">{{
-                            customer.customer_name }}</a>
-                        </h5>
-                      </div>
+                      <div class="card p-2 text-center"  style="border-radius: 10px;  transition: background-color 0.5s ease;">
+                        <a routerLink="/view-customer/{{ customer.id }}"
+                        *ngIf="customer.image_path"
+                          ><img
+                            src="{{ image_base_path }}/{{
+                              customer.image_path
+                            }}"
+                            class="card-img-top"
+                            alt="..."
+                            height="227px"
+                            width="283px"
+                            style="border-radius: 10px"
+                        /></a>
+                        <a
+                          href="javascript:void();"
+                          routerLink="/view-customer/{{ customer.id }}"
+                          *ngIf="!customer.image_path"
+                          ><img
+                            src="assets/images/default.jpg"
+                            class="card-img-top"
+                            alt="..."
+                            height="227px"
+                            width="283px"
+                            style="border-radius: 10px"
+                        /></a>
+                        </div>
+                        <div class="p-2">
+                          <h5 class="card-title">
+                            <a
+                              routerLink="/view-customer/{{ customer.id }}"
+                              style="word-break: break-all"
+                              >{{ customer.customer_name }}</a
+                            >
+                          </h5>
+                        </div>
                     </div>
                   </div>
-                  <div class="text-center"  style="display: flex;
-                  justify-content: center;">
-                    <button (click)="loadMore()" style="background-color: #e5e5e5; "  *ngIf="loadmoreflag" class="btn btn-load">
+                  <div class="text-center">
+                    <button
+                      (click)="loadMore()"
+                      *ngIf="loadmoreflag"
+                      class="btn btn-load"
+                    >
                       Show More
                     </button>
                   </div>
@@ -91,7 +127,7 @@
           </div>
         </div>
       </section>
-
+     
       <!-- Page Footer-->
       <app-footer></app-footer>
     </div>

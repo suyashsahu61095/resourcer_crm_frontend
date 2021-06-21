@@ -16,11 +16,11 @@
     <app-header></app-header>
       <!-- Breadcrumb-->
           <div class="breadcrumb-holder container-fluid">
-              <ul class="breadcrumb" style="    padding-top: 90px;">
+              <ul class="breadcrumb">
                   <li class="breadcrumb-item"><a routerLink="/customers">/ Customer</a></li>
                   <li class="breadcrumb-item active">Add Customer</li>
               </ul>
-          </div> 
+          </div>
           <section class="forms pb-5"> 
               <div class="container-fluid">
                   <div class="row">
@@ -36,31 +36,29 @@
                                     <label for='imgupload'><img [src]="imgURL" *ngIf="imgURL" class="img-fluid"></label>
                                 </div>
                                 <div class="col-sm-7">
-                                   <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Adding customer failed</div>
-                                   <!-- <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div> -->
+                                   <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
                                    <br/>
                                     <div class="form-group row">
                                       <div class="col-md-5 p-3">
                                         <label for="customerName" class="label-material">CUSTOMER NAME*:</label>
                                       </div>
                                       <div class="col-md-7">
-                                        <input type="text" formControlName="customerName" name="customerName" [(ngModel)]="name"  [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" class="input-material">
+                                        <input type="text" formControlName="customerName" name="customerName" [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" class="input-material">
                                         <div *ngIf="submitted && f.customerName.errors" class="invalid-feedback">
                                           <div *ngIf="f.customerName.errors.required">Customer Name is required</div>
                                         </div>
-                                      </div> 
+                                      </div>
                                     </div>
                                   <div class="form-group row">
                                     <div class="col-md-5 p-3">
                                       <label for="orgname" class="label-material">ORG. NUMBER*:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input type="text" pattern="[0-9]*" formControlName="orgname" name="orgname"  [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9"   [(ngModel)]="orgVal" (keyup.enter)="getOrg()" (change)="getOrg()" class="input-material">
-                                      <div *ngIf="submitted && f.orgname.errors && !error2" class="invalid-feedback">
+                                      <input type="number" formControlName="orgname" name="orgname" [ngClass]="{ 'is-invalid': submitted && f.orgname.errors }" maxlength="9" class="input-material">
+                                      <div *ngIf="submitted && f.orgname.errors" class="invalid-feedback">
                                         <div *ngIf="f.orgname.errors.required">Org. Number is required</div>
-                                        <div *ngIf="f.orgname.errors.pattern">Please enter 9 digits only</div>
+                                        <div *ngIf="f.orgname.errors.pattern">Please enter digits only</div>
                                       </div>
-                                      <div style="color:#dc3545;font-size: 14px;" *ngIf="error2">Invalid Org. Number</div>
                                     </div>
                                   </div>
                                   <div class="form-group row">
@@ -68,7 +66,7 @@
                                       <label for="address" class="label-material">ADDRESS:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input formControlName="address"  [(ngModel)]="address" type="text" name="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" class="input-material" maxlength="64">
+                                      <input formControlName="address" type="text" name="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" class="input-material" maxlength="64">
                                       <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
                                         <div *ngIf="f.address.errors.required">Address is required</div>
                                       </div>
@@ -79,7 +77,7 @@
                                       <label for="postal_code" class="label-material">POSTAL CODE:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input formControlName="postal_code" type="text" pattern="[0-9]*"  name="postal_code" [(ngModel)]="postal_code"  [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" >
+                                      <input formControlName="postal_code" type="number" name="postal_code" [ngClass]="{ 'is-invalid': submitted && f.postal_code.errors }" class="input-material" maxlength="4">
                                       <div *ngIf="submitted && f.postal_code.errors" class="invalid-feedback">
                                         <div *ngIf="f.postal_code.errors.required">Postal Code is required</div>
                                         <div *ngIf="f.postal_code.errors.pattern">Please enter valid postal code</div>
@@ -88,10 +86,10 @@
                                   </div>
                                   <div class="form-group row">
                                     <div class="col-md-5 p-3">
-                                      <label for="postal_area" class="label-material">POSTAL AREA:</label>
+                                      <label for="postal_area" class="label-material">POSTAL  AREA:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input formControlName="postal_area" type="text" name="postal_area" [(ngModel)]="postal_area"  [ngClass]="{ 'is-invalid': submitted && f.postal_area.errors }" class="input-material" maxlength="4">
+                                      <input formControlName="postal_area" type="text" name="postal_area" [ngClass]="{ 'is-invalid': submitted && f.postal_area.errors }" class="input-material" maxlength="4">
                                       <div *ngIf="submitted && f.postal_area.errors" class="invalid-feedback">
                                         <div *ngIf="f.postal_area.errors.required">Postal Area is required</div>
                                       </div>
@@ -102,9 +100,9 @@
                                       <label for="postal_area" class="label-material">COUNTRY:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input  class="input-material" disabled name="country" value="2" placeholder="Norway"   formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" >
-                                      <!-- <select style = "text-transform:capitalize;" value="2"  > -->
-                                        <!-- <option value="">Select</option>
+                 
+                                      <select style = "text-transform:capitalize;" class="input-material" name="country"  formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+                                        <option value="">Select</option>
                                         <option value="1">India</option>
                                         <option value="2" selected>Norway</option>
                                         <option value="3">France</option>
@@ -113,7 +111,7 @@
                                         <option value="6">Sweden</option>
                                         <option value="7">Germany</option>
                                         <option value="8">Poland</option>
-                                      </select> -->
+                                      </select>
                                       <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
                                         <div *ngIf="f.country.errors.required">Country is required</div>
                                     </div> 
@@ -136,11 +134,11 @@
                                       <label for="mobile" class="label-material">MOBILE NO:</label>
                                     </div>
                                     <div class="col-md-7">
-                                      <input formControlName="mobile" type="number" name="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" maxlength="8" class="input-material">
+                                      <input formControlName="mobile" type="text" name="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" maxlength="15" class="input-material">
                                       <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
-                                        <!-- <div *ngIf="f.mobile.errors.required">Mobile Number is required</div> -->
-                                        <!-- <div *ngIf="f.mobile.errors.pattern">Please enter valid mobile number</div> -->
-                                        <div *ngIf="f.mobile.errors.pattern">Please enter 8 digit valid mobile number For Norway</div>
+                                        <div *ngIf="f.mobile.errors.required">Mobile Number is required</div>
+                                        <div *ngIf="f.mobile.errors.pattern">Please enter valid mobile number</div>
+                                        <div *ngIf="mobileVal">Please enter 8 digit valid mobile number For Norway</div>
                                       </div>
                                     </div>
                                   </div>
@@ -157,15 +155,13 @@
                                     </div>
                                   </div>
                                   <div class="form-group row">
-                                    <div class="col-md-4 p-3">
+                                    <div class="col-md-5 p-3">
                                      
                                     </div>
-                                    <div class="col-md-7" style="    top: 14px;
-                                    padding-left: 63px;
-                                ">
+                                    <div class="col-md-7">
                                       <div class="form-group text-center">
                                         <input type="submit" name="submit" (click)="submitfun()" style="
-                                          width: 235.9px;"alue="Register" class="btn btn-secondary">
+                                          width: 235.9px;"alue="Register" class="btn btn-default">
                                       </div>
                                       <div class="form-group text-center">
                                         <input type="submit" name="submit" (click)="submitaddfun()" value="Register and add new Project" class="btn btn-secondary">
@@ -183,8 +179,7 @@
                                         <label for="note" class="label-material">NOTES:</label>
                                       </div>
                                       <div class="col-md-7">
-                                        <textarea style="    background-color: #ffffff;
-                                        border: 1px solid #F5F5F5;" formControlName="note" name="note" class="form-control" rows="7" maxlength="1000"></textarea>
+                                        <textarea formControlName="note" name="note" class="form-control" rows="7" maxlength="1000"></textarea>
                                         <!-- <div *ngIf="submitted && f.note.errors" class="invalid-feedback">
                                           <div *ngIf="f.note.errors.required">Note is required</div>
                                         </div> -->

@@ -8,7 +8,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2';
-import{_,orderBy}from 'lodash';
+
 class DataTablesResponse {
   data: any[];
   draw: number;
@@ -78,20 +78,11 @@ export class ProjectsComponent implements OnDestroy, OnInit {
                   if(resp.data.length > 0) {
                     this.image_base_path = resp.data[0].image_base_path;
                   }
-                  if(dataTablesParameters.draw==1)
-                  {
                   callback({
                     recordsTotal: resp.recordsTotal,
                     recordsFiltered: resp.recordsFiltered,
-                    data: orderBy(resp.data,['updated_at'],['desc']),
+                    data: resp.data
                   });
-                }else{
-                  callback({
-                    recordsTotal: resp.recordsTotal,
-                    recordsFiltered: resp.recordsFiltered,
-                    data: resp.data,
-                  });
-                }
                 });
             },
             columns: [{ data: 'DT_RowIndex', orderable:false, searchable:false }, 
@@ -138,7 +129,8 @@ export class ProjectsComponent implements OnDestroy, OnInit {
     this.gridView = true;
     this.listView = false;
     this.userService.searchProject(value).pipe(first()).subscribe(data => {
-     
+        this.loading = false;
+        this.loadingData = false;
         this.projectslist = data.projects;
         this.image_base_path = data.image_base_path;
     }); 

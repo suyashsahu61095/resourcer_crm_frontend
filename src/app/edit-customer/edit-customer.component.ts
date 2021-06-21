@@ -8,8 +8,6 @@ import { User } from '@app/_models';
 import { UserService, AuthenticationService } from '@app/_services';
 declare var $: any;
 
-import { AuthGuard } from "@app/_helpers";
-
 @Component({
   selector: 'app-edit-customer',
   templateUrl: './edit-customer.component.html',
@@ -27,8 +25,6 @@ export class EditCustomerComponent implements OnInit {
   public imagePath;
   imgURL: any = '';
   public message: string;
-  
-  public message2: string;
   fileToUpload: File = null;
   formData = new FormData();
   editId:any;
@@ -36,12 +32,6 @@ export class EditCustomerComponent implements OnInit {
   currentUser: User;
   editimgUrl:any = '';
   country:any;
-  name:any;
-  address:any;
-  postal_area:any;
-  postal_code:any;
-  orgVal:any;
-  error2:any;
 constructor(
   private formBuilder: FormBuilder,
   private route: ActivatedRoute,
@@ -72,11 +62,6 @@ ngOnInit() {
           note: this.customerInfo.note,
           country: this.customerInfo.country
         });
-        this.name=this.customerInfo.customer_name;
-        this.address= this.customerInfo.address;
-        this.postal_code=this.customerInfo.postal_code;
-        this.postal_area= this.customerInfo.postal_area;
-        this.orgVal=this.customerInfo.org_number;
         if(this.customerInfo.image_path){
           this.editimgUrl = data.image_base_path+'/'+this.customerInfo.image_path;
         }
@@ -84,12 +69,12 @@ ngOnInit() {
 
     this.customerForm = this.formBuilder.group({
       customerName: ['', Validators.required],
-      orgname: ['', [Validators.required,  Validators.pattern('[0-9]{9}')]],
+      orgname: ['', [Validators.required,  Validators.pattern('[0-9]*')]],
       address: [''],
-      postal_code: [''],
+      postal_code: ['', [Validators.pattern('[0-9]{4}')]],
       postal_area: [''],
       name: [''],
-      mobile: ["", [Validators.pattern("[0-9]{8}")]],
+      mobile: ['', [Validators.pattern('[0-9]{10}')]],
       email: ['', [Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
       note: [''],
       country: ['']
@@ -105,21 +90,14 @@ if (files.length === 0)
 
 var mimeType = files[0].type;
 if (mimeType.match(/image\/*/) == null) {
-  this.message2 = "Only images are supported.";
+  this.message = "Only images are supported.";
   return;
 }
 
- 
-if (files[0].size / 152400  > 15) {
-  this.message2 = "file is bigger than 15MB";
-  return;
-}else{
-  this.message2 = "";
-}
 var reader = new FileReader();
 this.fileToUpload = files[0];
 reader.readAsDataURL(files[0]); 
-reader.onload = (_event) => {  
+reader.onload = (_event) => { 
   this.imgURL = reader.result; 
 }
 
@@ -132,20 +110,19 @@ onSubmit() {
 
   // stop here if form is invalid
   if (this.customerForm.invalid) {
-    this.loading = false;
       return;
   }
 
-  // if(this.customerForm.controls['country'].value == '2') {
-    // if(this.customerForm.controls['orgname'].value.toString().length != '9'){
-    //   alert("Org Number should be 9 digit for norway");
-    //   return;
-    // }
-    // if(this.customerForm.controls['mobile'].value.toString().length != '8'){
-    //   alert("Mobile should be 8 digit for norway");
-    //   return;
-    // }
-  // }
+  if(this.customerForm.controls['country'].value == '2') {
+    if(this.customerForm.controls['orgname'].value.toString().length != '9'){
+      alert("Org Number should be 9 digit for norway");
+      return;
+    }
+    if(this.customerForm.controls['mobile'].value.toString().length != '8'){
+      alert("Mobile should be 8 digit for norway");
+      return;
+    }
+  }
 
   this.loading = true;
   this.loadingData = true;
@@ -157,12 +134,12 @@ onSubmit() {
   if(this.fileToUpload){
     formData.set("imageFile", this.fileToUpload, this.fileToUpload.name);
   }
-  formData.append("orgname", this.orgVal)
+  formData.append("orgname", this.customerForm.controls['orgname'].value)
   formData.append("id", this.editId)
-  formData.append("address", this.address)
-  formData.append("customerName", this.name)
-  formData.append("postal_code", this.postal_code)
-  formData.append("postal_area", this.postal_area)
+  formData.append("address", this.customerForm.controls['address'].value)
+  formData.append("customerName", this.customerForm.controls['customerName'].value)
+  formData.append("postal_code", this.customerForm.controls['postal_code'].value)
+  formData.append("postal_area", this.customerForm.controls['postal_area'].value)
   formData.append("name", this.customerForm.controls['name'].value)
   formData.append("country", this.customerForm.controls['country'].value)
   formData.append("email", this.customerForm.controls['email'].value)
@@ -179,21 +156,17 @@ onSubmit() {
               this.loading = false;
               this.loadingData = false;
               if(data.status == '1') {
-                 
-          AuthGuard.blocked=false;
-          this.router.navigate(["/view-customer/",data.customer]);
                   this.info = data.message;
               } else {
                   this.error = data.message;
-              } 
-              
-          AuthGuard.blocked=false;
-          this.router.navigate(["/view-customer/",data.customer]);
+              }
+              this.router.navigate(['/customers']);
           },
           error => {
               this.error = error;
               this.loading = false;
               this.loadingData = false;
           });
-        }
+}
+
 }

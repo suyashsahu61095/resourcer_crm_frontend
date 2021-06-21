@@ -69,7 +69,7 @@
                     <div class="card-body">
                       <div class="row d-flex align-items-center">
                           <div class="col-sm-9">
-                            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Something went wrong. Try Again</div>
+                            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
                               <form [formGroup]="productCategory" (ngSubmit)="onSubmit()">
                                 <div class="form-group-material">
                                     <input type="text" formControlName="category_name" name="category_name"  class="input-material">
@@ -106,7 +106,7 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-sm-9">
-            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Something went wrong. Try Again</div>
+            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
               <form [formGroup]="productCategory" (ngSubmit)="onSubmit()">
                 <div class="form-group-material">
                     <input type="text" formControlName="category_name" name="category_name"  class="input-material" [ngClass]="{ 'is-invalid': submitted && f.category_name.errors }">
@@ -149,7 +149,7 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-sm-9">
-            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Something went wrong. Try Again</div>
+            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
               <form [formGroup]="productEditCategory" (ngSubmit)="onUpdate()">
                 <input type="hidden" formControlName="category_id" name="category_id" class="input-material">
                 <div class="form-group-material">

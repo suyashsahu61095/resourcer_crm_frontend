@@ -27,8 +27,6 @@ export class AddProjectComponent implements OnInit {
   public imagePath;
   imgURL: any = "";
   public message: string;
-  
-  public message2: string;
   fileToUpload: File = null;
   filemultiUpload: File = null;
   formData = new FormData();
@@ -42,13 +40,6 @@ export class AddProjectComponent implements OnInit {
   filecattext: string[] = [];
   closeResult: string;
   changesCounter: number = 0;
-
-  orgVal:any;
-  postal_code:any;
-  postal_area:any;
-  address:any;
-  name:any;
-  error2:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -110,7 +101,7 @@ export class AddProjectComponent implements OnInit {
       project_type: [""],
       project_status: [""],
       property_area: ["", Validators.pattern("[0-9]*")],
-      no_of_floors: [""],
+      no_of_floors: ["", Validators.pattern("[0-9]{2}")],
       building_year: [""],
       last_refurbished: [""],
       env_report: [""],
@@ -182,16 +173,10 @@ export class AddProjectComponent implements OnInit {
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message2 = "Only images are supported.";
+      this.message = "Only images are supported.";
       return;
     }
- 
-    if (files[0].size / 152400  > 15) {
-      this.message2 = "file is bigger than 15MB";
-      return;
-    }else{
-      this.message2 = "";
-    }
+
     var reader = new FileReader();
     this.fileToUpload = files[0];
     reader.readAsDataURL(files[0]);
@@ -336,12 +321,14 @@ export class AddProjectComponent implements OnInit {
     );
     formData.append("note", this.projectForm.controls["note"].value);
     formData.append(
-      "billing_project_company",this.name
+      "billing_project_company",
+      this.projectForm.controls["billing_project_company"].value
     );
     formData.append(
-      "billing_orgno",this.orgVal
+      "billing_orgno",
+      this.projectForm.controls["billing_orgno"].value
     );
-    formData.append( 
+    formData.append(
       "billing_project_number",
       this.projectForm.controls["billing_project_number"].value
     );
@@ -350,13 +337,16 @@ export class AddProjectComponent implements OnInit {
       this.projectForm.controls["billing_customer_ref"].value
     );
     formData.append(
-      "billing_address",this.address
+      "billing_address",
+      this.projectForm.controls["billing_address"].value
     );
     formData.append(
-      "billing_postal_code",this.postal_code
+      "billing_postal_code",
+      this.projectForm.controls["billing_postal_code"].value
     );
     formData.append(
-      "billing_postal_area",this.postal_area
+      "billing_postal_area",
+      this.projectForm.controls["billing_postal_area"].value
     );
     formData.append("credit_period", $("#credit_period").val());
 
@@ -372,13 +362,11 @@ export class AddProjectComponent implements OnInit {
           if (data.status == "1") {
             Swal.fire(data.project_id, "Project Added Sucessfully", "success");
             this.info = data.message;
-            console.log("id project",data.project)
-            AuthGuard.blocked=false;
-            this.router.navigate(["/view-project/",data.products]);
           } else {
-            this.error = data.message; 
+            this.error = data.message;
           }
-        
+          AuthGuard.blocked=false;
+          this.router.navigate(["/view-project/",data.project]);
         },
         (error) => {
           this.error = error;
@@ -386,7 +374,7 @@ export class AddProjectComponent implements OnInit {
           this.loadingData = false;
         }
       );
-  } 
+  }
 
   credit_period(obj) {
     if (obj == 1) {
@@ -399,11 +387,4 @@ export class AddProjectComponent implements OnInit {
       $("#credit_period").val(obj);
     }
   }
-
-
-  
-
-
-
-
 }

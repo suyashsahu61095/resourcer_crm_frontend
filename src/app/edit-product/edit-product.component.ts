@@ -8,7 +8,6 @@ import { UserService, AuthenticationService } from "@app/_services";
 import Swal from "sweetalert2";
 declare var $: any;
 
-import { AuthGuard } from "@app/_helpers";
 @Component({
   selector: "app-edit-product",
   templateUrl: "./edit-product.component.html",
@@ -27,8 +26,6 @@ export class EditProductComponent implements OnInit {
   public imagePath;
   imgURL: any = "";
   public message: string;
-  doc_path:any;
-  public message2: string;
   fileToUpload: File = null;
   filemultiUpload: File = null;
   formData = new FormData();
@@ -94,9 +91,9 @@ export class EditProductComponent implements OnInit {
       product_name: ["", Validators.required],
       project_id: ["", Validators.required],
       product_id: ["", Validators.required],
-      description: ["", Validators.required],
+      description: [""],
       status: [""],
-      category: ["0"],
+      category: [""],
       building_part: [""],
       filesmulti:[""],
       unit: [""],
@@ -164,7 +161,6 @@ export class EditProductComponent implements OnInit {
           this.editimgUrl =
             data.image_base_path + "/" + this.productInfo.product_image;
         }
-        this.doc_path = data.image_base_path+ "/documents/" ;
       });
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
@@ -183,17 +179,10 @@ export class EditProductComponent implements OnInit {
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message2 = "Only images are supported.";
+      this.message = "Only images are supported.";
       return;
     }
 
-    
-    if (files[0].size / 152400  > 15) {
-      this.message2 = "file is bigger than 15MB";
-      return;
-    }else{
-      this.message2 = "";
-    }
     var reader = new FileReader();
     this.fileToUpload = files[0];
     reader.readAsDataURL(files[0]);
@@ -266,7 +255,7 @@ export class EditProductComponent implements OnInit {
     //this.formData.append('data', JSON.stringify(this.customerForm.value));
     console.log(this.filemultiUpload);
     var formData = new FormData();
-    if (this.filesmulti) {
+    if (this.fileToUpload) {
       if (this.filesmulti.length > 0) {
         for (var i = 0; i < this.filesmulti.length; i++) {
           formData.append("imagemultiFile[]", this.filesmulti[i]);
@@ -365,10 +354,7 @@ export class EditProductComponent implements OnInit {
           } else {
             this.error = data.message;
           }
-          
-          AuthGuard.blocked=false;
-          this.router.navigate(["/view-product/",data.products]);
-          // this.router.navigate(["/products"]);
+          this.router.navigate(["/products"]);
         },
         (error) => {
           this.error = error;
@@ -498,47 +484,5 @@ export class EditProductComponent implements OnInit {
         }
       );
    
-  }
-  deletedoc(id) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
-      },
-      buttonsStyling: false,
-    });
-
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          this.userService
-            .deleteProductDoc(id)
-            .pipe(first())
-            .subscribe((data) => {
-              this.loading = false;
-              if (data.status == "1") {
-                this.productInfo.pr;
-                this.productInfo.productdocs.forEach((item, index) => {
-                  if (item.id === id)
-                    this.productInfo.productdocs.splice(index, 1);
-                });
-                Swal.fire("", data.message, "success");
-              }
-            });
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-        }
-      });
   }
 }

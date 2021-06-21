@@ -8,9 +8,8 @@ import { environment } from "@environments/environment";
 import { DataTableDirective } from "angular-datatables";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CatalogService } from "@app/_services/catalog.service";
-import{_,orderBy}from 'lodash';
+
 import Swal from "sweetalert2";
-import { of } from "rxjs";
 // import * as $ from 'jquery';
 declare var $: any;
 
@@ -24,7 +23,7 @@ class DataTablesResponse {
 @Component({
   selector: "app-products",
   templateUrl: "./products.component.html",
-  styleUrls: ["./products.component.less"], 
+  styleUrls: ["./products.component.less"],
 })
 export class ProductsComponent implements OnDestroy, OnInit {
   //dtOptions: DataTables.Settings = {};
@@ -60,13 +59,11 @@ export class ProductsComponent implements OnDestroy, OnInit {
   product_category_count: any;
   status_types: any;
   term: string;
-  termc: string;
   filter_record;
   totalrecord;
   PDFProduct = [];
   productPDFCategory: FormGroup;
   PDFProductProject = [];
-  PDFProductCategory=[];
   filterFlag = false;
   pagenumber: any = 1;
   loadmoreflag: boolean = true;
@@ -95,9 +92,7 @@ export class ProductsComponent implements OnDestroy, OnInit {
         this.customer_count = data.customer_count;
         this.customers = data.customers;
         this.project_count = data.project_count;
-        this.projects =data.projects; 
-        console.log("products" , this.projects )
-
+        this.projects = data.projects;
         this.status_types = data.status_type;
         this.product_category_count = data.product_category_count;
         this.product_category = data.product_category;
@@ -106,7 +101,6 @@ export class ProductsComponent implements OnDestroy, OnInit {
     this.projectobj = this.route.snapshot.queryParams["param_id"];
     console.log(this.projectobj);
     $(".dataTables_filter").hide();
-    
     const that = this;
     this.dtOptions = {
       pagingType: "full_numbers",
@@ -114,7 +108,6 @@ export class ProductsComponent implements OnDestroy, OnInit {
       serverSide: true,
       processing: true,
       scrollX: true,
-      
       dom: '<"top"lr>rt<"bottom"ip><"clear">',
       // Configure the buttons
         buttons: [{
@@ -143,19 +136,16 @@ export class ProductsComponent implements OnDestroy, OnInit {
         }
         if (this.status_filter.length > 0) {
           dataTablesParameters.status_filter = this.status_filter;
-        } 
-        
-        
+        }
         that.http
           .post<DataTablesResponse>( 
             `${environment.apiUrl}/products`,
-            dataTablesParameters, 
+            dataTablesParameters,
             {}
           )
           .subscribe((resp) => {
             that.products = resp.data;
-           
-         console.log("parameter", dataTablesParameters)
+         console.log("product dat-", that.products)
             this.loading = false;
             this.loadingData = false;
             if (resp.data.length > 0) {
@@ -163,69 +153,51 @@ export class ProductsComponent implements OnDestroy, OnInit {
               this.filter_record = resp.recordsFiltered;
               this.image_base_path = resp.data[0].image_base_path;
             }
-            if(dataTablesParameters.draw==1)
-            {
-              console.log("called by filter")
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsFiltered,
-              data:  orderBy(resp.data,['updated_at'],['desc']),
+              data: resp.data,
             });
-          }else{
-            console.log("called by filter else")
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data:  resp.data,
-            });
-          }
-          }
-          );
-         
+          });
       },
-      
       columns: [
         {
           data: "checkbox",
           name: "checkbox",
           orderable: false,
           searchable: false,
-         
           render: function (data: any, type: any, full: any) {
             //console.log(full);
-  var link =
-"<div class='round'><input type='checkbox' id='checkbox" +
-full.id +
-"' name='prod_id' class='redirect' data-project-id= " +
-full.project_id +
-" view-attribute-id=" +
-full.id +
-"><label for='checkbox" +
-full.id +
-"'></label></div>";
+            var link =
+              "<div class='round'><input type='checkbox' id='checkbox" +
+              full.id +
+              "' name='prod_id' class='redirect' data-project-id= " +
+              full.project_id +
+              " view-attribute-id=" +
+              full.id +
+              "><label for='checkbox" +
+              full.id +
+              "'></label></div>";
             return link;
           },
         },
         { data: "product_id", name: "product_id" },
         { data: "product_name", name: "product_name" },
         { name: "product_categories.category_name", data: "category_name" },
-        { data: "price_new_product", render: $.fn.dataTable.render.number( ' ', ',', 2,  ) },
+        { data: "price_new_product" },
         { data: "quantity" },
         { data: "dimention" },
         { data: "description" },
         { data: "status" },
-        
       ],
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         $(".redirect", row).unbind("click");
-        
         $(".redirect", row).bind("click", (event) => {
           if (event.target.checked) {
             let project_id = $(event.target).attr("data-project-id");
             let product_id = $(event.target).attr("view-attribute-id");
             this.PDFProduct.push(product_id);
             this.PDFProductProject.push(project_id);
-
           } else {
             let project_id = $(event.target).attr("data-project-id");
             let product_id = $(event.target).attr("view-attribute-id");
@@ -271,78 +243,57 @@ full.id +
       this.filterFlag = false;
     }
   }
-  
   removeFilter(type, filter) {
     if (type == "cust") {
       this.customer_filter_text = this.customer_filter_text.filter(function (s) {
         return s != filter;
       });
-      console.log("customer filter text",    this.customer_filter_text);
       let id = -1;
-      // console.log("data of customer",this.customers);
       Object.keys(this.customers).forEach((key) => {
-        var arr = this.customers[key];
-        //  arr.forEach((elm) => {
-         
-          console.log(arr.customer_name,arr.id); // == filter);
-          if (arr.customer_name == filter.trim()){
-            id = arr.id;
-            arr.isChecked = 0;
-          }
-        
-        //  });
-       });
-       console.log("before filered data opt", this.customer_filter)
+        const arr = this.customers[key];
+        arr.forEach((elm) => {
+          //console.log(filter);
+          //console.log(elm.project_name); // == filter);
+          if (elm.customer_name.trim() == filter.trim()) id = elm.id;
+        });
+      });
       this.customer_filter = this.customer_filter.filter(function (s) {
         return s != id;
       });
-      console.log("filered data opt", this.customer_filter)
     }
     if (type == "proj") {
       this.project_filter_text = this.project_filter_text.filter(function (s) {
-        console.log("ssssssssssss",s)
-        return s != filter;//
+        return s != filter;
       });
       let id = -1;
       Object.keys(this.projects).forEach((key) => {
         const arr = this.projects[key];
-        // arr.forEach((elm) => {
-        //   console.log("project f cross",elm.id)
+        arr.forEach((elm) => {
           //console.log(filter);
           //console.log(elm.project_name); // == filter);
-          if (arr.project_name == filter.trim()) 
-          id = arr.id;
-        // });
+          if (elm.project_name.trim() == filter.trim()) id = elm.id;
+        });
       });
       this.project_filter = this.project_filter.filter(function (s) {
         return s != id;
       });
-    
     }
     if (type == "cat") {
-
-      console.log("getted filter data",filter);
-      this.category_filter_text = this.category_filter_text.filter(
-        function (s) {
-        console.log("sssssssssss");
+      this.category_filter_text = this.category_filter_text.filter(function (s) {
         return s != filter;
-   });
+      });
       let id = -1;
-      Object.keys(this.product_category).forEach((key) => {
-        var arr = this.product_category[key];
-console.log("arrr->",arr);
-        // arr.forEach((elm) => {
+      Object.keys(this.category).forEach((key) => {
+        const arr = this.category[key];
+        arr.forEach((elm) => {
           //console.log(filter);
           //console.log(elm.product_name); // == filter);
-          if (arr.category_name == filter.trim()) 
-          id = arr.id;
-         
-      //  });
+          if (elm.category_name.trim() == filter.trim()) id = elm.id;
+        });
       });
-      this.category_filter = this.category_filter.filter(
-         function (s) {
-         return s != id;
-       });
+      this.category_filter = this.category_filter.filter(function (s) {
+        return s != id;
+      });
     }
     if (type == "stat") {
       console.log(this.status_types);
@@ -366,8 +317,6 @@ console.log("arrr->",arr);
     // this.listView = true;
     // this.gridView = false;
     if(this.listView==true){
-      this.listView = true;
-      this.gridView= false;
       console.log("called list")
     this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.search(value);
@@ -376,11 +325,10 @@ console.log("arrr->",arr);
   }else{
     console.log("calledcgrid")
     this.gridView = true;
-    this.listView = false;
     this.userService.searchProduct(value).pipe(first()).subscribe(data => {
         this.loading = false;
         this.loadingData = false;
-        this.productslist = data.products;
+        this.products = data.products;
         this.image_base_path = data.image_base_path;
     });
   }
@@ -557,7 +505,6 @@ console.log("arrr->",arr);
     }
   }
   addCategory(event) {
-    console.log("tgt value",event)
     this.showSearchKeys = false;
     if (event.target.checked) {
       this.category_filter.push(event.target.value);
@@ -615,10 +562,10 @@ console.log("arrr->",arr);
   }
 
   pdf() {
-    if(this.PDFProduct.length == 0) {
-      Swal.fire('', 'Please select Product', 'error');
-      return false;
-    }
+    // if(this.PDFProduct.length == 0) {
+    //   Swal.fire('', 'Please select Product', 'error');
+    //   return false;
+    // }
     ($("#PDFModal") as any).modal("show");
   }
 
@@ -631,23 +578,21 @@ console.log("arrr->",arr);
       this.PDFProduct = this.PDFProduct.filter(function (s) {
         return s !== event.target.value;
       });
-    } 
+    }
   }
 
   genratePDF() {
-    ($("#PDFModal") as any).modal("hide");
     //this.PDFProduct = [28,23];
     //this.PDFProductProject = [17];
     this.catalogService
       .getpdfData(this.PDFProduct, this.PDFProductProject)
       .pipe(first())
       .subscribe((data) => {
-       
-        this.image_base_path = data.image_base_path;
+        //this.image_base_path = data.image_base_path;
         console.log(data);
         localStorage.setItem("pdfData", data.html);
-        // this.router.navigate(['/download-catalog']);
-        window.open("/download-catalog","download");
+        //this.router.navigate(['/download-catalog']);
+        window.open("/download-catalog", "_blank");
       });
   }
 
@@ -656,4 +601,36 @@ console.log("arrr->",arr);
     this.getgridData();
   }
 
+  getgridData() {
+    this.userService
+      .getproductsgrid(this.pagenumber, this.projectobj)
+      .pipe(first())
+      .subscribe((data) => {
+        this.loading = false;
+        this.loadingData = false;
+        if (this.pagenumber == "1") {
+          if (data.products.length < 12) {
+            this.loadmoreflag = false;
+          }
+          this.productslist = data.products;
+          console.log(this.productslist); // ---> No Project_id is present
+        } else {
+          if (data.products.length > 0) {
+            data.products.forEach((element) => {
+              //console.log(element);
+              this.productslist.push(element);
+            });
+            if (data.products.length < 12) {
+              this.loadmoreflag = false;
+            }
+            //this.projectslist.push(data.projects);
+            console.log(this.productslist);
+          } else {
+            this.loadmoreflag = false;
+          }
+        }
+
+        this.image_base_path = data.image_base_path;
+      });
+  }
 }

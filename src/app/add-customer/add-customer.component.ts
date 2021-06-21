@@ -6,7 +6,6 @@ import { first } from "rxjs/operators";
 import { User } from "@app/_models";
 import { UserService, AuthenticationService } from "@app/_services";
 import { AuthGuard } from "@app/_helpers";
-import { A11yModule } from "@angular/cdk/a11y";
 declare var $: any;
 
 @Component({
@@ -32,14 +31,7 @@ export class AddCustomerComponent implements OnInit {
   orgVal: any = "";
   register = true;
   registeraddnew = false;
-  name:any;
-  address:any;
-  postal_area:any;
-  postal_code:any;
 
-
-   error2="";
-org:any;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -56,11 +48,11 @@ org:any;
       customerName: ["", Validators.required],
       orgname: ["", [Validators.required, Validators.pattern("[0-9]*")]],
       address: [""],
-      postal_code: [""],//, [Validators.pattern("[0-9]{4}")]
+      postal_code: ["", [Validators.pattern("[0-9]{4}")]],
       postal_area: [""],
       country: [""],
       name: [""],
-      mobile: ["", [Validators.pattern("[0-9]{8}")]],
+      mobile: ["", [Validators.pattern("[0-9]*")]],
       email: [
         "", Validators.pattern(
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -88,12 +80,9 @@ org:any;
       this.message = "Only images are supported.";
       return;
     }
-    
-    if (files[0].size / 152400  > 15) {
-      this.message = "file is bigger than 15MB";
+    if (files[0].size / 10240 / 10240 > 10) {
+      this.message = "file is bigger than 10MB";
       return;
-    }else{
-      this.message = "";
     }
 
     var reader = new FileReader();
@@ -113,23 +102,20 @@ org:any;
 
     // stop here if form is invalid
     if (this.customerForm.invalid) {
-      this.loading = false;
       return;
     }
-    // if (this.customerForm.controls["country"].value == "2") {
-      // if (
-      //   this.customerForm.controls["orgname"].value.toString().length != "9" 
-      // ) {
-      //   this.loading = false;
-      //   alert("Org Number should be 9 digit for norway");
-      //   return;
-      // }
-      // if (this.customerForm.controls["mobile"].value.toString().length != "8"&&  this.customerForm.controls["orgname"].value !=null) {
-      //   alert("Mobile should be 8 digit for norway");
-      //   this.loading = false;
-      //   return;
-      // }
-   // }
+    if (this.customerForm.controls["country"].value == "2") {
+      if (
+        this.customerForm.controls["orgname"].value.toString().length != "9"
+      ) {
+        alert("Org Number should be 9 digit for norway");
+        return;
+      }
+      if (this.customerForm.controls["mobile"].value.toString().length != "8") {
+        alert("Mobile should be 8 digit for norway");
+        return;
+      }
+    }
 
     this.loading = true;
     this.loadingData = true;
@@ -142,13 +128,18 @@ org:any;
       formData.set("imageFile", this.fileToUpload, this.fileToUpload.name);
     }
     formData.append(
-      "customerName",this.name
+      "customerName",
+      this.customerForm.controls["customerName"].value
     );
     formData.append("orgname", this.customerForm.controls["orgname"].value);
-    formData.append("address",this.address);
-    formData.append("postal_code",this.postal_code);
+    formData.append("address", this.customerForm.controls["address"].value);
     formData.append(
-      "postal_area",this.postal_area
+      "postal_code",
+      this.customerForm.controls["postal_code"].value
+    );
+    formData.append(
+      "postal_area",
+      this.customerForm.controls["postal_area"].value
     );
     formData.append("country", this.customerForm.controls["country"].value);
     formData.append("name", this.customerForm.controls["name"].value);
@@ -169,7 +160,7 @@ org:any;
           if (data.status == "1") {
             this.info = data.message;
             if (this.register) {
-              this.router.navigate(["/view-customer",data.id]);
+              this.router.navigate(["/view-customers",data.id]);
             } else if (this.registeraddnew) {
               AuthGuard.blocked=false;
               this.router.navigate(["/add-project"], {
@@ -177,7 +168,7 @@ org:any;
               });
             }
           } else {
-            this.error = 'Something went wrong. Try Again';
+            this.error = data.message;
           }
         },
         (error) => {
@@ -197,8 +188,4 @@ org:any;
     this.register = false;
     this.registeraddnew = true;
   }
-
-
-
-
 }

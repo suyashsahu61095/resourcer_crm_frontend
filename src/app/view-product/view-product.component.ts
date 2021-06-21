@@ -10,10 +10,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 
 import {Location} from '@angular/common';
-
-import { AuthGuard } from "@app/_helpers";
-
-import { environment } from '../../environments/environment.prod';
 declare var $: any;
 
 @Component({
@@ -26,7 +22,7 @@ export class ViewProductComponent implements OnInit {
   productForm: FormGroup;
   
   filecat: string[] = [];
-  doc_path:any;
+  
   fileToUpload: File = null;
   filemultiUpload: File = null;
   currentUser: User;
@@ -41,8 +37,8 @@ export class ViewProductComponent implements OnInit {
   editId:any;
   editimgUrl:any = '';
   categories:any;
+  
   filesmulti:any;
-  imgBucket:any;
 constructor(
   private route: ActivatedRoute,
   private router: Router,
@@ -94,12 +90,10 @@ ngOnInit() {
             price_used_product: this.productInfo.price_used_product,
             price_sold_product: this.productInfo.price_sold_product,
           });
-          this.imgBucket = data.file_path;
-          console.log("file path from db", this.imgBucket)
+         
           if(this.productInfo.product_image != undefined){
             this.editimgUrl = data.image_base_path+'/'+this.productInfo.product_image;
           }
-          this.doc_path = data.image_base_path+ "/documents/" ;
       });
 
       this.userService.getProductCategories().pipe(first()).subscribe(data => {
@@ -117,7 +111,7 @@ ngOnInit() {
           : ["", Validators.required],
         description: [""],
         status: [""],
-        category: ["0"],
+        category: [""],
         building_part: [""],
         unit: [""],
         unitqnt: [""],
@@ -248,8 +242,6 @@ clonefun(){
         this.loading = false;
         this.loadingData = false;
         if (data.status == "1") {
-          AuthGuard.blocked=false;
-          this.router.navigate(["/edit-product/",data.products]);
           Swal.fire(data.project_id, "Product Cloned Sucessfully", "success");
           this.info = data.message;
         } else {

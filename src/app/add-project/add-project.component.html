@@ -15,7 +15,7 @@
       <app-header></app-header>
       <!-- Breadcrumb-->
       <div class="breadcrumb-holder container-fluid">
-        <ul class="breadcrumb" style="    padding-top: 90px;">
+        <ul class="breadcrumb">
           <li class="breadcrumb-item">
             <a routerLink="/projects">/Project</a>
           </li>
@@ -31,16 +31,15 @@
                   <div class="col-sm-5" style="margin: auto">
                     <!-- <input type="file" name="photo" id="photo" formControlName="photo"> -->
                     <label for="imgupload"
-                      ><img style="height: 300px;
+                      ><img style="    height: 300px;
                       width: 300PX;"
                         src="assets/images/default.jpg"
                         class="img-fluid"
                         *ngIf="imgURL == ''"
                     /></label>
-                    <span style="color: red" *ngIf="message">Something went wrong. Try Again</span>
-                    <span style="color: red" *ngIf="message2">{{message2}}</span>
-<!--                     
-                    <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">Invalid Org. Number</div> -->
+                    <span style="color: red" *ngIf="message">{{
+                      message
+                    }}</span>
                     <input
                       type="file"
                       id="imgupload"
@@ -54,12 +53,8 @@
                   </div>
                   <div class="col-sm-7">
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
-                     Adding project failed
+                      {{ error }}
                     </div>
-                    <!-- <div *ngIf="error2" class="alert alert-danger mt-3 mb-0">
-                      Invalid Org. Number
-
-                     </div> -->
                     <br />
                     <div class="form-fbt">
                       <div class="form-group text-center">
@@ -67,7 +62,7 @@
                           type="submit"
                           name="submit"
                           value="Register"
-                          class="btn btn-secondary"
+                          class="btn btn-default"
                         />
                       </div>
                       <div class="form-group text-center">
@@ -88,7 +83,7 @@
                     <div class="form-group row">
                       <div class="col-md-4 p-3">
                         <label for="project_name" class="label-material"
-                          >PROJECT NAME * :</label
+                          >PROJECT TYPE * :</label
                         >
                       </div>
                       <div class="col-md-8">
@@ -141,7 +136,7 @@
                           class="invalid-feedback"
                         >
                           <div *ngIf="f.customer.errors.required">
-                            Customer Name is required
+                            Customer is required
                           </div>
                         </div>
                       </div>
@@ -235,7 +230,6 @@
                       <div class="col-md-8">
                         <input
                           type="text"
-                          pattern="[0-9]*" 
                           formControlName="project_mang_mobile"
                           maxlength="12"
                           name="project_mang_mobile"
@@ -313,7 +307,7 @@
                       </div>
                       <div class="col-md-8">
                         <input
-                          type="number"
+                          type="text"
                           formControlName="onsite_mobile"
                           maxlength="12"
                           name="onsite_mobile"
@@ -452,7 +446,8 @@
                           [ngClass]="{
                             'is-invalid': submitted && f.no_of_floors.errors
                           }"
-                        
+                          oninput="this.value = 
+                            !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null"
                           class="input-material"
                         />
                         <div
@@ -491,7 +486,7 @@
                          
                           <span class="input-group-addon"
                             ><span class="fa fa-calendar"></span
-                          ></span> 
+                          ></span>
                         </div>
                       </div>
                     </div> -->
@@ -579,7 +574,7 @@
                           >ENVIRONMENTAL REPORT :</label
                         >
                       </div>
-                      <div class="col-md-8" style="top: 15px;">
+                      <div class="col-md-8">
                         <label class="md-check">
                           <input
                             type="radio"
@@ -609,7 +604,7 @@
                           >FDV DOCUMENTATION AVAILABLE :</label
                         >
                       </div>
-                      <div class="col-md-8"  style="top: 15px;">
+                      <div class="col-md-8">
                         <label class="md-check">
                           <input
                             type="radio"
@@ -843,12 +838,11 @@
                           maxlength="60"
                           name="billing_project_company"
                           class="input-material"
-                          [(ngModel)]="name" 
                         />
                       </div>
                     </div>
                     <div class="form-group row">
-                       <div class="col-md-4 p-3">
+                      <div class="col-md-4 p-3">
                         <label
                           for="billing_orgno"
                           class="label-material margin-left"
@@ -862,10 +856,7 @@
                           name="billing_orgno"
                           maxlength="10"
                           class="input-material"
-                          (keyup.enter)="getOrg()"
-                          [(ngModel)]="orgVal" (change)="getOrg()" 
                         />
-                        <div style="color:#dc3545;font-size: 14px;" *ngIf="error2">Invalid Org. Number</div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -902,7 +893,7 @@
                           maxlength="30"
                           name="billing_customer_ref"
                           class="input-material"
-                        /> 
+                        />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -916,7 +907,6 @@
                       <div class="col-md-8">
                         <input
                           type="text"
-                          [(ngModel)]="address" 
                           formControlName="billing_address"
                           name="billing_address"
                           maxlength="200"
@@ -934,7 +924,6 @@
                       </div>
                       <div class="col-md-8">
                         <input
-                        [(ngModel)]="postal_code" 
                           type="text"
                           formControlName="billing_postal_code"
                           name="billing_postal_code"
@@ -965,7 +954,6 @@
                       </div>
                       <div class="col-md-8">
                         <input
-                        [(ngModel)]="postal_area" 
                           type="text"
                           formControlName="billing_postal_area"
                           name="billing_postal_area"
@@ -983,10 +971,9 @@
                         >
                       </div>
                       <div class="col-md-8 row">
-                        <div class="col-md-6" style="max-width: 408px;">
+                        <div class="col-md-6">
                           <select
-                          formControlName="credit_period"
-                            class="input-material" 
+                            class="input-material"
                             name="credit_period_select"
                             (change)="credit_period($event.target.value)"
                           >
@@ -994,7 +981,7 @@
                             <option value="14">14 Days</option>
                             <option value="30">30 Days</option>
                             <option value="45">45 Days</option>
-                            <option value="1">Others</option>  
+                            <option value="1">Others</option>
                           </select>
                         </div>
                         <div class="col-md-6">
@@ -1016,7 +1003,7 @@
                         <label
                           for="billing_postal_area"
                           class="label-material margin-left"
-                          >Category - File Name</label
+                          >FILE NAME - CATEGORY</label
                         >
                       </div>
                     </div>
@@ -1024,7 +1011,7 @@
                       class="form-group row"
                       *ngFor="let file of filesmulti; index as i"
                     >
-                      <div class="col-md-11 p-3" style="font-size: 12px;">
+                      <div class="col-md-6 p-3" style="font-size: 12px">
                         <label
                           for="billing_postal_area"
                           class="label-material margin-left"
@@ -1072,12 +1059,7 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-md-3">
-            <select style = "text-transform:capitalize; width: 80%;
-            border: none;
-            border-bottom: 0.5px solid #727272;
-            padding: 7px 4px;
-            background: #F5F5F5;
-            color: black;" class="form-control" name="categories" id="categories">
+            <select style = "text-transform:capitalize;" class="form-control" name="categories" id="categories">
               <option value="">Select</option>
               <option
                 *ngFor="let category of categories; index as i"
@@ -1115,8 +1097,13 @@
             ></span
           >
           <div class="progress">
-            <div class="progress-bar" style="width:1000px;background-color: #8f979f;" role="progressbar"
-              aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+            <div
+              class="progress-bar"
+              role="progressbar"
+              aria-valuenow="0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
           </div>
         </div>
       </div>

@@ -12,26 +12,16 @@ developer url: https://bnextitsolutions.com/
 *     GENERAL STYLES
 * ==========================================================
 */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-}
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
 
 body {
   overflow-x: hidden;
   transition: background-color 0.5s ease;
 }
 
-
 a ,
 i,
 span {
   display: inline-block;
-  white-space: nowrap;
   text-decoration: none;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -40,7 +30,7 @@ span {
   margin: 0;
   padding: 0;
   outline: 0;
-  font-family: "Barlow", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 a:hover, a:focus,
@@ -79,7 +69,7 @@ header.page-header {
 table, .table {
   font-size: 18px;
     color: #666;
-    font-family: "Barlow", sans-serif;
+    font-family: Barlow;
     
   
 }
@@ -127,7 +117,7 @@ table, .table {
 .content-inner {
   position: relative;
   width: calc(100% - 0px);
-  min-height: calc(100vh - 0px);
+  min-height: calc(100vh - 70px);
   padding-bottom: 60px;
 }
 
@@ -189,7 +179,7 @@ input {
 }
 
 .breadcrumb {
-  font-family: "Barlow", sans-serif;
+  font-family: Barlow;
   background: #e5e5e5;
   position: relative;
   z-index: 7;
@@ -535,7 +525,7 @@ nav.side-navbar ul li a {
   text-decoration: none;
   display: block;
   font-weight: 400;
-  font-family:"Barlow", sans-serif;
+  font-family: Barlow;
   font-style:normal;
   font-size:18px;
   line-height:24.01px;
@@ -611,7 +601,7 @@ font-family: "Barlow", sans-serif;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 400px) {
   nav.side-navbar.shrinked {
     min-width: 180px;
     max-width:200px;
@@ -632,7 +622,7 @@ font-family: "Barlow", sans-serif;
 }
 
 
-@media screen and (max-width: 100px) {
+@media screen and (max-width: 200px) {
   nav.side-navbar.shrinked {
     min-width: 90px;
     max-width: 90px;
@@ -950,7 +940,6 @@ nav.navbar .nav-link.language span {
 
 nav.navbar .nav-link.logout i {
   margin-left: 10px;
-  font-size: 20px;
 }
 
 nav.navbar .nav-menu {
@@ -1109,6 +1098,7 @@ nav.navbar .dropdown-menu h3 {
     transform: none;
   }
 }
+
 @media (max-width: 575px) {
   nav.navbar {
     font-size: 14px;
@@ -1119,7 +1109,6 @@ nav.navbar .dropdown-menu h3 {
   }
   nav.navbar .nav-item > a {
     font-size: 13px;
-    margin-left: -15px;
   }
   nav.navbar .dropdown {
     position: static;
@@ -1139,8 +1128,7 @@ nav.navbar .dropdown-menu h3 {
 
 
 table.dataTable tbody tr{
-  /* background:#e5e5e5 !important; */
-  background: #f4f5f6 !important;
+  background:#e5e5e5 !important;
 }
 
 /*
@@ -1150,7 +1138,7 @@ table.dataTable tbody tr{
 */
 footer.main-footer {
   position: absolute;
-  bottom: 0;
+  /* bottom: 0; */
   width: 100%;
   background: #e5e5e5;
   color: rgb(0, 0, 0);
@@ -1189,9 +1177,9 @@ button, input, optgroup, select, textarea{
 }
 .form-control {
   height: calc(2.25rem + 2px);
- background-color: #F5F5F5;
-  border: 1px solid #F5F5F5;
-  border: #000;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  border: 1px solid grey;
   padding: 0.375rem 0.75rem;
 }
 
@@ -1283,7 +1271,6 @@ select.form-control option {
 .form-control-label {
   font-size: .9rem;
   color: #777;
-  top: 5px;
 }
 
 button, input[type='submit'] {
@@ -1374,32 +1361,21 @@ button, input[type='submit'] {
 }
 
 input.input-material {
-  width: 80%;
-  border: none;
-  border-bottom: 0.5px solid #727272 !important;
-  padding: 18px 10px;
- background-color: #F5F5F5;
-  color:#000000;
-}
-select.option{
-  color: #000;
-}
-select.input-material {
-  opacity: 1;
-  border-color: #727272;
-  font-weight: 400;
-  font-size: 18px;
-  font-weight: 400;
-  font-family: "Barlow", sans-serif;
-  font-style: normal;
-  color: black;
-  width: 80%;
+  width: 100%;
   border: none;
   border-bottom: 0.5px solid #727272;
-  
-  padding: 19px 4px;
-  background: #F5F5F5;
-  color:black;
+  padding: 10px 0;
+  background: #e5e5e5;
+  color:#000000;
+}
+
+select.input-material {
+  width: 100%;
+  border: none;
+  border-bottom: 0.5px solid #727272;
+  padding: 14px 4px;
+  background: #e5e5e5;
+  color:#000000;
 }
 
 input.input-material.is-invalid {
@@ -1424,7 +1400,7 @@ input.input-material ~ label {
 input.input-material ~ label.active {
   font-size: 0.8rem;
   top: -10px;
-  color: #000000;
+  color: #2f333e;
 }
 
 input.input-material.is-invalid ~ label {
@@ -1456,11 +1432,10 @@ input.input-material.is-invalid ~ label {
   font-weight: 400;
   font-family: "Barlow", sans-serif;
   font-style: normal;
-  
 }
 
 select[disabled] > option {
-  color: black;
+  color:#000000;
 }
 
 option:disabled {
@@ -2503,7 +2478,7 @@ a {
 
 a:focus, a:hover {
   color: #3b25e6;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 h1,
@@ -3347,7 +3322,7 @@ width:250px; height:500px; top:50px; border:2px solid #e7e7e7; position:fixed; r
     height: 16px;
     border-radius: 50%;
     background-color: #fff000;
-    top: -4px;
+    top: -6px;
     right: -8px;
     box-shadow: 0 0 20px #fff000;
   }

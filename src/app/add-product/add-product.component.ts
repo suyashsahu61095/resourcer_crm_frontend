@@ -16,7 +16,7 @@ declare var $: any;
 export class AddProductComponent implements OnInit {
   
   productForm: FormGroup;
-  currentUser: User; 
+  currentUser: User;
   loading = false;
   loadingData = false;
   submitted = false;
@@ -26,13 +26,12 @@ export class AddProductComponent implements OnInit {
   public imagePath;
   imgURL: any = "";
   public message: string;
-  public message2: string;
   fileToUpload: File = null;
   filemultiUpload: File = null;
   formData = new FormData();
   projects: any;
   filesmulti: string[] = [];
-  status="";
+  status: any;
   categories: any;
   projectcategories: any;
   filecat: string[] = [];
@@ -97,9 +96,9 @@ export class AddProductComponent implements OnInit {
       project_id: this.route.snapshot.queryParams["param_id"]
         ? this.route.snapshot.queryParams["param_id"]
         : ["", Validators.required],
-      description: ["", Validators.required],
+      description: [""],
       status: [""],
-      category: ["0", Validators.required],
+      category: [""],
       building_part: [""],
       unit: [""],
       unitqnt: [""],
@@ -145,15 +144,8 @@ export class AddProductComponent implements OnInit {
 
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message2 = "Only images are supported.";
+      this.message = "Only images are supported.";
       return;
-    }
-    
-    if (files[0].size / 152400  > 15) {
-      this.message2 = "file is bigger than 15MB";
-      return;
-    }else{
-      this.message2 = "";
     }
 
     var reader = new FileReader();
@@ -316,19 +308,17 @@ export class AddProductComponent implements OnInit {
             Swal.fire(data.project_id, "Product Added Sucessfully", "success");
             this.info = data.message;
             console.log("response data - ",  data.products)
-            // AuthGuard.blocked=false;
-            // this.router.navigate(["/view-product/",data.products]);
+            AuthGuard.blocked=false;
+            this.router.navigate(["/view-product/",data.products]);
           } else {
             this.error = data.message;
           }
           if (this.register) {
             console.log("response data - ",  this.register)
-            // if(this.clone!=true ||this.addnew!=true){
-            // AuthGuard.blocked=false;
-            // this.router.navigate(["/view-product/",data.products]);
-            // }
+            AuthGuard.blocked=false;
+            this.router.navigate(["/view-product/",data.products]);
           } else if (this.addnew) {
-            this.productForm = this.formBuilder.group({ 
+            this.productForm = this.formBuilder.group({
               product_name: ["", Validators.required],
               project_id: (this.route.snapshot.queryParams['param_id']) ? this.route.snapshot.queryParams['param_id'] : ['', Validators.required],
               description: [""],
@@ -365,129 +355,21 @@ export class AddProductComponent implements OnInit {
       );
   }
 
+  registerfun() { 
+    this.register = true;
+    this.clone = false;
+    this.addnew = false;
+  }
 
+  clonefun() {
+    this.register = false;
+    this.clone = true;
+    this.addnew = false;
+  }
 
-
-  cloneData() {
-    this.submitted = false;
-    if (this.productForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    this.loadingData = true;
-    console.log(this.productForm.value);
-    console.log(JSON.stringify(this.productForm.value));
-    //this.formData.append('data', JSON.stringify(this.customerForm.value));
-    console.log(this.filemultiUpload);
-    var formData = new FormData();
-    if (this.fileToUpload) {
-      if (this.filesmulti.length > 0) {
-        for (var i = 0; i < this.filesmulti.length; i++) {
-          formData.append("imagemultiFile[]", this.filesmulti[i]);
-          formData.append("filecategory[]", this.filecat[i]);
-        }
-      }
-    }
-    if (this.fileToUpload) {
-      formData.set("imageFile", this.fileToUpload, this.fileToUpload.name);
-    }
-    formData.append(
-      "project_id",
-      this.productForm.controls["project_id"].value
-    );
-    // formData.append(
-    //   "product_id",
-    //   this.productForm.controls["product_id"].value
-    // );
-    // formData.append("id", this.editId);
-    formData.append(
-      "description",
-      this.productForm.controls["description"].value
-    );
-    formData.append(
-      "product_name",
-      this.productForm.controls["product_name"].value
-    );
-    formData.append("category", this.productForm.controls["category"].value);
-    formData.append(
-      "building_part",
-      this.productForm.controls["building_part"].value
-    );
-    formData.append("unit", this.productForm.controls["unit"].value);
-    formData.append("unitqnt", this.productForm.controls["unitqnt"].value);
-    formData.append("quantity", this.productForm.controls["quantity"].value);
-    formData.append("height", this.productForm.controls["height"].value);
-    formData.append("width", this.productForm.controls["width"].value);
-    formData.append("length", this.productForm.controls["length"].value);
-    formData.append("production_year", $("#production_year").val());
-    formData.append(
-      "location_building",
-      this.productForm.controls["location_building"].value
-    );
-    formData.append(
-      "brand_name",
-      this.productForm.controls["brand_name"].value
-    );
-    formData.append(
-      "documentation",
-      this.productForm.controls["documentation"].value
-    );
-    formData.append("color", this.productForm.controls["color"].value);
-    formData.append("hazardous", this.productForm.controls["hazardous"].value);
-    formData.append(
-      "product_info",
-      this.productForm.controls["product_info"].value
-    );
-    formData.append(
-      "evaluvation",
-      this.productForm.controls["evaluvation"].value
-    );
-    formData.append(
-      "precondition",
-      this.productForm.controls["precondition"].value
-    );
-    formData.append("reuse", this.productForm.controls["reuse"].value);
-    formData.append(
-      "recommendation",
-      this.productForm.controls["recommendation"].value
-    );
-    formData.append(
-      "price_new_product",
-      this.productForm.controls["price_new_product"].value
-    );
-    formData.append("status", this.productForm.controls["status"].value);
-    formData.append(
-      "price_used_product",
-      this.productForm.controls["price_used_product"].value
-    );
-    formData.append(
-      "price_sold_product",
-      this.productForm.controls["price_sold_product"].value
-    );
-
-    console.log(formData);
-
-    this.userService
-      .addProduct(formData)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.loading = false;
-          this.loadingData = false;
-          if (data.status == "1") {
-            this.info = data.message;
-          } else {
-            this.error = data.message;
-          }
-          this.router.navigate(["/products"]);
-        },
-        (error) => {
-          this.error = error;
-          this.loading = false;
-          this.loadingData = false;
-        }
-      );
-   
+  addnewfun() {
+    this.register = false;
+    this.clone = false;
+    this.addnew = true;
   }
 }
